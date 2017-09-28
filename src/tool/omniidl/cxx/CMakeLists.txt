@@ -17,5 +17,5 @@ set(_OMNIIDLMODULE_SHARED_SRC
     idlpython.cc)
 add_library(_omniidlmodule SHARED ${_OMNIIDLMODULE_SHARED_SRC})
 target_compile_definitions(_omniidlmodule PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> IDLMODULE_VERSION="0x2630")
-target_include_directories(_omniidlmodule PRIVATE /usr/include/python2.7 . . ../../../../include ../../../../include)
-target_compile_options(_omniidlmodule PRIVATE -O2 -Wall -Wno-unused -fexceptions  -fPIC)
+target_include_directories(_omniidlmodule PRIVATE ${PYTHON_INCLUDE_DIR} . . ../../../../include ../../../../include)
+target_compile_options(_omniidlmodule PRIVATE -Wno-unused -fexceptions)

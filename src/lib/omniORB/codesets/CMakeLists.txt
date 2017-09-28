@@ -31,7 +31,7 @@ set(OMNICODESETS4_STATIC_SRC
 add_library(omniCodeSets4_static STATIC ${OMNICODESETS4_STATIC_SRC})
 target_compile_definitions(omniCodeSets4_static PRIVATE _REENTRANT USE_omniORB_logStream UnixArchitecture)
 target_include_directories(omniCodeSets4_static PRIVATE .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
-target_compile_options(omniCodeSets4_static PRIVATE -O2 -Wall -Wno-unused -fexceptions )
+target_compile_options(omniCodeSets4_static PRIVATE -Wno-unused -fexceptions )
 
 
 set(OMNICODESETS4_SHARED_SRC
@@ -68,4 +68,4 @@ add_library(omniCodeSets4 SHARED ${OMNICODESETS4_SHARED_SRC})
 target_link_libraries(omniCodeSets4 PRIVATE omniORB4 omnithread pthread)
 target_compile_definitions(omniCodeSets4 PRIVATE _REENTRANT USE_omniORB_logStream UnixArchitecture)
 target_include_directories(omniCodeSets4 PRIVATE .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
-target_compile_options(omniCodeSets4 PRIVATE -fPIC -O2 -Wall -Wno-unused -fexceptions  )
+target_compile_options(omniCodeSets4 PRIVATE -Wno-unused -fexceptions  )

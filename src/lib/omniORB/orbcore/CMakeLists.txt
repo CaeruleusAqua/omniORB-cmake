@@ -89,7 +89,7 @@ set(OMNIORB4_STATIC_SRC
 add_library(omniORB4_static STATIC ${OMNIORB4_STATIC_SRC})
 target_compile_definitions(omniORB4_static PRIVATE _REENTRANT USE_omniORB_logStream _OMNIORB_LIBRARY OMNIORB_VERSION_STRING="4.2.2" OMNIORB_VERSION_HEX='0x040202F1' CONFIG_DEFAULT_LOCATION="/etc/omniORB.cfg" CONFIG_ENV="OMNIORB_CONFIG" UnixArchitecture)
 target_include_directories(omniORB4_static PRIVATE .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
-target_compile_options(omniORB4_static PRIVATE -O2 -Wall -Wno-unused -fexceptions )
+target_compile_options(omniORB4_static PRIVATE -Wno-unused -fexceptions )
 
 
 set(OMNIORB4_SHARED_SRC
@@ -184,4 +184,4 @@ add_library(omniORB4 SHARED ${OMNIORB4_SHARED_SRC})
 target_link_libraries(omniORB4 PRIVATE omnithread pthread)
 target_compile_definitions(omniORB4 PRIVATE _REENTRANT USE_omniORB_logStream _OMNIORB_LIBRARY OMNIORB_VERSION_STRING="4.2.2" OMNIORB_VERSION_HEX='0x040202F1' CONFIG_DEFAULT_LOCATION="/etc/omniORB.cfg" CONFIG_ENV="OMNIORB_CONFIG" UnixArchitecture)
 target_include_directories(omniORB4 PRIVATE .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
-target_compile_options(omniORB4 PRIVATE -fPIC -O2 -Wall -Wno-unused -fexceptions  )
+target_compile_options(omniORB4 PRIVATE -Wno-unused -fexceptions  )
