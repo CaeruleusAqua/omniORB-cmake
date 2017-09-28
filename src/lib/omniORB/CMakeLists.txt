@@ -1,0 +1,6 @@
+add_subdirectory(codesets)
+add_subdirectory(connections)
+add_subdirectory(dynamic)
+add_subdirectory(orbcore)
+add_subdirectory(ziop)
+add_subdirectory(zipdynamic)
