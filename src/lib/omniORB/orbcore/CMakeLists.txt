@@ -89,13 +89,15 @@ set(OMNIORB4_SRC
 
 message("TODO: HAVE_GETNAMEINFO")
 add_library(omniORB4_static STATIC ${OMNIORB4_SRC})
-target_compile_definitions(omniORB4_static PRIVATE HAVE_GETNAMEINFO _REENTRANT USE_omniORB_logStream _OMNIORB_LIBRARY OMNIORB_VERSION_STRING="4.2.2" OMNIORB_VERSION_HEX='0x040202F1' CONFIG_DEFAULT_LOCATION="/etc/omniORB.cfg" CONFIG_ENV="OMNIORB_CONFIG" UnixArchitecture)
+target_compile_definitions(omniORB4_static PRIVATE HAVE_GETNAMEINFO _REENTRANT USE_omniORB_logStream _OMNIORB_LIBRARY OMNIORB_VERSION_STRING="4.2.2" OMNIORB_VERSION_HEX=0x040202F1 CONFIG_DEFAULT_LOCATION="/etc/omniORB.cfg" CONFIG_ENV="OMNIORB_CONFIG" UnixArchitecture)
 target_include_directories(omniORB4_static PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
 target_compile_options(omniORB4_static PRIVATE -Wno-unused -fexceptions )
+add_dependencies(omniORB4_static RunGenerator)
 
 
 add_library(omniORB4 SHARED ${OMNIORB4_SRC})
 target_link_libraries(omniORB4 PRIVATE omnithread pthread)
-target_compile_definitions(omniORB4 PRIVATE HAVE_GETNAMEINFO _REENTRANT USE_omniORB_logStream _OMNIORB_LIBRARY OMNIORB_VERSION_STRING="4.2.2" OMNIORB_VERSION_HEX='0x040202F1' CONFIG_DEFAULT_LOCATION="/etc/omniORB.cfg" CONFIG_ENV="OMNIORB_CONFIG" UnixArchitecture)
+target_compile_definitions(omniORB4 PRIVATE HAVE_GETNAMEINFO _REENTRANT USE_omniORB_logStream _OMNIORB_LIBRARY OMNIORB_VERSION_STRING="4.2.2" OMNIORB_VERSION_HEX=0x040202F1 CONFIG_DEFAULT_LOCATION="/etc/omniORB.cfg" CONFIG_ENV="OMNIORB_CONFIG" UnixArchitecture)
 target_include_directories(omniORB4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
 target_compile_options(omniORB4 PRIVATE -Wno-unused -fexceptions  )
+add_dependencies(omniORB4 RunGenerator)

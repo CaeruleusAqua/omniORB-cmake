@@ -44,6 +44,7 @@ add_library(omniDynamic4_static STATIC ${OMNIDYNAMIC4_SRC})
 target_compile_definitions(omniDynamic4_static PRIVATE _REENTRANT USE_omniORB_logStream _OMNIORB_DYNAMIC_LIBRARY UnixArchitecture)
 target_include_directories(omniDynamic4_static PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
 target_compile_options(omniDynamic4_static PRIVATE -Wno-unused -fexceptions )
+add_dependencies(omniDynamic4_static RunGenerator)
 
 
 add_library(omniDynamic4 SHARED ${OMNIDYNAMIC4_SRC})
@@ -51,3 +52,4 @@ target_link_libraries(omniDynamic4 PRIVATE omniORB4 omnithread pthread)
 target_compile_definitions(omniDynamic4 PRIVATE _REENTRANT USE_omniORB_logStream _OMNIORB_DYNAMIC_LIBRARY UnixArchitecture)
 target_include_directories(omniDynamic4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
 target_compile_options(omniDynamic4 PRIVATE -Wno-unused -fexceptions  )
+add_dependencies(omniDynamic4 RunGenerator)
