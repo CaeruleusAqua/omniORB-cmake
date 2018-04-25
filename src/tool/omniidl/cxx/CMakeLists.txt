@@ -6,6 +6,11 @@ set(_OMNIIDLMODULE_SRC
         idlerr.cc
         idlutil.cc
         idltype.cc
+        ${CMAKE_SOURCE_DIR}/include/omniORB4/acconfig.h
+        ${CMAKE_SOURCE_DIR}/include/omniORB4/CORBA_sysdep_auto.h
+        ${CMAKE_SOURCE_DIR}/include/omniORB4/CORBA_sysdep.h
+        ${CMAKE_SOURCE_DIR}/include/omniconfig.h
+        ${CMAKE_SOURCE_DIR}/include/omniORB4/internal/tcpSocket.h
         idlrepoId.cc
         idlscope.cc
         idlexpr.cc

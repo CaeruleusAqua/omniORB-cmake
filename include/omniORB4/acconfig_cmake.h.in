@@ -1,0 +1,307 @@
+#pragma once
+#ifndef HAVE_ALLOCA_H
+#cmakedefine HAVE_ALLOCA_H 1
+#endif
+
+#ifndef HAVE_ALLOCA
+#cmakedefine HAVE_ALLOCA 1
+#endif
+
+#ifndef HAVE_ACCESS
+#cmakedefine HAVE_ACCESS 1
+#endif
+
+#ifndef HAVE_BOOL
+#cmakedefine HAVE_BOOL 1
+#endif
+
+#ifndef HAVE_CATCH_BY_BASE
+#cmakedefine HAVE_CATCH_BY_BASE 1
+#endif
+
+#ifndef HAVE_CONST_CAST
+#cmakedefine HAVE_CONST_CAST 1
+#endif
+
+#ifndef HAVE_DYNAMIC_CAST
+#cmakedefine HAVE_DYNAMIC_CAST 1
+#endif
+
+#ifndef HAVE_REINTERPRET_CAST
+#cmakedefine HAVE_REINTERPRET_CAST 1
+#endif
+
+#ifndef HAVE_MEMBER_CONSTANTS
+#cmakedefine HAVE_MEMBER_CONSTANTS 1
+#endif
+
+#ifndef HAVE_NAMESPACES
+#cmakedefine HAVE_NAMESPACES 1
+#endif
+
+#ifndef HAVE_EXCEPTIONS
+#cmakedefine HAVE_EXCEPTIONS 1
+#endif
+
+#ifndef HAVE_STD
+#cmakedefine HAVE_STD 1
+#endif
+
+#ifndef HAVE_SIG_IGN
+#cmakedefine HAVE_SIG_IGN 1
+#endif
+
+#ifndef HAVE_STRUCT_LIFCONF
+#cmakedefine HAVE_STRUCT_LIFCONF 1
+#endif
+
+#ifndef HAVE_STRUCT_LIFCONF
+#cmakedefine HAVE_STRUCT_LIFCONF 1
+#endif
+
+#ifndef HAVE_STRUCT_SOCKADDR_IN6
+#cmakedefine HAVE_STRUCT_SOCKADDR_IN6 1
+#endif
+
+#ifndef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
+#cmakedefine HAVE_STRUCT_SOCKADDR_IN_SIN_LEN 1
+#endif
+
+#ifndef HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO
+#cmakedefine HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO 1
+#endif
+
+#ifndef HAVE_STRUCT_SOCKADDR_STORAGE
+#cmakedefine HAVE_STRUCT_SOCKADDR_STORAGE 1
+#endif
+
+#ifndef OMNI_SOCKNAME_SIZE_T
+#cmakedefine OMNI_SOCKNAME_SIZE_T @OMNI_SOCKNAME_SIZE_T@
+#endif
+
+
+#ifndef HAVE_ERRNO_H
+#cmakedefine HAVE_ERRNO_H @HAVE_ERRNO_H@
+#endif
+
+#ifndef HAVE_FCNTL_H
+#cmakedefine HAVE_FCNTL_H @HAVE_FCNTL_H@
+#endif
+
+#ifndef HAVE_GETADDRINFO
+#cmakedefine HAVE_GETADDRINFO @HAVE_GETADDRINFO@
+#endif
+
+#ifndef HAVE_GETHOSTNAME
+#cmakedefine HAVE_GETHOSTNAME @HAVE_GETHOSTNAME@
+#endif
+
+#ifndef HAVE_GETNAMEINFO
+#cmakedefine HAVE_GETNAMEINFO @HAVE_GETNAMEINFO@
+#endif
+
+#ifndef HAVE_GETOPT
+#cmakedefine HAVE_GETOPT @HAVE_GETOPT@
+#endif
+
+#ifndef HAVE_GETTIMEOFDAY
+#cmakedefine HAVE_GETTIMEOFDAY @HAVE_GETTIMEOFDAY@
+#endif
+
+#ifndef GETTIMEOFDAY_TIMEZONE
+#cmakedefine GETTIMEOFDAY_TIMEZONE 1
+#endif
+
+#ifndef HAVE_IFADDRS_H
+#cmakedefine HAVE_IFADDRS_H @HAVE_IFADDRS_H@
+#endif
+
+#ifndef HAVE_INET_NTOP
+#cmakedefine HAVE_INET_NTOP @HAVE_INET_NTOP@
+#endif
+
+#ifndef HAVE_INSINFF
+#cmakedefine HAVE_INSINFF @HAVE_INSINFF@
+#endif
+
+#ifndef HAVE_INTTYPES_H
+#cmakedefine HAVE_INTTYPES_H @HAVE_INTTYPES_H@
+#endif
+
+#ifndef HAVE_ISINF
+#cmakedefine HAVE_ISINF @HAVE_ISINF@
+#endif
+
+#ifndef HAVE_ISINFL
+#cmakedefine HAVE_ISINFL @HAVE_ISINFL@
+#endif
+
+#ifndef HAVE_ISNANORINF
+#cmakedefine HAVE_ISNANORINF @HAVE_ISNANORINF@
+#endif
+
+#ifndef HAVE_LOCALTIME
+#cmakedefine HAVE_LOCALTIME @HAVE_LOCALTIME@
+#endif
+
+#ifndef HAVE_MEMORY_H
+#cmakedefine HAVE_MEMORY_H @HAVE_MEMORY_H@
+#endif
+
+#ifndef HAVE_NANOSLEEP
+#cmakedefine HAVE_NANOSLEEP @HAVE_NANOSLEEP@
+#endif
+
+#ifndef HAVE_NAN_H
+#cmakedefine HAVE_NAN_H @HAVE_NAN_H@
+#endif
+
+#ifndef HAVE_NETDB_H
+#cmakedefine HAVE_NETDB_H @HAVE_NETDB_H@
+#endif
+
+#ifndef HAVE_POLL
+#cmakedefine HAVE_POLL @HAVE_POLL@
+#endif
+
+#ifndef HAVE_RAND_R
+#cmakedefine HAVE_RAND_R @HAVE_RAND_R@
+#endif
+
+#ifndef HAVE_SIGACTION
+#cmakedefine HAVE_SIGACTION @HAVE_SIGACTION@
+#endif
+
+#ifndef HAVE_SIGNAL_H
+#cmakedefine HAVE_SIGNAL_H @HAVE_SIGNAL_H@
+#endif
+
+#ifndef HAVE_SIGVEC
+#cmakedefine HAVE_SIGVEC @HAVE_SIGVEC@
+#endif
+
+#ifndef HAVE_SNPRINTF
+#cmakedefine HAVE_SNPRINTF @HAVE_SNPRINTF@
+#endif
+
+#ifndef HAVE_STDINT_H
+#cmakedefine HAVE_STDINT_H @HAVE_STDINT_H@
+#endif
+
+#ifndef HAVE_STDLIB_H
+#cmakedefine HAVE_STDLIB_H @HAVE_STDLIB_H@
+#endif
+
+#ifndef HAVE_STRCASECMP
+#cmakedefine HAVE_STRCASECMP @HAVE_STRCASECMP@
+#endif
+
+#ifndef HAVE_STRDUP
+#cmakedefine HAVE_STRDUP @HAVE_STRDUP@
+#endif
+
+#ifndef HAVE_STRERROR
+#cmakedefine HAVE_STRERROR @HAVE_STRERROR@
+#endif
+
+#ifndef HAVE_STRFTIME
+#cmakedefine HAVE_STRFTIME @HAVE_STRFTIME@
+#endif
+
+#ifndef HAVE_STRICMP
+#cmakedefine HAVE_STRICMP @HAVE_STRICMP@
+#endif
+
+#ifndef HAVE_STRINGS_H
+#cmakedefine HAVE_STRINGS_H @HAVE_STRINGS_H@
+#endif
+
+#ifndef HAVE_STRING_H
+#cmakedefine HAVE_STRING_H @HAVE_STRING_H@
+#endif
+
+#ifndef HAVE_STRNCASECMP
+#cmakedefine HAVE_STRNCASECMP @HAVE_STRNCASECMP@
+#endif
+
+#ifndef HAVE_STRTOUL
+#cmakedefine HAVE_STRTOUL @HAVE_STRTOUL@
+#endif
+
+#ifndef HAVE_STRTOULL
+#cmakedefine HAVE_STRTOULL @HAVE_STRTOULL@
+#endif
+
+#ifndef HAVE_STRTOUQ
+#cmakedefine HAVE_STRTOUQ @HAVE_STRTOUQ@
+#endif
+
+#ifndef HAVE_SYS_IF_H
+#cmakedefine HAVE_SYS_IF_H @HAVE_SYS_IF_H@
+#endif
+
+#ifndef HAVE_SYS_IOCTL_H
+#cmakedefine HAVE_SYS_IOCTL_H @HAVE_SYS_IOCTL_H@
+#endif
+
+#ifndef HAVE_SYS_PARAM_H
+#cmakedefine HAVE_SYS_PARAM_H @HAVE_SYS_PARAM_H@
+#endif
+
+#ifndef HAVE_SYS_POLL_H
+#cmakedefine HAVE_SYS_POLL_H @HAVE_SYS_POLL_H@
+#endif
+
+#ifndef HAVE_SYS_STAT_H
+#cmakedefine HAVE_SYS_STAT_H @HAVE_SYS_STAT_H@
+#endif
+
+#ifndef HAVE_SYS_TIME_H
+#cmakedefine HAVE_SYS_TIME_H @HAVE_SYS_TIME_H@
+#endif
+
+#ifndef HAVE_SYS_TYPES_H
+#cmakedefine HAVE_SYS_TYPES_H @HAVE_SYS_TYPES_H@
+#endif
+
+#ifndef HAVE_SYS_TYPES_H
+#cmakedefine HAVE_SYS_TYPES_H @HAVE_SYS_TYPES_H@
+#endif
+
+#ifndef HAVE_UNAME
+#cmakedefine HAVE_UNAME @HAVE_UNAME@
+#endif
+
+#ifndef HAVE_UNISTD_H
+#cmakedefine HAVE_UNISTD_H @HAVE_UNISTD_H@
+#endif
+
+#ifndef HAVE_VPRINTF
+#cmakedefine HAVE_VPRINTF @HAVE_VPRINTF@
+#endif
+
+#ifndef HAVE_VSNPRINTF
+#cmakedefine HAVE_VSNPRINTF @HAVE_VSNPRINTF@
+#endif
+
+
+#cmakedefine SIZEOF_WCHAR_T @SIZEOF_WCHAR_T@
+
+#cmakedefine SIZEOF_BOOL @SIZEOF_BOOL@
+#cmakedefine SIZEOF_CHAR @SIZEOF_CHAR@
+#cmakedefine SIZEOF_DOUBLE @SIZEOF_DOUBLE@
+#cmakedefine SIZEOF_FLOAT @SIZEOF_FLOAT@
+#cmakedefine SIZEOF_INT @SIZEOF_INT@
+#cmakedefine SIZEOF_LONG @SIZEOF_LONG@
+#cmakedefine SIZEOF_LONG_DOUBLE @SIZEOF_LONG_DOUBLE@
+#cmakedefine SIZEOF_LONG_LONG @SIZEOF_LONG_LONG@
+#cmakedefine SIZEOF_SHORT @SIZEOF_SHORT@
+#cmakedefine SIZEOF_UNSIGNED_CHAR @SIZEOF_UNSIGNED_CHAR@
+#cmakedefine SIZEOF_VOIDP @SIZEOF_VOIDP@
+
+
+#ifndef STDC_HEADERS
+#cmakedefine STDC_HEADERS @STDC_HEADERS@
+#endif
+
+#cmakedefine WORDS_BIGENDIAN @WORDS_BIGENDIAN@

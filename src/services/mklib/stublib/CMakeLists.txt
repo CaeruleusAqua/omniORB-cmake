@@ -17,6 +17,7 @@ set(COS4_STATIC_SRC
     ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyChannelAdminSK.cc
     ${CMAKE_BINARY_DIR}/generated/services/mklib/CosLifeCycle.hh
     ${CMAKE_BINARY_DIR}/generated/services/mklib/CosLifeCycleSK.cc)
+
 add_library(COS4_static STATIC ${COS4_STATIC_SRC})
 target_compile_definitions(COS4_static PRIVATE __OMNIORB4__ _REENTRANT _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
 target_include_directories(COS4_static PRIVATE ${CMAKE_BINARY_DIR}/generated/services/mklib/ ${CMAKE_SOURCE_DIR}/include ..)

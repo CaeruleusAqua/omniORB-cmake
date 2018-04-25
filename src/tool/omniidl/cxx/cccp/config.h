@@ -1,4 +1,4 @@
-#include <omniconfig.h>
+#include "../../../../../include/omniconfig.h"
 
 #ifdef OMNI_CONFIG_TRADITIONAL
 

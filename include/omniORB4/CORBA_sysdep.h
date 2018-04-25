@@ -49,6 +49,8 @@
 #  include <omniconfig.h>
 #endif
 
+
+
 #ifdef OMNI_CONFIG_TRADITIONAL
 #  include <omniORB4/CORBA_sysdep_trad.h>
 #else

@@ -26,6 +26,17 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated/services/mklib)
 
 
+function(genIDL)
+    message(STATUS "-------------------------------------------------${ARGN}")
+    ADD_CUSTOM_COMMAND(OUTPUT ${ARGN}
+            COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -C${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4 ${ARGN}
+            DEPENDS ${ARGN} _omniidl omnicpp
+            COMMENT "Processing ${ARGN}..")
+endfunction(genIDL)
+
+#genIDL("dsfsdfdfdf")
+#genIDL("dsffdf")
+
 ADD_CUSTOM_COMMAND(OUTPUT Naming.hh NamingDynSK.cc NamingSK.cc
         COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -C${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4 ${CMAKE_SOURCE_DIR}/idl/Naming.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/Naming.idl _omniidl omnicpp
