@@ -1,7 +1,7 @@
 set(OMNIMAPPER_EXE_SRC
-    omniMapper.cc ../../../cmake/CheckStackDirection.c)
+    omniMapper.cc)
 add_executable(omniMapper ${OMNIMAPPER_EXE_SRC})
-target_link_libraries(omniMapper PRIVATE omniORB4 omnithread pthread)
+target_link_libraries(omniMapper PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(omniMapper PRIVATE __OMNIORB4__ _REENTRANT CONFIG_FILE_ENV_VAR="OMNIMAPPER_CONFIG" CONFIG_FILE_DEFAULT="/etc/omniMapper.cfg")
 target_include_directories(omniMapper PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB ../../../stub ../../../include)
 target_compile_options(omniMapper PRIVATE -Wno-unused -fexceptions )

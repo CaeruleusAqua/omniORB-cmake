@@ -1,6 +1,6 @@
 #pragma once
 #ifndef HAVE_ALLOCA_H
-/* #undef HAVE_ALLOCA_H */
+#define HAVE_ALLOCA_H 1
 #endif
 
 #ifndef HAVE_ALLOCA
@@ -64,7 +64,7 @@
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
-#define HAVE_STRUCT_SOCKADDR_IN_SIN_LEN 1
+/* #undef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN */
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO
@@ -113,11 +113,11 @@
 #endif
 
 #ifndef HAVE_IFADDRS_H
-/* #undef HAVE_IFADDRS_H */
+#define HAVE_IFADDRS_H 1
 #endif
 
 #ifndef HAVE_INET_NTOP
-/* #undef HAVE_INET_NTOP */
+#define HAVE_INET_NTOP 1
 #endif
 
 #ifndef HAVE_INSINFF
@@ -129,11 +129,11 @@
 #endif
 
 #ifndef HAVE_ISINF
-/* #undef HAVE_ISINF */
+#define HAVE_ISINF 1
 #endif
 
 #ifndef HAVE_ISINFL
-/* #undef HAVE_ISINFL */
+#define HAVE_ISINFL 1
 #endif
 
 #ifndef HAVE_ISNANORINF
@@ -157,19 +157,19 @@
 #endif
 
 #ifndef HAVE_NETDB_H
-/* #undef HAVE_NETDB_H */
+#define HAVE_NETDB_H 1
 #endif
 
 #ifndef HAVE_POLL
-/* #undef HAVE_POLL */
+#define HAVE_POLL 1
 #endif
 
 #ifndef HAVE_RAND_R
-/* #undef HAVE_RAND_R */
+#define HAVE_RAND_R 1
 #endif
 
 #ifndef HAVE_SIGACTION
-/* #undef HAVE_SIGACTION */
+#define HAVE_SIGACTION 1
 #endif
 
 #ifndef HAVE_SIGNAL_H
@@ -209,7 +209,7 @@
 #endif
 
 #ifndef HAVE_STRICMP
-#define HAVE_STRICMP 1
+/* #undef HAVE_STRICMP */
 #endif
 
 #ifndef HAVE_STRINGS_H
@@ -233,7 +233,7 @@
 #endif
 
 #ifndef HAVE_STRTOUQ
-/* #undef HAVE_STRTOUQ */
+#define HAVE_STRTOUQ 1
 #endif
 
 #ifndef HAVE_SYS_IF_H
@@ -241,7 +241,7 @@
 #endif
 
 #ifndef HAVE_SYS_IOCTL_H
-/* #undef HAVE_SYS_IOCTL_H */
+#define HAVE_SYS_IOCTL_H 1
 #endif
 
 #ifndef HAVE_SYS_PARAM_H
@@ -249,7 +249,7 @@
 #endif
 
 #ifndef HAVE_SYS_POLL_H
-/* #undef HAVE_SYS_POLL_H */
+#define HAVE_SYS_POLL_H 1
 #endif
 
 #ifndef HAVE_SYS_STAT_H
@@ -269,7 +269,7 @@
 #endif
 
 #ifndef HAVE_UNAME
-/* #undef HAVE_UNAME */
+#define HAVE_UNAME 1
 #endif
 
 #ifndef HAVE_UNISTD_H
@@ -289,14 +289,14 @@
 #endif
 
 
-#define SIZEOF_WCHAR_T 2
+#define SIZEOF_WCHAR_T 4
 
 #define SIZEOF_BOOL 1
 #define SIZEOF_CHAR 1
 #define SIZEOF_DOUBLE 8
 #define SIZEOF_FLOAT 4
 #define SIZEOF_INT 4
-#define SIZEOF_LONG 4
+#define SIZEOF_LONG 8
 #define SIZEOF_LONG_DOUBLE 16
 #define SIZEOF_LONG_LONG 8
 #define SIZEOF_SHORT 2

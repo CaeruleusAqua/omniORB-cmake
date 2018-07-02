@@ -1,9 +1,9 @@
-find_package(Threads REQUIRED)
-if (THREADS_HAVE_PTHREAD_ARG)
-    set(OMNITHREAD_STATIC_SRC posix.cc threaddata.cc)
-    set(OMNITHREAT_DEFS "NoNanoSleep PthreadDraftVersion=10")
+
+if (UNIX)
+    set(OMNITHREAD_SRC posix.cc threaddata.cc)
+    set(OMNITHREAT_DEFS NoNanoSleep PthreadDraftVersion=10)
 else ()
-    set(OMNITHREAD_SRC NT.cc threaddata.cc)
+    set(OMNITHREAD_SRC nt.cc threaddata.cc)
     set(OMNITHREAT_DEFS "")
 endif ()
 
@@ -16,7 +16,7 @@ target_compile_options(omnithread_static PRIVATE -Wno-unused -fexceptions)
 
 
 add_library(omnithread SHARED ${OMNITHREAD_SRC})
-target_link_libraries(omnithread PRIVATE pthread)
+target_link_libraries(omnithread PRIVATE Threads::Threads)
 target_compile_definitions(omnithread PRIVATE _REENTRANT ${OMNITHREAT_DEFS})
 target_include_directories(omnithread PRIVATE . . ../../../include ../../../include)
 target_link_libraries(omnithread PUBLIC Threads::Threads)

@@ -108,7 +108,7 @@ set(COS4_SHARED_SRC
         ${CMAKE_BINARY_DIR}/generated/services/mklib/CosLifeCycle.hh
         ${CMAKE_BINARY_DIR}/generated/services/mklib/CosLifeCycleSK.cc)
 add_library(COS4 SHARED ${COS4_SHARED_SRC})
-target_link_libraries(COS4 PRIVATE omniORB4 omniDynamic4 omnithread pthread)
+target_link_libraries(COS4 PRIVATE omniORB4 omniDynamic4 omnithread Threads::Threads)
 target_compile_definitions(COS4 PRIVATE __OMNIORB4__ _REENTRANT _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
 target_include_directories(COS4 PRIVATE ${CMAKE_BINARY_DIR}/generated/services/mklib/ ${CMAKE_SOURCE_DIR}/include ..)
 target_compile_options(COS4 PRIVATE -Wno-unused -fexceptions  )

@@ -2,10 +2,11 @@ cmake_minimum_required (VERSION 3.0)
 project (OmniOrb)
 
 set(CMAKE_CXX_STANDARD 98)
-set(CMAKE_VERBOSE_MAKEFILE ON)
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 find_package(PythonLibs REQUIRED)
 find_package(PythonInterp REQUIRED)
+find_package(Threads REQUIRED)
 include(codegen.cmake)
 
 
@@ -43,17 +44,17 @@ if (HAVE_WINSOCKS2_H)
 else ()
     CHECK_INCLUDE_FILES("sys/socket.h;netinet/in.h" HAVE_SOCKET_H)
     if (HAVE_SOCKET_H)
-        set(CMAKE_EXTRA_INCLUDE_FILES sys/socket.h netinet/in.h)
+        set(CMAKE_EXTRA_INCLUDE_FILES sys/socket.h netinet/in.h sys/types.h netdb.h)
     endif ()
 endif ()
 
-CHECK_TYPE_SIZE("struct sockaddr_in6" STRUCT_SOCKADDR_IN6)
+CHECK_TYPE_SIZE("struct sockaddr_in6" HAVE_STRUCT_SOCKADDR_IN6)
 
-CHECK_TYPE_SIZE("struct sockaddr_in" STRUCT_SOCKADDR_IN_SIN_LEN)
+CHECK_TYPE_SIZE("((struct sockaddr_in*)0)->sin_len" HAVE_STRUCT_SOCKADDR_IN_SIN_LEN)
 
-CHECK_TYPE_SIZE("((struct sockaddr_in*)0)->sin_zero" STRUCT_SOCKADDR_IN_SIN_ZERO)
+CHECK_TYPE_SIZE("((struct sockaddr_in*)0)->sin_zero" HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO)
 
-CHECK_TYPE_SIZE("struct sockaddr_storage" STRUCT_SOCKADDR_STORAGE)
+CHECK_TYPE_SIZE("struct sockaddr_storage" HAVE_STRUCT_SOCKADDR_STORAGE)
 
 CHECK_TYPE_SIZE("socklen_t" SOCKLEN_T_EXISTS)
 if(SOCKLEN_T_EXISTS)

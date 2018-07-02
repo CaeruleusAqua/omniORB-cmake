@@ -13,7 +13,7 @@ set(OMNIZIOPDYNAMIC4_SHARED_SRC
     compressionDynStubs.cc
     ziopDynStubs.cc)
 add_library(omniZIOPDynamic4 SHARED ${OMNIZIOPDYNAMIC4_SHARED_SRC})
-target_link_libraries(omniZIOPDynamic4 PRIVATE omniORB4 omniDynamic4 omnithread pthread)
+target_link_libraries(omniZIOPDynamic4 PRIVATE omniORB4 omniDynamic4 omnithread Threads::Threads)
 target_compile_definitions(omniZIOPDynamic4 PRIVATE _REENTRANT _OMNIORB_ZIOP_DYNAMIC_LIBRARY UnixArchitecture)
 target_include_directories(omniZIOPDynamic4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB/ .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
 target_compile_options(omniZIOPDynamic4 PRIVATE -Wno-unused -fexceptions  )

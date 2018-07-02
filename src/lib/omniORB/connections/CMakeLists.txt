@@ -12,7 +12,7 @@ add_dependencies(omniConnectionMgmt4_static RunGenerator)
 
 
 add_library(omniConnectionMgmt4 SHARED ${OMNICONNECTIONMGMT4_SRC})
-target_link_libraries(omniConnectionMgmt4 PRIVATE omniORB4 omnithread pthread)
+target_link_libraries(omniConnectionMgmt4 PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(omniConnectionMgmt4 PRIVATE _REENTRANT UnixArchitecture)
 target_include_directories(omniConnectionMgmt4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
 target_compile_options(omniConnectionMgmt4 PRIVATE -Wno-unused -fexceptions)

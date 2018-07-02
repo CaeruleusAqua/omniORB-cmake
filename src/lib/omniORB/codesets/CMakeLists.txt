@@ -36,7 +36,7 @@ add_dependencies(omniCodeSets4_static RunGenerator)
 
 
 add_library(omniCodeSets4 SHARED ${OMNICODESETS4_SRC})
-target_link_libraries(omniCodeSets4 PRIVATE omniORB4 omnithread pthread)
+target_link_libraries(omniCodeSets4 PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(omniCodeSets4 PRIVATE _REENTRANT USE_omniORB_logStream UnixArchitecture)
 target_include_directories(omniCodeSets4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
 target_compile_options(omniCodeSets4 PRIVATE -Wno-unused -fexceptions  )
