@@ -14,28 +14,19 @@ set(pyexecdir "\${exec_prefix}/${PYTHON_SITE}")
 
 if(${PYTHON_VERSION_MAJOR} EQUAL 2)
     configure_file(${CMAKE_SOURCE_DIR}/src/tool/omniidl/python/scripts/omniidl.in ${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl @ONLY)
+    set(PYTHONPATH "PYTHONPATH=\"${CMAKE_SOURCE_DIR}/src/tool/omniidl/python2\"")
 else()
     configure_file(${CMAKE_SOURCE_DIR}/src/tool/omniidl/python3/scripts/omniidl.in ${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl @ONLY)
+    set(PYTHONPATH "PYTHONPATH=\"${CMAKE_SOURCE_DIR}/src/tool/omniidl/python3\"")
 endif()
 
 set(OMNIIDL_EXEC "${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl")
-set(PYTHONPATH "PYTHONPATH=\"${CMAKE_SOURCE_DIR}/src/tool/omniidl/python3\"")
+
 set(PATH "PATH=\"\$PATH:${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/:${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/cccp\"")
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated/services/mklib)
 
-
-function(genIDL)
-    message(STATUS "-------------------------------------------------${ARGN}")
-    ADD_CUSTOM_COMMAND(OUTPUT ${ARGN}
-            COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -C${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4 ${ARGN}
-            DEPENDS ${ARGN} _omniidl omnicpp
-            COMMENT "Processing ${ARGN}..")
-endfunction(genIDL)
-
-#genIDL("dsfsdfdfdf")
-#genIDL("dsffdf")
 
 ADD_CUSTOM_COMMAND(OUTPUT Naming.hh NamingDynSK.cc NamingSK.cc
         COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -C${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4 ${CMAKE_SOURCE_DIR}/idl/Naming.idl
@@ -102,68 +93,16 @@ ADD_CUSTOM_COMMAND(OUTPUT ziop_defs.hh ziop_operators.hh ziop_poa.hh ziopDynSK.c
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/ziop.idl _omniidl omnicpp
         COMMENT "Processing ziop.idl..")
 
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4/distdate.hh
+ADD_CUSTOM_COMMAND(OUTPUT distdate.hh
         COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/bin/scripts/distdate.py < ${CMAKE_SOURCE_DIR}/update.log > ${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4/distdate.hh
         DEPENDS ${CMAKE_SOURCE_DIR}/update.log _omniidl omnicpp
         COMMENT "Processing update.log..")
 
 
-
-
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/CosLifeCycle.hh  ${CMAKE_BINARY_DIR}/generated/services/mklib/CosLifeCycleSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/CosLifeCycle.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosLifeCycle.idl _omniidl omnicpp
-        COMMENT "Processing CosLifeCycle.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyChannelAdmin.hh  ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyChannelAdminSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyChannelAdmin.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyChannelAdmin.idl _omniidl omnicpp
-        COMMENT "Processing CosNotifyChannelAdmin.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyFilter.hh ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyFilterSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyFilter.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyFilter.idl _omniidl omnicpp
-        COMMENT "Processing CosNotifyFilter.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyComm.hh ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyCommSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyComm.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyComm.idl _omniidl omnicpp
-        COMMENT "Processing CosNotifyComm.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotification.hh  ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotificationSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/CosNotification.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosNotification.idl _omniidl omnicpp
-        COMMENT "Processing CosNotification.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/CosEventChannelAdmin.hh ${CMAKE_BINARY_DIR}/generated/services/mklib/CosEventChannelAdminSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/CosEventChannelAdmin.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosEventChannelAdmin.idl _omniidl omnicpp
-        COMMENT "Processing CosEventChannelAdmin.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/CosEventComm.hh ${CMAKE_BINARY_DIR}/generated/services/mklib/CosEventCommSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/CosEventComm.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosEventComm.idl _omniidl omnicpp
-        COMMENT "Processing CosEventComm.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/CosTime.hh ${CMAKE_BINARY_DIR}/generated/services/mklib/CosTimeSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/CosTime.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosTime.idl _omniidl omnicpp
-        COMMENT "Processing CosTime.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/generated/services/mklib/TimeBase.hh ${CMAKE_BINARY_DIR}/generated/services/mklib/TimeBaseSK.cc
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PATH} ${PYTHON_EXECUTABLE} ${OMNIIDL_EXEC} -bcxx -p${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3 -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${CMAKE_BINARY_DIR}/generated/services/mklib ${CMAKE_SOURCE_DIR}/idl/COS/TimeBase.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/TimeBase.idl _omniidl omnicpp
-        COMMENT "Processing TimeBase.idl..")
-
-
-
-
-
 ADD_CUSTOM_TARGET(RunGenerator DEPENDS
         _omniidl
         omnicpp
-        ${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4/distdate.hh
+        distdate.hh
         ziop_defs.hh
         compressionSK.cc
         messaging_policySK.cc
@@ -187,14 +126,4 @@ ADD_CUSTOM_TARGET(RunGenerator DEPENDS
         ir_poa.hh
         irDynSK.cc
         irSK.cc
-
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/CosLifeCycle.hh
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyChannelAdmin.hh
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyFilter.hh
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotifyComm.hh
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/CosEventChannelAdmin.hh
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/CosNotification.hh
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/CosEventComm.hh
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/CosTime.hh
-        ${CMAKE_BINARY_DIR}/generated/services/mklib/TimeBase.hh
         COMMENT "Checking if re-generation is required")
