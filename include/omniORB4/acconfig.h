@@ -1,6 +1,6 @@
 #pragma once
 #ifndef HAVE_ALLOCA_H
-#define HAVE_ALLOCA_H 1
+/* #undef HAVE_ALLOCA_H */
 #endif
 
 #ifndef HAVE_ALLOCA
@@ -60,23 +60,23 @@
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_IN6
-#define HAVE_STRUCT_SOCKADDR_IN6 1
+/* #undef HAVE_STRUCT_SOCKADDR_IN6 */
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
-#define HAVE_STRUCT_SOCKADDR_IN_SIN_LEN 1
+/* #undef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN */
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO
-#define HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO 1
+/* #undef HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO */
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_STORAGE
-#define HAVE_STRUCT_SOCKADDR_STORAGE 1
+/* #undef HAVE_STRUCT_SOCKADDR_STORAGE */
 #endif
 
 #ifndef OMNI_SOCKNAME_SIZE_T
-#define OMNI_SOCKNAME_SIZE_T socklen_t
+/* #undef OMNI_SOCKNAME_SIZE_T */
 #endif
 
 
@@ -89,15 +89,15 @@
 #endif
 
 #ifndef HAVE_GETADDRINFO
-#define HAVE_GETADDRINFO 1
+/* #undef HAVE_GETADDRINFO */
 #endif
 
 #ifndef HAVE_GETHOSTNAME
-#define HAVE_GETHOSTNAME 1
+/* #undef HAVE_GETHOSTNAME */
 #endif
 
 #ifndef HAVE_GETNAMEINFO
-#define HAVE_GETNAMEINFO 1
+/* #undef HAVE_GETNAMEINFO */
 #endif
 
 #ifndef HAVE_GETOPT
@@ -113,11 +113,11 @@
 #endif
 
 #ifndef HAVE_IFADDRS_H
-#define HAVE_IFADDRS_H 1
+/* #undef HAVE_IFADDRS_H */
 #endif
 
 #ifndef HAVE_INET_NTOP
-#define HAVE_INET_NTOP 1
+/* #undef HAVE_INET_NTOP */
 #endif
 
 #ifndef HAVE_INSINFF
@@ -129,11 +129,11 @@
 #endif
 
 #ifndef HAVE_ISINF
-#define HAVE_ISINF 1
+/* #undef HAVE_ISINF */
 #endif
 
 #ifndef HAVE_ISINFL
-#define HAVE_ISINFL 1
+/* #undef HAVE_ISINFL */
 #endif
 
 #ifndef HAVE_ISNANORINF
@@ -157,19 +157,19 @@
 #endif
 
 #ifndef HAVE_NETDB_H
-#define HAVE_NETDB_H 1
+/* #undef HAVE_NETDB_H */
 #endif
 
 #ifndef HAVE_POLL
-#define HAVE_POLL 1
+/* #undef HAVE_POLL */
 #endif
 
 #ifndef HAVE_RAND_R
-#define HAVE_RAND_R 1
+/* #undef HAVE_RAND_R */
 #endif
 
 #ifndef HAVE_SIGACTION
-#define HAVE_SIGACTION 1
+/* #undef HAVE_SIGACTION */
 #endif
 
 #ifndef HAVE_SIGNAL_H
@@ -209,7 +209,7 @@
 #endif
 
 #ifndef HAVE_STRICMP
-/* #undef HAVE_STRICMP */
+#define HAVE_STRICMP 1
 #endif
 
 #ifndef HAVE_STRINGS_H
@@ -233,7 +233,7 @@
 #endif
 
 #ifndef HAVE_STRTOUQ
-#define HAVE_STRTOUQ 1
+/* #undef HAVE_STRTOUQ */
 #endif
 
 #ifndef HAVE_SYS_IF_H
@@ -241,7 +241,7 @@
 #endif
 
 #ifndef HAVE_SYS_IOCTL_H
-#define HAVE_SYS_IOCTL_H 1
+/* #undef HAVE_SYS_IOCTL_H */
 #endif
 
 #ifndef HAVE_SYS_PARAM_H
@@ -249,7 +249,7 @@
 #endif
 
 #ifndef HAVE_SYS_POLL_H
-#define HAVE_SYS_POLL_H 1
+/* #undef HAVE_SYS_POLL_H */
 #endif
 
 #ifndef HAVE_SYS_STAT_H
@@ -269,7 +269,7 @@
 #endif
 
 #ifndef HAVE_UNAME
-#define HAVE_UNAME 1
+/* #undef HAVE_UNAME */
 #endif
 
 #ifndef HAVE_UNISTD_H
@@ -285,14 +285,14 @@
 #endif
 
 
-#define SIZEOF_WCHAR_T 4
+#define SIZEOF_WCHAR_T 2
 
 #define SIZEOF_BOOL 1
 #define SIZEOF_CHAR 1
 #define SIZEOF_DOUBLE 8
 #define SIZEOF_FLOAT 4
 #define SIZEOF_INT 4
-#define SIZEOF_LONG 8
+#define SIZEOF_LONG 4
 #define SIZEOF_LONG_DOUBLE 16
 #define SIZEOF_LONG_LONG 8
 #define SIZEOF_SHORT 2
@@ -301,7 +301,7 @@
 
 
 #ifndef STDC_HEADERS
-#define STDC_HEADERS 1
+/* #undef STDC_HEADERS */
 #endif
 
 /* #undef WORDS_BIGENDIAN */

@@ -2,13 +2,12 @@ cmake_minimum_required (VERSION 3.0)
 project (OmniOrb)
 
 set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 
 find_package(PythonLibs REQUIRED)
 find_package(PythonInterp REQUIRED)
 include(codegen.cmake)
-
-add_definitions(-DOMNI_CONFIG_CMAKE -D__OSVERSION__=2 -D__linux__ -D__x86_64__ -D__x86__)
 
 
 INCLUDE(CheckFunctionExists)
@@ -309,7 +308,8 @@ TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
 #powerpc*) proc_name="PowerPCProcessor"; proc_def="__powerpc__";;
 #esac
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
+
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" OR "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "AMD64")
     set(PROCESSOR_NAME x86Processor)
     set(PROCESSOR_DEFINE __x86_64__)
 endif()
@@ -318,6 +318,18 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     set(OSVERSION "2")
     set(PLATFORM_DEFINE "__linux__")
     set(PLATFORM_NAME "Linux")
+endif()
+
+
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    set(OSVERSION "2")
+    set(PLATFORM_DEFINE "__linux__")
+    set(PLATFORM_NAME "Linux")
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+    set(OSVERSION "4")
+    set(PLATFORM_DEFINE "__NT__")
+    set(PLATFORM_NAME "Windows")
+
 endif()
 
 
