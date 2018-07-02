@@ -22,7 +22,7 @@ endif()
 
 set(OMNIIDL_EXEC "${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl")
 
-set(PATH "PATH=\"\$PATH:${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/:${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/cccp\"")
+set(PATH "PATH=\"\${PATH}:${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/:${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/cccp/\"")
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated/services/mklib)
