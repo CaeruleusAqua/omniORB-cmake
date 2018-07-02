@@ -60,23 +60,23 @@
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_IN6
-/* #undef HAVE_STRUCT_SOCKADDR_IN6 */
+#define HAVE_STRUCT_SOCKADDR_IN6 1
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
-/* #undef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN */
+#define HAVE_STRUCT_SOCKADDR_IN_SIN_LEN 1
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO
-/* #undef HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO */
+#define HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO 1
 #endif
 
 #ifndef HAVE_STRUCT_SOCKADDR_STORAGE
-/* #undef HAVE_STRUCT_SOCKADDR_STORAGE */
+#define HAVE_STRUCT_SOCKADDR_STORAGE 1
 #endif
 
 #ifndef OMNI_SOCKNAME_SIZE_T
-/* #undef OMNI_SOCKNAME_SIZE_T */
+#define OMNI_SOCKNAME_SIZE_T socklen_t
 #endif
 
 
@@ -101,11 +101,11 @@
 #endif
 
 #ifndef HAVE_GETOPT
-#define HAVE_GETOPT 1
+/* #undef HAVE_GETOPT */
 #endif
 
 #ifndef HAVE_GETTIMEOFDAY
-#define HAVE_GETTIMEOFDAY 1
+/* #undef HAVE_GETTIMEOFDAY */
 #endif
 
 #ifndef GETTIMEOFDAY_TIMEZONE
@@ -284,6 +284,10 @@
 #define HAVE_VSNPRINTF 1
 #endif
 
+#ifndef STACK_DIRECTION
+#define STACK_DIRECTION -1
+#endif
+
 
 #define SIZEOF_WCHAR_T 2
 
@@ -301,7 +305,7 @@
 
 
 #ifndef STDC_HEADERS
-/* #undef STDC_HEADERS */
+#define STDC_HEADERS 1
 #endif
 
 /* #undef WORDS_BIGENDIAN */

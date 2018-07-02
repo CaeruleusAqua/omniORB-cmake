@@ -13,9 +13,8 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-
-macro (CHECK_HEADER_STDC)
-    if (NOT DEFINED STDC_HEADERS)
+macro(CHECK_HEADER_STDC RETURN_VALUE)
+    if (NOT DEFINED ${RETURN_VALUE})
         if (CMAKE_REQUIRED_INCLUDES)
             set(CHECK_HEADER_STDC_C_INCLUDE_DIRS "-DINCLUDE_DIRECTORIES=${CMAKE_REQUIRED_INCLUDES}")
         else()
@@ -23,7 +22,7 @@ macro (CHECK_HEADER_STDC)
         endif()
         set(MACRO_CHECK_HEADER_STDC_FLAGS ${CMAKE_REQUIRED_FLAGS})
 
-        message(STATUS "Cheking for ANSI C header files")
+        message(STATUS "Check for ANSI C header files")
         try_run(CHECK_HEADER_STDC_result
                 CHECK_HEADER_STDC_compile_result
                 ${CMAKE_BINARY_DIR}
@@ -34,26 +33,16 @@ macro (CHECK_HEADER_STDC)
                 "${CHECK_HEADER_STDC_C_INCLUDE_DIRS}"
                 OUTPUT_VARIABLE OUTPUT)
 
-        if (CHECK_HEADER_STDC_compile_result AND CHECK_HEADER_STDC_result EQUAL 0)
-            find_path(CHECK_HEADER_STDC_path "string.h")
-            if (CHECK_HEADER_STDC_path)
-                file(STRINGS "${CHECK_HEADER_STDC_path}/string.h" CHECK_HEADER_STDC_result REGEX "[^a-zA-Z_]memchr[^a-zA-Z_]")
-                if (CHECK_HEADER_STDC_result)
-                    file(STRINGS "${CHECK_HEADER_STDC_path}/stdlib.h" CHECK_HEADER_STDC_result REGEX "[^a-zA-Z_]free[^a-zA-Z_]")
-                endif (CHECK_HEADER_STDC_result)
-            endif (CHECK_HEADER_STDC_path)
-        endif()
-
-        if(CHECK_HEADER_STDC_result)
-            message(STATUS "Cheking for ANSI C header files - found")
-            set(STDC_HEADERS 1 CACHE INTERNAL "Have ANSI C headers")
+        if(CHECK_HEADER_STDC_result EQUAL 0)
+            message(STATUS "Check for ANSI C header files - found")
+            set(${RETURN_VALUE} "1")
             file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
                     "Determining if the include file ${INCLUDE} "
                     "exists passed with the following output:\n"
                     "${OUTPUT}\n\n")
         else()
-            message(STATUS "Cheking for ANSI C header files - not found")
-            set(STDC_HEADERS "" CACHE INTERNAL "Have ANSI C headers")
+            message(STATUS "Check for ANSI C header files - not found")
+            set(${RETURN_VALUE} "")
             file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
                     "Determining if the include file ${INCLUDE} "
                     "exists failed with the following output:\n"

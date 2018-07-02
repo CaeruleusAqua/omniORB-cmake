@@ -4,7 +4,6 @@ project (OmniOrb)
 set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
-
 find_package(PythonLibs REQUIRED)
 find_package(PythonInterp REQUIRED)
 include(codegen.cmake)
@@ -13,17 +12,9 @@ include(codegen.cmake)
 INCLUDE(CheckFunctionExists)
 INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckTypeSize)
-INCLUDE(CheckSymbolExists)
 INCLUDE(CheckPrototypeDefinition)
 include(CheckSymbolExists)
 include(TestForSTDNamespace)
-
-
-CHECK_INCLUDE_FILES (alloca.h HAVE_ALLOCA_H)
-
-CHECK_FUNCTION_EXISTS (alloca HAVE_ALLOCA)
-
-CHECK_FUNCTION_EXISTS (access HAVE_ACCESS)
 
 if(NOT ${CMAKE_NO_STD_NAMESPACE})
     set(HAVE_CATCH_BY_BASE 1)
@@ -37,11 +28,24 @@ if(NOT ${CMAKE_NO_STD_NAMESPACE})
 endif()
 
 
+CHECK_INCLUDE_FILES (alloca.h HAVE_ALLOCA_H)
+CHECK_FUNCTION_EXISTS (alloca HAVE_ALLOCA)
+CHECK_FUNCTION_EXISTS (access HAVE_ACCESS)
+
+
 CHECK_SYMBOL_EXISTS(SIG_IGN signal.h HAVE_SIG_IGN)
 
 CHECK_TYPE_SIZE("struct lifconf" STRUCT_LIFCONF)
 
-set(CMAKE_EXTRA_INCLUDE_FILES sys/socket.h netinet/in.h)
+CHECK_INCLUDE_FILES("winsock2.h;ws2tcpip.h" HAVE_WINSOCKS2_H)
+if (HAVE_WINSOCKS2_H)
+    set(CMAKE_EXTRA_INCLUDE_FILES winsock2.h ws2tcpip.h)
+else ()
+    CHECK_INCLUDE_FILES("sys/socket.h;netinet/in.h" HAVE_SOCKET_H)
+    if (HAVE_SOCKET_H)
+        set(CMAKE_EXTRA_INCLUDE_FILES sys/socket.h netinet/in.h)
+    endif ()
+endif ()
 
 CHECK_TYPE_SIZE("struct sockaddr_in6" STRUCT_SOCKADDR_IN6)
 
@@ -58,23 +62,19 @@ endif()
 
 set(CMAKE_EXTRA_INCLUDE_FILES)
 
-
-
-
 CHECK_INCLUDE_FILES (errno.h HAVE_ERRNO_H)
 
 CHECK_INCLUDE_FILES (fcntl.h HAVE_FCNTL_H)
 
-CHECK_FUNCTION_EXISTS (getaddrinfo HAVE_GETADDRINFO)
+CHECK_TYPE_SIZE("getaddrinfo" HAVE_GETADDRINFO)
 
-CHECK_FUNCTION_EXISTS (gethostname HAVE_GETHOSTNAME)
+CHECK_TYPE_SIZE("gethostname" HAVE_GETHOSTNAME)
 
-CHECK_FUNCTION_EXISTS (getnameinfo HAVE_GETNAMEINFO)
+CHECK_TYPE_SIZE("getnameinfo" HAVE_GETNAMEINFO)
 
-CHECK_FUNCTION_EXISTS (getopt HAVE_GETOPT)
+CHECK_TYPE_SIZE("getopt" HAVE_GETOPT)
 
-CHECK_FUNCTION_EXISTS (gettimeofday HAVE_GETTIMEOFDAY)
-
+CHECK_TYPE_SIZE("gettimeofday" HAVE_GETTIMEOFDAY)
 
 set(CMAKE_EXTRA_INCLUDE_FILES sys/time.h)
 CHECK_TYPE_SIZE("struct timezone" GETTIMEOFDAY_TIMEZONE)
@@ -233,7 +233,8 @@ CHECK_TYPE_SIZE("void*" SIZEOF_VOIDP)
 #/* #undef OMNI_LONG_IS_INT */
 
 
-
+include(cmake/CheckStackDirection.cmake)
+CHECK_STACK_DIRECTION(STACK_DIRECTION)
 #/* If using the C implementation of alloca, define if you know the
 #direction of stack growth for your system; otherwise it will be
 #automatically deduced at runtime.
@@ -248,6 +249,7 @@ include(cmake/CheckHeaderSTDC.cmake)
 CHECK_HEADER_STDC(STDC_HEADERS)
 
 #/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
+CHECK_INCLUDE_FILES("sys/time.h;time.h" TIME_WITH_SYS_TIME)
 #define TIME_WITH_SYS_TIME 1
 
 #/* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most

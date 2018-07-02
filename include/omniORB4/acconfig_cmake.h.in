@@ -284,6 +284,10 @@
 #cmakedefine HAVE_VSNPRINTF @HAVE_VSNPRINTF@
 #endif
 
+#ifndef STACK_DIRECTION
+#cmakedefine STACK_DIRECTION @STACK_DIRECTION@
+#endif
+
 
 #cmakedefine SIZEOF_WCHAR_T @SIZEOF_WCHAR_T@
 
