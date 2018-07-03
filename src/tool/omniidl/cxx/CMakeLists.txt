@@ -20,12 +20,23 @@ set(_OMNIIDLMODULE_SRC
         idlconfig.cc
         idlfixed.cc
         idlpython.cc)
-add_library(_omniidl SHARED ${_OMNIIDLMODULE_SRC})
-target_compile_definitions(_omniidl PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> IDLMODULE_VERSION="0x2630")
-target_include_directories(_omniidl PRIVATE ${PYTHON_INCLUDE_DIR} . ../../../../include)
-target_compile_options(_omniidl PRIVATE -Wno-unused -fexceptions)
-target_link_libraries(_omniidl PRIVATE ${PYTHON_LIBRARIES})
-set_target_properties(_omniidl PROPERTIES PREFIX "")
+
+
 if (WIN32)
-    set_target_properties(_omniidl PROPERTIES SUFFIX ".pyd")
-endif (WIN32)
+    add_executable(omniidl ${_OMNIIDLMODULE_SRC})
+    target_compile_definitions(omniidl PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> OMNIIDL_EXECUTABLE IDLMODULE_VERSION="0x2630")# __WIN32__ MSDOS OMNIIDL_EXECUTABLE _CRT_SECURE_NO_DEPRECATE=1 ")
+    target_include_directories(omniidl PRIVATE ${PYTHON_INCLUDE_DIR} . ../../../../include)
+    target_compile_options(omniidl PRIVATE -Wno-unused -fexceptions)
+    target_link_libraries(omniidl PRIVATE ${PYTHON_LIBRARIES})
+    set_property(TARGET omniidl APPEND_STRING PROPERTY LINK_FLAGS "-municode ")
+else ()
+    add_library(omniidl SHARED ${_OMNIIDLMODULE_SRC})
+    target_compile_definitions(omniidl PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> IDLMODULE_VERSION="0x2630")
+    target_include_directories(omniidl PRIVATE ${PYTHON_INCLUDE_DIR} . ../../../../include)
+    target_compile_options(omniidl PRIVATE -Wno-unused -fexceptions )
+    target_link_libraries(omniidl PRIVATE ${PYTHON_LIBRARIES})
+    set_target_properties(omniidl PROPERTIES PREFIX "")
+    set_target_properties(omniidl PROPERTIES OUTPUT_NAME "_omniidl")
+endif ()
+
+

@@ -1,102 +1,211 @@
-set(OMNIORB4_SRC
-    anonObject.cc
-    callDescriptor.cc
-    constants.cc
-    corbaObject.cc
-    corbaBoa.cc
-    corbaOrb.cc
-    corbaFixed.cc
-    corbaString.cc
-    corbaWString.cc
-    current.cc
-    dynamicLib.cc
-    exception.cc
-    exceptn.cc
-    initRefs.cc
-    interceptors.cc
-    invoker.cc
-    ior.cc
-    libcWrapper.cc
-    omniIdentity.cc
-    localIdentity.cc
-    localObject.cc
-    logIOstream.cc
-    minorCode.cc
-    objectAdapter.cc
-    omniInternal.cc
-    omniIOR.cc
-    omniObjRef.cc
-    omniORB.cc
-    omniServant.cc
-    orbOptions.cc
-    orbOptionsFile.cc
-    poa.cc
-    poamanager.cc
-    policy.cc
-    portableserver.cc
-    proxyFactory.cc
-    remoteIdentity.cc
-    inProcessIdentity.cc
-    shutdownIdentity.cc
-    callHandle.cc
-    tracedthread.cc
-    transportRules.cc
-    rmutex.cc
-    uri.cc
-    omniPolicy.cc
-    omniTransport.cc
-    cdrStream.cc
-    cdrStreamAdapter.cc
-    cdrMemoryStream.cc
-    cdrValueChunkStream.cc
-    giopEndpoint.cc
-    giopRope.cc
-    giopStrand.cc
-    giopStream.cc
-    giopServer.cc
-    giopWorker.cc
-    giopRendezvouser.cc
-    GIOP_C.cc
-    GIOP_S.cc
-    giopStreamImpl.cc
-    giopImpl10.cc
-    giopImpl11.cc
-    giopImpl12.cc
-    giopBiDir.cc
-    giopMonitor.cc
-    SocketCollection.cc
-    codeSets.cc
-    cs-8bit.cc
-    cs-16bit.cc
-    cs-8859-1.cc
-    cs-UTF-8.cc
-    cs-UTF-16.cc
-    bootstrapstub.cc
-    objectStub.cc
-    poastubs.cc
-    Namingstub.cc
-    tcpSocket.cc
-    tcp/tcpTransportImpl.cc
-    tcp/tcpConnection.cc
-    tcp/tcpEndpoint.cc
-    tcp/tcpAddress.cc
-    tcp/tcpActive.cc
-    unix/unixTransportImpl.cc
-    unix/unixConnection.cc
-    unix/unixEndpoint.cc
-    unix/unixAddress.cc
-    unix/unixActive.cc)
+set(GIOP_SRCS
+        omniTransport.cc
+        cdrStream.cc
+        cdrStreamAdapter.cc
+        cdrMemoryStream.cc
+        cdrValueChunkStream.cc
+        giopEndpoint.cc
+        giopRope.cc
+        giopStrand.cc
+        giopStream.cc
+        giopServer.cc
+        giopWorker.cc
+        giopRendezvouser.cc
+        GIOP_C.cc
+        GIOP_S.cc
+        giopStreamImpl.cc
+        giopImpl10.cc
+        giopImpl11.cc
+        giopImpl12.cc
+        giopBiDir.cc
+        giopMonitor.cc
+        SocketCollection.cc)
 
-add_library(omniORB4_static STATIC ${OMNIORB4_SRC})
-target_compile_definitions(omniORB4_static PRIVATE _REENTRANT USE_omniORB_logStream _OMNIORB_LIBRARY OMNIORB_VERSION_STRING="4.2.2" OMNIORB_VERSION_HEX=0x040202F1 CONFIG_DEFAULT_LOCATION="/etc/omniORB.cfg" CONFIG_ENV="OMNIORB_CONFIG" UnixArchitecture)
-target_include_directories(omniORB4_static PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
-target_compile_options(omniORB4_static PRIVATE -Wno-unused -fexceptions )
+set(TRANSPORT_SRCS
+        tcpSocket.cc
+        tcp/tcpTransportImpl.cc
+        tcp/tcpConnection.cc
+        tcp/tcpEndpoint.cc
+        tcp/tcpAddress.cc
+        tcp/tcpActive.cc)
+
+set(UNIXSOCK_SRCS
+        unix/unixTransportImpl.cc
+        unix/unixConnection.cc
+        unix/unixEndpoint.cc
+        unix/unixAddress.cc
+        unix/unixActive.cc)
+
+set(SSL_SRCS
+        ssl/sslActive.cc
+        ssl/sslAddress.cc
+        ssl/sslConnection.cc
+        ssl/sslEndpoint.cc
+        ssl/sslTransportImpl.cc
+        ssl/sslContext.cc)
+
+set(CODESET_SRCS
+        codeSets.cc
+        cs-8bit.cc
+        cs-16bit.cc
+        cs-8859-1.cc
+        cs-UTF-8.cc
+        cs-UTF-16.cc)
+
+set(BUILTIN_STUB_SRCS
+        bootstrapstub.cc
+        objectStub.cc
+        poastubs.cc)
+
+if (vxWorksPlatform)
+    #ifndef vxNamesRequired
+    #BUILTIN_STUB_SRCS += Namingstub.cc
+    #endif
+else()
+    set(BUILTIN_STUB_SRCS ${BUILTIN_STUB_SRCS} Namingstub.cc)
+endif()
+
+set(ORB_SRCS
+        anonObject.cc
+        callDescriptor.cc
+        constants.cc
+        corbaObject.cc
+        corbaBoa.cc
+        corbaOrb.cc
+        corbaFixed.cc
+        corbaString.cc
+        corbaWString.cc
+        current.cc
+        dynamicLib.cc
+        exception.cc
+        exceptn.cc
+        initRefs.cc
+        interceptors.cc
+        invoker.cc
+        ior.cc
+        libcWrapper.cc
+        omniIdentity.cc
+        localIdentity.cc
+        localObject.cc
+        logIOstream.cc
+        minorCode.cc
+        objectAdapter.cc
+        omniInternal.cc
+        omniIOR.cc
+        omniObjRef.cc
+        omniORB.cc
+        omniServant.cc
+        orbOptions.cc
+        orbOptionsFile.cc
+        poa.cc
+        poamanager.cc
+        policy.cc
+        portableserver.cc
+        proxyFactory.cc
+        remoteIdentity.cc
+        inProcessIdentity.cc
+        shutdownIdentity.cc
+        callHandle.cc
+        tracedthread.cc
+        transportRules.cc
+        rmutex.cc
+        uri.cc
+        omniPolicy.cc
+        ${GIOP_SRCS}
+        ${CODESET_SRCS}
+        ${BUILTIN_STUB_SRCS}
+        ${TRANSPORT_SRCS}
+        )
+
+
+if (UNIX)
+    set(ORB_SRCS ${ORB_SRCS} ${UNIXSOCK_SRCS)
+endif()
+
+set(OMNICORE_DEFINITIONS
+        USE_omniORB_logStream
+        _OMNIORB_LIBRARY
+        OMNIORB_VERSION_STRING="${OMNIORB_VERSION}"
+        "OMNIORB_VERSION_HEX=${OMNIORB_VERSION_HEX}")
+
+## Build SSL transport as part of core library if required
+#ifdef OPEN_SSL_ROOT
+#ifdef SSL_TRANSPORT_IN_CORE
+#ORB_SRCS += ${SSL_SRCS)
+#CXXVPATH += ${VPATH:%=%/ssl)
+#DIR_CPPFLAGS += -D_OMNIORB_SSL_LIBRARY
+#DIR_CPPFLAGS += ${OPEN_SSL_CPPFLAGS)
+#endif
+#endif
+
+##########################################################################
+if (OMNIORB_CONFIG_DEFAULT_LOCATION)
+    set(CONFIG_DEFAULT_LOCATION ${OMNIORB_CONFIG_DEFAULT_LOCATION})
+else()
+    if (UNIX)
+        set(CONFIG_DEFAULT_LOCATION /project/omni/var/omniORB_NEW.cfg)
+    endif()
+    if (WIN32)
+        set(CONFIG_DEFAULT_LOCATION C:\\\\OMNIORB.CFG)
+    endif()
+    if (vxWorksPlatform) # No vxWorks support in cmake
+        set(CONFIG_DEFAULT_LOCATION /a2/tmp/omniORB.cfg)
+    endif()
+endif()
+set(OMNICORE_DEFINITIONS
+        ${OMNICORE_DEFINITIONS}
+        CONFIG_DEFAULT_LOCATION="${CONFIG_DEFAULT_LOCATION}"
+        )
+
+##########################################################################
+if (OMNIORB_CONFIG_ENV)
+    set(CONFIG_ENV ${CONFIG_ENV} ${OMNIORB_CONFIG_ENV)
+else()
+    set(CONFIG_ENV ${CONFIG_ENV} "OMNIORB_CONFIG")
+endif()
+
+set(OMNICORE_DEFINITIONS
+        ${OMNICORE_DEFINITIONS}
+        CONFIG_ENV="${CONFIG_ENV}")
+
+##########################################################################
+
+set(PLATFORM_LIBS)
+
+if (WIN32)
+    #DIR_CPPFLAGS += -D"NTArchitecture"
+    #EXTRA_LIBS    = ${SOCKET_LIB) ${patsubst %,${LibNoDebugSearchPattern),advapi32)
+    #SHARED_ONLY_OBJS = msvcdllstub.o
+    #MSVC_STATICLIB_CXXNODEBUGFLAGS += -D_WINSTATIC
+    #MSVC_STATICLIB_CXXDEBUGFLAGS += -D_WINSTATIC
+    #ifndef ETSKernel
+    set(ORB_SRCS ${ORB_SRCS} orbOptionsReg.cc)
+    #endif
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        # using Clang
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        # using GCC
+        set(PLATFORM_LIBS ws2_32)
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
+        # using Intel C++
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+        # using Visual Studio C++
+    endif()
+
+endif()
+
+
+add_library(omniORB4_static STATIC ${ORB_SRCS})
+target_link_libraries(omniORB4_static PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS})
+target_compile_definitions(omniORB4_static PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS})
+target_include_directories(omniORB4_static PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
+target_compile_options(omniORB4_static PRIVATE -Wno-unused -fexceptions -fpermissive -Wno-write-strings)
 add_dependencies(omniORB4_static RunGenerator)
 
 
-add_library(omniORB4 SHARED ${OMNIORB4_SRC})
-target_link_libraries(omniORB4 PRIVATE omnithread Threads::Threads)
-target_compile_definitions(omniORB4 PRIVATE _REENTRANT USE_omniORB_logStream _OMNIORB_LIBRARY OMNIORB_VERSION_STRING="4.2.2" OMNIORB_VERSION_HEX=0x040202F1 CONFIG_DEFAULT_LOCATION="/etc/omniORB.cfg" CONFIG_ENV="OMNIORB_CONFIG" UnixArchitecture)
-target_include_directories(omniORB4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
-target_compile_options(omniORB4 PRIVATE -Wno-unused -fexceptions  )
+add_library(omniORB4 SHARED ${ORB_SRCS})
+target_link_libraries(omniORB4 PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS})
+target_compile_definitions(omniORB4 PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS})
+target_include_directories(omniORB4 PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
+target_compile_options(omniORB4 PRIVATE -Wno-unused -fexceptions -fpermissive -Wno-write-strings)
 add_dependencies(omniORB4 RunGenerator)

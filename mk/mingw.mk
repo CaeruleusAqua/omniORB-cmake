@@ -382,12 +382,6 @@ lib_depend := $(omniconnections_dll_name)
 omniConnections_lib_depend := $(GENERATE_LIB_DEPEND)
 
 #OMNIIDL = $(BASE_OMNI_TREE)/$(WRAPPER_FPATH)/oidlwrapper.exe $(XLN)
-OMNIIDL = $(BASE_OMNI_TREE)/$(BINDIR)/omniidl
-OMNIORB_IDL_ONLY = $(OMNIIDL) -T -bcxx -Wbh=.hh -Wbs=SK.cc
-OMNIORB_IDL_ANY_FLAGS = -Wba
-OMNIORB_IDL = $(OMNIORB_IDL_ONLY) $(OMNIORB_IDL_ANY_FLAGS)
-OMNIORB_CPPFLAGS = -D__OMNIORB4__ -I$(CORBA_STUB_DIR) $(OMNITHREAD_CPPFLAGS)
-OMNIORB_IDL_OUTPUTDIR_PATTERN = -C%
 
 
 OMNIORB_LIB = $(omniorb_dll_name) \
