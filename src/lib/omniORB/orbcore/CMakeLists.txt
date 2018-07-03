@@ -119,7 +119,7 @@ set(ORB_SRCS
 
 
 if (UNIX)
-    set(ORB_SRCS ${ORB_SRCS} ${UNIXSOCK_SRCS)
+    set(ORB_SRCS ${ORB_SRCS} ${UNIXSOCK_SRCS})
 endif()
 
 set(OMNICORE_DEFINITIONS
