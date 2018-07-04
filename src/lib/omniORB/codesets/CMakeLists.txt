@@ -29,15 +29,15 @@ set(OMNICODESETS4_SRC
     cs-GBK.cc
     omniCodeSets.cc)
 add_library(omniCodeSets4_static STATIC ${OMNICODESETS4_SRC})
-target_compile_definitions(omniCodeSets4_static PRIVATE _REENTRANT USE_omniORB_logStream)# UnixArchitecture)
-target_include_directories(omniCodeSets4_static PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
-target_compile_options(omniCodeSets4_static PRIVATE -Wno-unused -fexceptions )
+target_compile_definitions(omniCodeSets4_static PRIVATE _REENTRANT USE_omniORB_logStream)
+target_include_directories(omniCodeSets4_static PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal ${CMAKE_SOURCE_DIR}/include )
+target_compile_options(omniCodeSets4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
 add_dependencies(omniCodeSets4_static RunGenerator)
 
 
 add_library(omniCodeSets4 SHARED ${OMNICODESETS4_SRC})
 target_link_libraries(omniCodeSets4 PRIVATE omniORB4 omnithread Threads::Threads)
-target_compile_definitions(omniCodeSets4 PRIVATE _REENTRANT USE_omniORB_logStream)# UnixArchitecture)
-target_include_directories(omniCodeSets4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB .. ./.. ../../../../include/omniORB4/internal ../../../../include/omniORB4/internal . . ../../../../include ../../../../include)
-target_compile_options(omniCodeSets4 PRIVATE -Wno-unused -fexceptions  )
+target_compile_definitions(omniCodeSets4 PRIVATE _REENTRANT USE_omniORB_logStream)
+target_include_directories(omniCodeSets4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB {CMAKE_SOURCE_DIR}/include/omniORB4/internal ${CMAKE_SOURCE_DIR}/include)
+target_compile_options(omniCodeSets4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS}  )
 add_dependencies(omniCodeSets4 RunGenerator)

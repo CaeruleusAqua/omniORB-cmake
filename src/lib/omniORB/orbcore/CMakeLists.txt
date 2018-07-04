@@ -181,14 +181,14 @@ if (WIN32)
     #ifndef ETSKernel
     set(ORB_SRCS ${ORB_SRCS} orbOptionsReg.cc)
     #endif
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    if (CMAKE_CXX_COMPILER_ID MATCHES "clang")
         # using Clang
-    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
         # using GCC
         set(PLATFORM_LIBS ws2_32)
-    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")
         # using Intel C++
-    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         # using Visual Studio C++
     endif()
 
@@ -199,7 +199,7 @@ add_library(omniORB4_static STATIC ${ORB_SRCS})
 target_link_libraries(omniORB4_static PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS})
 target_compile_definitions(omniORB4_static PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS})
 target_include_directories(omniORB4_static PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
-target_compile_options(omniORB4_static PRIVATE -Wno-unused -fexceptions -fpermissive -Wno-write-strings)
+target_compile_options(omniORB4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4_static RunGenerator)
 
 
@@ -207,5 +207,5 @@ add_library(omniORB4 SHARED ${ORB_SRCS})
 target_link_libraries(omniORB4 PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS})
 target_compile_definitions(omniORB4 PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS})
 target_include_directories(omniORB4 PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
-target_compile_options(omniORB4 PRIVATE -Wno-unused -fexceptions -fpermissive -Wno-write-strings)
+target_compile_options(omniORB4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4 RunGenerator)
