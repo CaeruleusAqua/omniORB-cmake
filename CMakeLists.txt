@@ -17,7 +17,7 @@ set(OMNIORB_VERSION_HEX "0x040202F1")
 find_package(PythonInterp REQUIRED)
 find_package(PythonLibs REQUIRED)
 find_package(Threads REQUIRED)
-add_definitions(-D__WIN32__ -D__x86__ -D__NT__ -D__OSVERSION__=4 -D_CRT_SECURE_NO_WARNINGS)
+add_definitions(-D__WIN32__ -D__x86__ -D__NT__ -D_WIN32_WINNT=0x0A00 -D__OSVERSION__=4 -D_CRT_SECURE_NO_WARNINGS)
 
 #set(COMPILE_FLAG_WNO_UNUSED -Wno-unused)
 #set(COMPILE_FLAG_FEXCEPTIONS -fexceptions)
