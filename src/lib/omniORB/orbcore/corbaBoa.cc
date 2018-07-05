@@ -54,8 +54,6 @@
 #  include <process.h>
 #endif
 
-
-
 OMNI_USING_NAMESPACE(omni)
 
 static const char* boa_ids[] = { "omniORB4_BOA",

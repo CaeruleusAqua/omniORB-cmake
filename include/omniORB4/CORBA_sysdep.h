@@ -49,8 +49,6 @@
 #  include <omniconfig.h>
 #endif
 
-
-
 #ifdef OMNI_CONFIG_TRADITIONAL
 #  include <omniORB4/CORBA_sysdep_trad.h>
 #else
@@ -67,8 +65,6 @@ typedef unsigned long omni_ptr_arith_t;
 #elif SIZEOF_PTR == SIZEOF_INT
 typedef unsigned int omni_ptr_arith_t;
 #elif defined (_WIN64)
-#include <inttypes.h>
-#include <stdio.h>
 typedef size_t omni_ptr_arith_t;
 #else
 #error "No suitable type to do pointer arithmetic"
