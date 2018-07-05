@@ -17,3 +17,10 @@ target_compile_definitions(omniConnectionMgmt4 PRIVATE _REENTRANT)
 target_include_directories(omniConnectionMgmt4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(omniConnectionMgmt4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(omniConnectionMgmt4_static RunGenerator)
+
+
+
+install(TARGETS omniConnectionMgmt4_static omniConnectionMgmt4
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)

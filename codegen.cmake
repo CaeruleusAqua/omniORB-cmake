@@ -1,5 +1,5 @@
 if (NOT WIN32)
-    if (${PYTHON_VERSION_MAJOR} EQUAL 2)
+    if (${Python_VERSION_MAJOR} EQUAL 2)
         configure_file(${CMAKE_SOURCE_DIR}/src/tool/omniidl/python/scripts/omniidl.in ${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl @ONLY)
         set(PYTHONPATH "PYTHONPATH=\"${CMAKE_SOURCE_DIR}/src/tool/omniidl/python\"")
         set(OMNI_PYTHON_RESOURCES ${CMAKE_SOURCE_DIR}/src/lib/omniORB/python)
@@ -9,17 +9,17 @@ if (NOT WIN32)
         set(OMNI_PYTHON_RESOURCES ${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3)
     endif ()
     SET(OMNIIDL_PLATFORM_FLAGS "")
-    set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PYTHON_EXECUTABLE} ${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl)
+    set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${Python_EXECUTABLE} ${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl)
 else ()
-    if (${PYTHON_VERSION_MAJOR} EQUAL 2)
+    if (${Python_VERSION_MAJOR} EQUAL 2)
         set(PYTHONPATH "PYTHONPATH=\"${CMAKE_SOURCE_DIR}/src/tool/omniidl/python\"")
         set(OMNI_PYTHON_RESOURCES ${CMAKE_SOURCE_DIR}/src/lib/omniORB/python)
     else ()
         set(PYTHONPATH "PYTHONPATH=\"${CMAKE_SOURCE_DIR}/src/tool/omniidl/python3\"")
         set(OMNI_PYTHON_RESOURCES ${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3)
     endif ()
-    #string(REGEX MATCH "(.+\\/lib\\/)" PYTHONHOME ${PYTHON_LIBRARIES})
-    #set(PYTHONHOME "PYTHONHOME=${PYTHONHOME}/..")
+
+    set(PYTHONHOME "PYTHONHOME=${Python_RUNTIME_LIBRARY_DIRS}/..")
     SET(OMNIIDL_PLATFORM_FLAGS "-T")
     set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PYTHONHOME} ${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl.exe)
 endif ()
@@ -95,7 +95,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/ziop_defs.hh ${GEN_DIR}/ziop_operators.hh $
         COMMENT "Processing ziop.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/distdate.hh
-        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/bin/scripts/distdate.py < ${CMAKE_SOURCE_DIR}/update.log > ${GEN_DIR}/distdate.hh
+        COMMAND ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/bin/scripts/distdate.py < ${CMAKE_SOURCE_DIR}/update.log > ${GEN_DIR}/distdate.hh
         DEPENDS ${CMAKE_SOURCE_DIR}/update.log omniidl omnicpp
         COMMENT "Processing update.log..")
 

@@ -117,3 +117,10 @@ target_compile_definitions(COSDynamic4 PRIVATE __OMNIORB4__ _REENTRANT _COS_LIBR
 target_include_directories(COSDynamic4 PRIVATE  ${GEN_DIR}/ ${CMAKE_SOURCE_DIR}/include .)
 target_compile_options(COSDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(COSDynamic4 CosRunGenerator)
+
+
+
+install(TARGETS COS4_static COS4 COSDynamic4_static COSDynamic4
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)

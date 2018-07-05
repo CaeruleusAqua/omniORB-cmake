@@ -19,3 +19,7 @@ target_include_directories(omniZIOPDynamic4 PRIVATE ${CMAKE_BINARY_DIR}/generate
 target_compile_options(omniZIOPDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(omniZIOPDynamic4 RunGenerator)
 
+install(TARGETS omniZIOPDynamic4_static omniZIOPDynamic4
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)

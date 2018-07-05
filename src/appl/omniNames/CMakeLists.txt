@@ -23,3 +23,7 @@ target_include_directories(omniNames PRIVATE . ${CMAKE_SOURCE_DIR}/include/inclu
 target_compile_options(omniNames PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 
 
+install(TARGETS omniNames
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)

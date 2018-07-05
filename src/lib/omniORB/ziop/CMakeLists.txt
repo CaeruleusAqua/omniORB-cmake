@@ -21,3 +21,9 @@ target_include_directories(omniZIOP4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/o
 target_compile_options(omniZIOP4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(omniZIOP4 RunGenerator)
 
+
+install(TARGETS omniZIOP4_static omniZIOP4
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)
+

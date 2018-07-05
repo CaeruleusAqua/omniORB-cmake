@@ -54,3 +54,8 @@ target_compile_definitions(omniDynamic4 PRIVATE _REENTRANT USE_omniORB_logStream
 target_include_directories(omniDynamic4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB  ${CMAKE_SOURCE_DIR}/include/omniORB4/internal ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(omniDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS}  )
 add_dependencies(omniDynamic4 RunGenerator)
+
+install(TARGETS omniDynamic4_static omniDynamic4
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)

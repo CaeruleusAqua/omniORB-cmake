@@ -41,3 +41,9 @@ target_compile_definitions(omniCodeSets4 PRIVATE _REENTRANT USE_omniORB_logStrea
 target_include_directories(omniCodeSets4 PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB {CMAKE_SOURCE_DIR}/include/omniORB4/internal ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(omniCodeSets4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS}  )
 add_dependencies(omniCodeSets4 RunGenerator)
+
+
+install(TARGETS omniCodeSets4_static omniCodeSets4
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)

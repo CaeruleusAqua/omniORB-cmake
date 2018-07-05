@@ -13,3 +13,9 @@ target_link_libraries(omniMapper PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(omniMapper PRIVATE __OMNIORB4__ _REENTRANT ${CONFIG_FILE_ENV_VAR} ${CONFIG_FILE_DEFAULT})
 target_include_directories(omniMapper PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(omniMapper PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
+
+
+install(TARGETS omniMapper
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)

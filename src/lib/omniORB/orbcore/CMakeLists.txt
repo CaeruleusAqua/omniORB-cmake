@@ -212,3 +212,9 @@ target_compile_definitions(omniORB4 PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS} $
 target_include_directories(omniORB4 PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(omniORB4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4 RunGenerator)
+
+
+install(TARGETS omniORB4_static omniORB4
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)
