@@ -19,7 +19,7 @@ else ()
         set(OMNI_PYTHON_RESOURCES ${CMAKE_SOURCE_DIR}/src/lib/omniORB/python3)
     endif ()
 
-    set(PYTHONHOME "PYTHONHOME=${Python_RUNTIME_LIBRARY_DIRS}/..")
+    set(PYTHONHOME "PYTHONHOME=${Python_RUNTIME_LIBRARY_DIRS}")
     SET(OMNIIDL_PLATFORM_FLAGS "-T")
     set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PYTHONHOME} ${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl.exe)
 endif ()
@@ -30,32 +30,32 @@ file(MAKE_DIRECTORY ${GEN_DIR}/lib/omniORB/omniORB4)
 
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/Naming.hh ${GEN_DIR}/NamingDynSK.cc ${GEN_DIR}/NamingSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/Naming.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba  -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/Naming.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/Naming.idl omniidl omnicpp
         COMMENT "Processing Naming.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/corbaidlSK.cc ${GEN_DIR}/corbaidlDynSK.cc ${GEN_DIR}/corbaidl_poa.hh ${GEN_DIR}/corbaidl_operators.hh ${GEN_DIR}/corbaidl_defs.hh
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/corbaidl.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/corbaidl.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/corbaidl.idl omniidl omnicpp
         COMMENT "Processing corbaidl.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/ir_defs.hh ${GEN_DIR}/ir_operators.hh ${GEN_DIR}/ir_poa.hh ${GEN_DIR}/irDynSK.cc ${GEN_DIR}/irSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -WbF -I. -I${CMAKE_SOURCE_DIR}/idl -I${CMAKE_SOURCE_DIR} -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/ir.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba  -WbF -I. -I${CMAKE_SOURCE_DIR} -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/ir.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/ir.idl omniidl omnicpp
         COMMENT "Processing ir.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/boxes_defs.hh ${GEN_DIR}/boxes_operators.hh ${GEN_DIR}/boxes_poa.hh ${GEN_DIR}/boxesDynSK.cc ${GEN_DIR}/boxesSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/boxes.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/boxes.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/boxes.idl omniidl omnicpp
         COMMENT "Processing boxes.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/pollable_defs.hh ${GEN_DIR}/pollable_operators.hh ${GEN_DIR}/pollable_poa.hh ${GEN_DIR}/pollableDynSK.cc ${GEN_DIR}/pollableSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/pollable.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/pollable.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/pollable.idl omniidl omnicpp
         COMMENT "Processing pollable.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/poa_enums_defs.hh ${GEN_DIR}/poa_enums_operators.hh ${GEN_DIR}/poa_enums_poa.hh ${GEN_DIR}/poa_enumsDynSK.cc ${GEN_DIR}/poa_enumsSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/poa_enums.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/poa_enums.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/poa_enums.idl omniidl omnicpp
         COMMENT "Processing poa_enums.idl..")
 
@@ -65,7 +65,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/omniTypedefs.hh ${GEN_DIR}/omniTypedefsSK.c
         COMMENT "Processing omniTypedefs.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/bootstrap.hh ${GEN_DIR}/bootstrapDynSK.cc ${GEN_DIR}/bootstrapSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/bootstrap.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba  -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/bootstrap.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/bootstrap.idl omniidl omnicpp
         COMMENT "Processing bootstrap.idl..")
 
@@ -85,12 +85,12 @@ ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/messaging_policy.hh ${GEN_DIR}/messaging_po
         COMMENT "Processing messaging_policy.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/compression.hh ${GEN_DIR}/compressionDynSK.cc ${GEN_DIR}/compressionSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I. -I${CMAKE_SOURCE_DIR}/idl -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/compression.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -I. -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/compression.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/compression.idl omniidl omnicpp
         COMMENT "Processing compression.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/ziop_defs.hh ${GEN_DIR}/ziop_operators.hh ${GEN_DIR}/ziop_poa.hh ${GEN_DIR}/ziopDynSK.cc ${GEN_DIR}/ziopSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl -WbF -Wba -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/ziop.idl
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -WbF -Wba -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/ziop.idl
         DEPENDS ${CMAKE_SOURCE_DIR}/idl/ziop.idl omniidl omnicpp
         COMMENT "Processing ziop.idl..")
 

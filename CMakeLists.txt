@@ -7,8 +7,8 @@ project (OmniOrb VERSION 4.2.2)
 set(CMAKE_CXX_STANDARD 98)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
-#set(CMAKE_CXX_FLAGS /MTd /EHs /RTC1 /GS /GR /Zi /nologo)
-#set(Python_EXECUTABLE "H:\\Python37-32\\python.exe")
+set(CMAKE_CXX_FLAGS /MTd /EHs /RTC1 /GS /GR /Zi /nologo)
+set(Python_EXECUTABLE "C:\\Python37-32\\python.exe")
 #set(Python_EXECUTABLE "C:\\Python37\\python.exe")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/cmake/modules)
@@ -24,13 +24,27 @@ message("--------------${Python_EXECUTABLE}")
 message("--------------${Python_VERSION_MAJOR}")
 
 
-find_package(Threads REQUIRED)
-add_definitions(-D__WIN32__ -D__x86__ -D__NT__ -D_WIN32_WINNT=0x0A00 -D__OSVERSION__=4 -D_CRT_SECURE_NO_WARNINGS)
 
-set(COMPILE_FLAG_WNO_UNUSED -Wno-unused)
-set(COMPILE_FLAG_FEXCEPTIONS -fexceptions)
-set(COMPILE_FLAG_FPERMISSIVE -fpermissive)
-set(COMPILE_FLAG_WNO_WRITE_STRINGS -Wno-write-strings)
+find_package(Threads REQUIRED)
+add_definitions(-D__WIN32__ -D__x86__ -D__NT__ -D_WIN32_WINNT=0x0501 -D__OSVERSION__=4 -D_CRT_SECURE_NO_WARNINGS)
+
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "clang")
+    # using Clang
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    # using GCC
+    set(COMPILE_FLAG_WNO_UNUSED -Wno-unused)
+    set(COMPILE_FLAG_FEXCEPTIONS -fexceptions)
+    set(COMPILE_FLAG_FPERMISSIVE -fpermissive)
+    set(COMPILE_FLAG_WNO_WRITE_STRINGS -Wno-write-strings)
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+    # using Intel C++
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    # using Visual Studio C++
+
+endif()
+
+
 
 
 
