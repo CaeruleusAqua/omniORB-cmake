@@ -301,7 +301,7 @@
 #define SIZEOF_LONG_LONG 8
 #define SIZEOF_SHORT 2
 #define SIZEOF_UNSIGNED_CHAR 1
-#define SIZEOF_VOIDP 8
+#define SIZEOF_VOIDP 4
 
 
 #ifndef STDC_HEADERS
@@ -309,3 +309,29 @@
 #endif
 
 /* #undef WORDS_BIGENDIAN */
+
+#ifndef OMNI_LONG_IS_INT
+#define OMNI_LONG_IS_INT 1
+#endif
+
+
+
+#ifndef OMNIORB_DISABLE_ALLOCA
+/* #undef OMNIORB_DISABLE_ALLOCA */
+#endif
+
+#ifndef OMNIORB_DISABLE_LONGDOUBLE
+/* #undef OMNIORB_DISABLE_LONGDOUBLE */
+#endif
+
+#ifndef OMNIORB_ENABLE_LOCK_TRACES
+/* #undef OMNIORB_ENABLE_LOCK_TRACES */
+#endif
+
+#ifndef OMNI_DISABLE_ATOMIC_OPS
+/* #undef OMNI_DISABLE_ATOMIC_OPS */
+#endif
+
+#ifndef OMNI_DISABLE_IPV6
+/* #undef OMNI_DISABLE_IPV6 */
+#endif

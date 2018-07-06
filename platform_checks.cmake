@@ -30,9 +30,9 @@ if (NOT ${CMAKE_NO_STD_NAMESPACE})
     set(HAVE_STD 1)
 endif ()
 
-if(WIN32)
+if (WIN32)
     set(CMAKE_REQUIRED_DEFINITIONS -D_WIN32_WINNT=0x0501)
-endif()
+endif ()
 
 CHECK_INCLUDE_AND_ADD(alloca.h HAVE_ALLOCA_H)
 CHECK_INCLUDE_AND_ADD(signal.h HAVE_SIGNAL_H)
@@ -54,16 +54,16 @@ CHECK_INCLUDE_AND_ADD(sys/ioctl.h HAVE_SYS_IOCTL_H)
 CHECK_INCLUDE_AND_ADD(sys/param.h HAVE_SYS_PARAM_H)
 CHECK_INCLUDE_AND_ADD(sys/poll.h HAVE_SYS_POLL_H)
 CHECK_INCLUDE_AND_ADD(sys/stat.h HAVE_SYS_STAT_H)
-if(NOT WIN32) # TODO Fix in Code
-CHECK_INCLUDE_AND_ADD(sys/time.h HAVE_SYS_TIME_H)
-endif()
+if (NOT WIN32) # TODO Fix in Code
+    CHECK_INCLUDE_AND_ADD(sys/time.h HAVE_SYS_TIME_H)
+endif ()
 CHECK_INCLUDE_AND_ADD(sys/types.h HAVE_SYS_TYPES_H)
 CHECK_INCLUDE_AND_ADD(unistd.h HAVE_UNISTD_H)
 CHECK_INCLUDE_AND_ADD("winsock2.h;ws2tcpip.h" HAVE_WINSOCKS2_H ws2_32 mswsock)
 CHECK_INCLUDE_AND_ADD("sys/socket.h;netinet/in.h" HAVE_SOCKET_H)
-if(NOT WIN32) # TODO Fix in Code
+if (NOT WIN32) # TODO Fix in Code
     CHECK_INCLUDE_AND_ADD("sys/time.h;time.h" TIME_WITH_SYS_TIME)
-endif()
+endif ()
 
 set(CMAKE_REQUIRED_LIBRARIES "${CFG_LIBS}")
 set(CMAKE_EXTRA_INCLUDE_FILES "${CFG_HEADERS}")
@@ -106,9 +106,9 @@ CHECK_TYPE_SIZE("struct sockaddr_in6" HAVE_STRUCT_SOCKADDR_IN6)
 CHECK_TYPE_SIZE("((struct sockaddr_in*)0)->sin_len" HAVE_STRUCT_SOCKADDR_IN_SIN_LEN)
 CHECK_TYPE_SIZE("((struct sockaddr_in*)0)->sin_zero" HAVE_STRUCT_SOCKADDR_IN_SIN_ZERO)
 CHECK_TYPE_SIZE("struct sockaddr_storage" HAVE_STRUCT_SOCKADDR_STORAGE)
-if(NOT WIN32) # TODO Fix in Code
-try_compile(GETTIMEOFDAY_TIMEZONE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_LIST_DIR}/cmake/timeofdayTimezone.c)
-endif()
+if (NOT WIN32) # TODO Fix in Code
+    try_compile(GETTIMEOFDAY_TIMEZONE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_LIST_DIR}/cmake/timeofdayTimezone.c)
+endif ()
 CHECK_TYPE_SIZE("socklen_t" SOCKLEN_T_EXISTS)
 if (SOCKLEN_T_EXISTS)
     set(OMNI_SOCKNAME_SIZE_T socklen_t)
@@ -132,20 +132,14 @@ CHECK_TYPE_SIZE("void*" SIZEOF_VOIDP)
 
 
 
-#/* define if you want to avoid use of alloca */
-#/* #undef OMNIORB_DISABLE_ALLOCA */
+option(OMNIORB_DISABLE_ALLOCA "define if you want to avoid use of alloca"  OFF)
+option(OMNIORB_DISABLE_LONGDOUBLE "define if you want to disable long double support"  OFF)
+option(OMNIORB_ENABLE_LOCK_TRACES "if you want mutexes to be traced"  OFF)
+option(OMNI_DISABLE_ATOMIC_OPS "define if you want to disable atomic operations"  OFF)
+option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support"  OFF)
 
-#/* define if you want to disable long double support */
-#/* #undef OMNIORB_DISABLE_LONGDOUBLE */
 
-#/* define if you want mutexes to be traced */
-#/* #undef OMNIORB_ENABLE_LOCK_TRACES */
 
-#/* define if you want to disable atomic operations */
-#/* #undef OMNI_DISABLE_ATOMIC_OPS */
-
-#/* define if you want to disable IPv6 support */
-#/* #undef OMNI_DISABLE_IPV6 */
 
 #/* define if the compiler supports covariant return types */
 #define OMNI_HAVE_COVARIANT_RETURNS /**/
@@ -156,32 +150,19 @@ CHECK_TYPE_SIZE("void*" SIZEOF_VOIDP)
 #/* define if base constructors have to be fully qualified */
 #/* #undef OMNI_REQUIRES_FQ_BASE_CTOR */
 
-#/* Define to the type of getsockname's third argument */
-#define OMNI_SOCKNAME_SIZE_T socklen_t
 
-#/* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "bugs@omniorb-support.com"
 
-#/* Define to the full name of this package. */
-#define PACKAGE_NAME "omniORB"
-
-#/* Define to the full name and version of this package. */
-#define PACKAGE_STRING "omniORB 4.2.2"
-
-#/* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "omniorb"
-
-#/* Define to the home page for this package. */
-#define PACKAGE_URL ""
-
-#/* Define to the version of this package. */
+# used for PackageConfig
+# TODO generate PackageConfig files
 #define PACKAGE_VERSION "4.2.2"
-
-
 
 
 #/* define if long is the same type as int */
 #/* #undef OMNI_LONG_IS_INT */
+if(SIZEOF_LONG EQUAL  SIZEOF_INT)
+    set(OMNI_LONG_IS_INT 1)
+endif()
+
 
 
 include(cmake/CheckStackDirection.cmake)
@@ -241,24 +222,39 @@ TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
 if ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" OR "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "AMD64")
     set(PROCESSOR_NAME x86Processor)
     set(PROCESSOR_DEFINE __x86_64__)
+    add_definitions(-D__x86__)
+else ()
+    message(FATAL_ERROR "System: ${CMAKE_SYSTEM_PROCESSOR} not supported")
 endif ()
 
-if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-    set(OSVERSION "2")
-    set(PLATFORM_DEFINE "__linux__")
-    set(PLATFORM_NAME "Linux")
-endif ()
-
-
-if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-    set(OSVERSION "2")
-    set(PLATFORM_DEFINE "__linux__")
-    set(PLATFORM_NAME "Linux")
-elseif (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+if (WIN32)
+    add_definitions(-D__WIN32__ -D__NT__ -D_WIN32_WINNT=0x0501 -D__OSVERSION__=4)
     set(OSVERSION "4")
     set(PLATFORM_DEFINE "__NT__")
     set(PLATFORM_NAME "Windows")
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
+elseif (UNIX AND NOT APPLE)
+    set(OSVERSION "2")
+    set(PLATFORM_DEFINE "__linux__")
+    set(PLATFORM_NAME "Linux")
+else ()
+    message(FATAL_ERROR "System: ${CMAKE_SYSTEM_NAME} not supported")
+endif ()
+
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "clang")
+    # using Clang
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    # using GCC
+    set(COMPILE_FLAG_WNO_UNUSED -Wno-unused)
+    set(COMPILE_FLAG_FEXCEPTIONS -fexceptions)
+    set(COMPILE_FLAG_FPERMISSIVE -fpermissive)
+    set(COMPILE_FLAG_WNO_WRITE_STRINGS -Wno-write-strings)
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+    # using Intel C++
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    # using Visual Studio C++
 endif ()
 
 configure_file(include/omniconfig.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/omniconfig.h)

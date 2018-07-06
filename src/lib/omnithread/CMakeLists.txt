@@ -1,11 +1,13 @@
 
+set(OMNITHREAD_SRC threaddata.cc
+        ${CMAKE_SOURCE_DIR}/include/omnithread.h)
 if (UNIX)
-    set(OMNITHREAD_SRC posix.cc threaddata.cc)
+    set(OMNITHREAD_SRC ${OMNITHREAD_SRC} posix.cc)
     set(OMNITHREAT_DEFS NoNanoSleep PthreadDraftVersion=10)
 else ()
-    set(OMNITHREAD_SRC nt.cc threaddata.cc)
+    set(OMNITHREAD_SRC ${OMNITHREAD_SRC} nt.cc)
     set(OMNITHREAT_DEFS_STATIC "_WINSTATIC")
-	set(OMNITHREAT_DEFS_SHARED "_OMNITHREAD_DLL")
+    set(OMNITHREAT_DEFS_SHARED "_OMNITHREAD_DLL")
 endif ()
 
 

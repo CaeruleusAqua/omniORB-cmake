@@ -30,17 +30,16 @@
 
 #ifndef __omniconfig_h__
 #define __omniconfig_h__
-#define OMNI_CONFIG_TRADITIONAL
-//#include <omniORB4/acconfig.h>
-//
-//#define __NT__ 1
-//#define __x86_64__ 1
-//#define __OSVERSION__ 4
-//
-//#undef PACKAGE_BUGREPORT
-//#undef PACKAGE_NAME
-//#undef PACKAGE_STRING
-//#undef PACKAGE_TARNAME
-//#undef PACKAGE_VERSION
+#include <omniORB4/acconfig.h>
+
+#define __NT__ 1
+#define __x86_64__ 1
+#define __OSVERSION__ 4
+
+#undef PACKAGE_BUGREPORT
+#undef PACKAGE_NAME
+#undef PACKAGE_STRING
+#undef PACKAGE_TARNAME
+#undef PACKAGE_VERSION
 
 #endif
