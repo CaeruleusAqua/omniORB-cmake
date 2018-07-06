@@ -8,6 +8,9 @@ if (WIN32)
     set(OMNICPP_EXE_SRC ${OMNICPP_EXE_SRC} index.c)
 endif ()
 
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/..)
+
 add_executable(omnicpp ${OMNICPP_EXE_SRC})
 target_include_directories(omnicpp PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_definitions(omnicpp PRIVATE HAVE_CONFIG_H)

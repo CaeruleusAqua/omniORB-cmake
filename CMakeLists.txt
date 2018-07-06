@@ -5,10 +5,11 @@ project (OmniOrb VERSION 4.2.2)
 #set(CMAKE_TOOLCHAIN_FILE C:/Users/scholle/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
 set(CMAKE_CXX_STANDARD 98)
-#set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
-set(CMAKE_CXX_FLAGS /MTd /EHs /RTC1 /GS /GR /Zi /nologo)
-set(Python_EXECUTABLE "C:\\Python37-32\\python.exe")
+#set(CMAKE_CXX_FLAGS "")
+set(CMAKE_CXX_FLAGS_DEBUG "/MTd /EHs /RTC1 /GS /GR /Zi /nologo")
+#set(Python_EXECUTABLE "C:\\Python37-32\\python.exe")
 #set(Python_EXECUTABLE "C:\\Python37\\python.exe")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/cmake/modules)
@@ -43,9 +44,6 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     # using Visual Studio C++
 
 endif()
-
-
-
 
 
 

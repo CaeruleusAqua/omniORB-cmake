@@ -59,7 +59,7 @@ CHECK_INCLUDE_AND_ADD(sys/time.h HAVE_SYS_TIME_H)
 endif()
 CHECK_INCLUDE_AND_ADD(sys/types.h HAVE_SYS_TYPES_H)
 CHECK_INCLUDE_AND_ADD(unistd.h HAVE_UNISTD_H)
-CHECK_INCLUDE_AND_ADD("winsock2.h;ws2tcpip.h" HAVE_WINSOCKS2_H ws2_32)
+CHECK_INCLUDE_AND_ADD("winsock2.h;ws2tcpip.h" HAVE_WINSOCKS2_H ws2_32 mswsock)
 CHECK_INCLUDE_AND_ADD("sys/socket.h;netinet/in.h" HAVE_SOCKET_H)
 if(NOT WIN32) # TODO Fix in Code
     CHECK_INCLUDE_AND_ADD("sys/time.h;time.h" TIME_WITH_SYS_TIME)

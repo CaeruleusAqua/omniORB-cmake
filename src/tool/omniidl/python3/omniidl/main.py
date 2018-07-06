@@ -107,7 +107,6 @@ if sys.platform != "OpenVMS":
         preprocessor_paths.append(os.path.dirname(_omniidl.__file__))
 
     preprocessor_paths.append(os.path.dirname(sys.argv[0]))
-    preprocessor_paths.append(os.path.dirname(sys.argv[0])+"/cccp")
 
     preprocessor = preprocessor_name
     for preprocessor_path in preprocessor_paths:

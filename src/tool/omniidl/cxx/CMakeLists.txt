@@ -24,7 +24,7 @@ set(_OMNIIDLMODULE_SRC
 
 if (WIN32)
     add_executable(omniidl ${_OMNIIDLMODULE_SRC})
-    target_compile_definitions(omniidl PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> OMNIIDL_EXECUTABLE IDLMODULE_VERSION="0x2630")
+    target_compile_definitions(omniidl PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> MSDOS OMNIIDL_EXECUTABLE IDLMODULE_VERSION="0x2630")
     target_include_directories(omniidl PRIVATE ${PYTHON_INCLUDE_DIR} . ${CMAKE_SOURCE_DIR}/include)
     target_compile_options(omniidl PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
     target_link_libraries(omniidl PRIVATE Python::Python)

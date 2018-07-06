@@ -30,17 +30,17 @@
 
 #ifndef __omniconfig_h__
 #define __omniconfig_h__
-
-#include <omniORB4/acconfig.h>
-
-#define @PLATFORM_DEFINE@ 1
-#define @PROCESSOR_DEFINE@ 1
-#define __OSVERSION__ @OSVERSION@
-
-#undef PACKAGE_BUGREPORT
-#undef PACKAGE_NAME
-#undef PACKAGE_STRING
-#undef PACKAGE_TARNAME
-#undef PACKAGE_VERSION
+#define OMNI_CONFIG_TRADITIONAL
+//#include <omniORB4/acconfig.h>
+//
+//#define @PLATFORM_DEFINE@ 1
+//#define @PROCESSOR_DEFINE@ 1
+//#define __OSVERSION__ @OSVERSION@
+//
+//#undef PACKAGE_BUGREPORT
+//#undef PACKAGE_NAME
+//#undef PACKAGE_STRING
+//#undef PACKAGE_TARNAME
+//#undef PACKAGE_VERSION
 
 #endif

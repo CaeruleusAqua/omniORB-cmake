@@ -1,9 +1,9 @@
 /* -*- Mode: C++; -*-
  *                            Package   : omniORB
- * omniconfig.h               Created on: 2002/02/15
- *                            Author    : Duncan Grisby (dpg1)
+ * omniconfig.h.in            Created on: 2002/07/11
+ *                            Author    : Duncan Grisby (dgrisby)
  *
- *    Copyright (C) 2002 AT&T Laboratories Cambridge
+ *    Copyright (C) 2002 Duncan Grisby
  *
  *    This file is part of the omniORB library
  *
@@ -15,7 +15,7 @@
  *    This library is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *    Lesser General Public License for more details.
+ *    Library General Public License for more details.
  *
  *    You should have received a copy of the GNU Lesser General Public
  *    License along with this library. If not, see http://www.gnu.org/licenses/
@@ -24,16 +24,23 @@
  * Description:
  *	*** PROPRIETARY INTERFACE ***
  *
- *      Fake omniconfig.h used when not using autoconf
+ *      omniconfig.h used when using autoconf. Copying of this file
+ *      over the non-autoconf version selects the autoconf setup.
  */
 
 #ifndef __omniconfig_h__
 #define __omniconfig_h__
-
 #define OMNI_CONFIG_TRADITIONAL
-
-/* Uncomment this to enable lock tracing. See omniORB4/tracedthread.h.*/
-
-/*#define OMNIORB_ENABLE_LOCK_TRACES*/
+//#include <omniORB4/acconfig.h>
+//
+//#define __NT__ 1
+//#define __x86_64__ 1
+//#define __OSVERSION__ 4
+//
+//#undef PACKAGE_BUGREPORT
+//#undef PACKAGE_NAME
+//#undef PACKAGE_STRING
+//#undef PACKAGE_TARNAME
+//#undef PACKAGE_VERSION
 
 #endif
