@@ -13,9 +13,7 @@ macro(CHECK_INCLUDE_AND_ADD header var)
     if (${var})
         list(APPEND CFG_HEADERS "${header}")
         list(APPEND CFG_LIBS ${ARGN})
-
     endif ()
-
 endmacro(CHECK_INCLUDE_AND_ADD)
 
 
@@ -131,14 +129,11 @@ CHECK_TYPE_SIZE("unsigned char" SIZEOF_UNSIGNED_CHAR)
 CHECK_TYPE_SIZE("void*" SIZEOF_VOIDP)
 
 
-
-option(OMNIORB_DISABLE_ALLOCA "define if you want to avoid use of alloca"  OFF)
-option(OMNIORB_DISABLE_LONGDOUBLE "define if you want to disable long double support"  OFF)
-option(OMNIORB_ENABLE_LOCK_TRACES "if you want mutexes to be traced"  OFF)
-option(OMNI_DISABLE_ATOMIC_OPS "define if you want to disable atomic operations"  OFF)
-option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support"  OFF)
-
-
+option(OMNIORB_DISABLE_ALLOCA "define if you want to avoid use of alloca" OFF)
+option(OMNIORB_DISABLE_LONGDOUBLE "define if you want to disable long double support" OFF)
+option(OMNIORB_ENABLE_LOCK_TRACES "if you want mutexes to be traced" OFF)
+option(OMNI_DISABLE_ATOMIC_OPS "define if you want to disable atomic operations" OFF)
+option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support" OFF)
 
 
 #/* define if the compiler supports covariant return types */
@@ -151,7 +146,6 @@ option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support"  OFF)
 #/* #undef OMNI_REQUIRES_FQ_BASE_CTOR */
 
 
-
 # used for PackageConfig
 # TODO generate PackageConfig files
 #define PACKAGE_VERSION "4.2.2"
@@ -159,10 +153,9 @@ option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support"  OFF)
 
 #/* define if long is the same type as int */
 #/* #undef OMNI_LONG_IS_INT */
-if(SIZEOF_LONG EQUAL  SIZEOF_INT)
+if (SIZEOF_LONG EQUAL SIZEOF_INT)
     set(OMNI_LONG_IS_INT 1)
-endif()
-
+endif ()
 
 
 include(cmake/CheckStackDirection.cmake)

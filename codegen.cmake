@@ -21,7 +21,7 @@ else ()
 
     set(PYTHONHOME "PYTHONHOME=${Python_RUNTIME_LIBRARY_DIRS}")
     SET(OMNIIDL_PLATFORM_FLAGS "-T")
-    set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PYTHONHOME} ${CMAKE_BINARY_DIR}/src/tool/omniidl/cxx/omniidl.exe)
+    set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${PYTHONHOME} $<TARGET_FILE:omniidl>)
 endif ()
 
 

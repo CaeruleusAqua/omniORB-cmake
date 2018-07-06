@@ -44,6 +44,8 @@ else ()
     set_target_properties(omniidl PROPERTIES OUTPUT_NAME "_omniidl")
 endif ()
 
+add_dependencies(omniidl omnicpp)
+
 
 
 
