@@ -194,17 +194,13 @@ if (WIN32)
         # using Intel C++
     elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         # using Visual Studio C++
-        #set(ORB_SRCS ${ORB_SRCS} msvcdllstub.cc)
+        set(ORB_SRCS ${ORB_SRCS} msvcdllstub.cc)
     endif()
 
 endif()
 
 
-add_library(msvcdllstub STATIC msvcdllstub.cc)
-target_compile_definitions(msvcdllstub PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS} ${OMNICORE_STATIC_DEFINITIONS})
-target_include_directories(msvcdllstub PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
-
-add_library(omniORB4_static STATIC ${ORB_SRCS})
+add_library(omniORB4_static STATIC ${ORB_SRCS} )
 target_link_libraries(omniORB4_static PUBLIC omnithread_static Threads::Threads ${PLATFORM_LIBS})
 target_compile_definitions(omniORB4_static PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS} ${OMNICORE_STATIC_DEFINITIONS})
 target_include_directories(omniORB4_static PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
@@ -212,17 +208,12 @@ target_compile_options(omniORB4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMP
 add_dependencies(omniORB4_static RunGenerator)
 
 
-#cl -c -O2 -MD -EHs -GS -GR -Zi -nologo -I.. -I.\.. -I..\..\..\..\include\omniORB4\internal -DUSE_omniORB_logStream -D_OMNIORB_LIBRARY -DOMNIORB_VERSION_STRING=\"4.2.2\" -DOMNIORB_VERSION_HEX=0x040202F1 -DCONFIG_DEFAULT_LOCATION=\"C:\\OMNIORB.CFG\" -DCONFIG_ENV=\"OMNIORB_CONFIG\" -DNTArchitecture -I. -I. -I..\..\..\..\include -D__WIN32__ -D_WIN32_WINNT=0x0501 -D__x86__ -D__NT__ -D__OSVERSION__=4 -D_CRT_SECURE_NO_DEPRECATE=1 -Foshared\poastubs.o -Fdshared\ -Tppoastubs.cc
-
 
 add_library(omniORB4 SHARED ${ORB_SRCS})
-target_link_libraries(omniORB4 PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS} msvcdllstub)
-target_compile_definitions(omniORB4 PRIVATE -D__WIN32__ -D_WIN32_WINNT=0x0501 -D__x86__ -D__NT__ -D__OSVERSION__=4 -D_CRT_SECURE_NO_DEPRECATE=1 -DUSE_omniORB_logStream -D_OMNIORB_LIBRARY -DOMNIORB_VERSION_STRING=\"4.2.2\" -DOMNIORB_VERSION_HEX=0x040202F1 -DCONFIG_DEFAULT_LOCATION=\"C:\\OMNIORB.CFG\" -DCONFIG_ENV=\"OMNIORB_CONFIG\" -DNTArchitecture)
-#target_compile_definitions(omniORB4 PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS})
+target_link_libraries(omniORB4 PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS})
+target_compile_definitions(omniORB4 PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS})
 target_include_directories(omniORB4 PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
-#target_compile_options(omniORB4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
-target_compile_options(omniORB4 PRIVATE /MDd /EHs /GS /GR /Zi /nologo)
-
+target_compile_options(omniORB4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4 RunGenerator)
 
 

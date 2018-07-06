@@ -41,7 +41,7 @@
 #endif
 
 #if defined(_OMNIORB_LIBRARY)
-#     define _core_attr
+#     define _core_attr _OMNIORB_NTDLL_EXPORT
 #else
 #     define _core_attr _OMNIORB_NTDLL_IMPORT
 #endif

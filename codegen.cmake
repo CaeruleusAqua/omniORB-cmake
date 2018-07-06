@@ -26,7 +26,8 @@ endif ()
 
 
 set(GEN_DIR ${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4/)
-file(MAKE_DIRECTORY ${GEN_DIR}/lib/omniORB/omniORB4)
+file(MAKE_DIRECTORY ${GEN_DIR})
+
 
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/Naming.hh ${GEN_DIR}/NamingDynSK.cc ${GEN_DIR}/NamingSK.cc
@@ -100,9 +101,25 @@ ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/distdate.hh
         COMMENT "Processing update.log..")
 
 
+ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/value.hh ${GEN_DIR}/valueSK.hh ${GEN_DIR}/valueSK.cc
+        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/value.idl
+        DEPENDS ${CMAKE_SOURCE_DIR}/src/examples/valuetype/simple/value.idl omniidl omnicpp
+        COMMENT "Processing value.idl..")
+
+
+ADD_CUSTOM_TARGET(RunGeneratorXXdfdfsd DEPENDS
+        omniidl
+        omnicpp
+        ${GEN_DIR}/value.hh
+        ${GEN_DIR}/valueSK.cc
+        ${GEN_DIR}/valueSK.hh
+        COMMENT "Checking if re-generation is required")
+
+
 ADD_CUSTOM_TARGET(RunGenerator DEPENDS
         omniidl
         omnicpp
+        ${GEN_DIR}/valueSK.cc
         ${GEN_DIR}/distdate.hh
         ${GEN_DIR}/ziop_defs.hh
         ${GEN_DIR}/compressionSK.cc

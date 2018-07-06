@@ -232,8 +232,10 @@ typedef size_t omni_ptr_arith_t;
 
 #  ifdef _WINSTATIC
 #    define _OMNIORB_NTDLL_IMPORT
+#    define _OMNIORB_NTDLL_EXPORT
 #  else
 #    define _OMNIORB_NTDLL_IMPORT  __declspec(dllimport)
+#    define _OMNIORB_NTDLL_EXPORT  __declspec(dllexport)
 #  endif
 
 #  if defined(_DEBUG)

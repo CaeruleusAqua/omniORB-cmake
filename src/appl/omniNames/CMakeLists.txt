@@ -17,8 +17,8 @@ endif ()
 
 
 add_executable(omniNames ${OMNINAMES_EXE_SRC})
-target_link_libraries(omniNames PRIVATE omniORB4_static omnithread_static Threads::Threads)
-target_compile_definitions(omniNames PRIVATE __OMNIORB4__ _REENTRANT ${DEFAULT_LOGDIR} _WINSTATIC)
+target_link_libraries(omniNames PRIVATE omniORB4 omnithread Threads::Threads)
+target_compile_definitions(omniNames PRIVATE __OMNIORB4__ _REENTRANT ${DEFAULT_LOGDIR})
 target_include_directories(omniNames PRIVATE . ${CMAKE_SOURCE_DIR}/include/include ${CMAKE_BINARY_DIR}/generated/lib/omniORB)
 target_compile_options(omniNames PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 

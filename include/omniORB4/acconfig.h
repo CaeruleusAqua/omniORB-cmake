@@ -301,7 +301,7 @@
 #define SIZEOF_LONG_LONG 8
 #define SIZEOF_SHORT 2
 #define SIZEOF_UNSIGNED_CHAR 1
-#define SIZEOF_VOIDP 4
+#define SIZEOF_VOIDP 8
 
 
 #ifndef STDC_HEADERS

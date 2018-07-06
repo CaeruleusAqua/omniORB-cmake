@@ -18,13 +18,10 @@ target_compile_options(omnithread_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${CO
 
 add_library(omnithread SHARED ${OMNITHREAD_SRC})
 target_link_libraries(omnithread PRIVATE Threads::Threads)
-#target_compile_definitions(omnithread PRIVATE _REENTRANT ${OMNITHREAT_DEFS} ${OMNITHREAT_DEFS_SHARED})
-target_compile_definitions(omnithread PRIVATE -D_OMNITHREAD_DLL -D__WIN32__ -D_WIN32_WINNT=0x0501 -D__x86__ -D__NT__ -D__OSVERSION__=4 -D_CRT_SECURE_NO_DEPRECATE=1)
+target_compile_definitions(omnithread PRIVATE _REENTRANT ${OMNITHREAT_DEFS} ${OMNITHREAT_DEFS_SHARED})
 target_include_directories(omnithread PRIVATE . ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(omnithread PUBLIC Threads::Threads)
-#target_compile_options(omnithread PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
-target_compile_options(omnithread PRIVATE /MD /EHs /GS /GR /Zi /nologo)
-
+target_compile_options(omnithread PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 
 install(TARGETS omnithread_static omnithread
         RUNTIME DESTINATION bin

@@ -1,32 +1,29 @@
 cmake_minimum_required (VERSION 3.0)
 project (OmniOrb VERSION 4.2.2)
 
-
 #set(CMAKE_TOOLCHAIN_FILE C:/Users/scholle/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
 set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
-#set(CMAKE_CXX_FLAGS "")
-set(CMAKE_CXX_FLAGS_DEBUG "/MTd /EHs /RTC1 /GS /GR /Zi /nologo")
-#set(Python_EXECUTABLE "C:\\Python37-32\\python.exe")
-#set(Python_EXECUTABLE "C:\\Python37\\python.exe")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/cmake/modules)
-
 set(OMNIORB_VERSION ${PROJECT_VERSION})
 set(OMNIORB_VERSION_HEX "0x040202F1")
+if(WIN32)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+endif()
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/static)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #set(Python_ROOT_DIR "C:/msys64/mingw64")
 find_package (Python REQUIRED COMPONENTS Interpreter Development)
-message("--------------${Python_LIBRARY_DIRS}")
-message("--------------${Python_RUNTIME_LIBRARY_DIRS}")
-message("--------------${Python_EXECUTABLE}")
-message("--------------${Python_VERSION_MAJOR}")
-
-
-
 find_package(Threads REQUIRED)
+
+
+
 add_definitions(-D__WIN32__ -D__x86__ -D__NT__ -D_WIN32_WINNT=0x0501 -D__OSVERSION__=4 -D_CRT_SECURE_NO_WARNINGS)
 
 
@@ -42,12 +39,9 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")
     # using Intel C++
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     # using Visual Studio C++
-
 endif()
-
 
 
 include(codegen.cmake)
 include(platform_checks.cmake)
-
 add_subdirectory(src)
