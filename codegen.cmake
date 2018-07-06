@@ -28,12 +28,29 @@ endif ()
 set(GEN_DIR ${CMAKE_BINARY_DIR}/generated/lib/omniORB/omniORB4/)
 file(MAKE_DIRECTORY ${GEN_DIR})
 
+macro(RUN_OMNIIDL IDL_FILE OUTPUT_DIRECTORY INCLUDE_DIRECTORY OPTIONS OUTPUT_FILES)
 
+    get_filename_component(IDL_FILE_BASENAME ${IDL_FILE} NAME_WE)
+    set(OUTPUT_FILES ${OUTPUT_DIRECTORY}/${IDL_FILE_BASENAME}.hh ${OUTPUT_DIRECTORY}/${IDL_FILE_BASENAME}SK.cc)
 
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/Naming.hh ${GEN_DIR}/NamingDynSK.cc ${GEN_DIR}/NamingSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba  -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/Naming.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/Naming.idl omniidl omnicpp
-        COMMENT "Processing Naming.idl..")
+    list(LENGTH OUTPUT_FILES len)
+    message("------------------${OUTPUT_FILES} --- ")
+        foreach(arg IN LISTS ${OUTPUT_FILES})
+            message(----${arg})
+        endforeach()
+
+    ADD_CUSTOM_COMMAND(OUTPUT ${OUTPUT_DIRECTORY}/${IDL_FILE_BASENAME}.hh ${OUTPUT_DIRECTORY}/${IDL_FILE_BASENAME}DynSK.cc ${OUTPUT_DIRECTORY}/${IDL_FILE_BASENAME}SK.cc
+            COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${INCLUDE_DIRECTORY} ${list_var} -C${OUTPUT_DIRECTORY} ${IDL_FILE}
+            DEPENDS ${IDL_FILE} omniidl omnicpp
+            COMMENT "Processing ${IDL_FILE}..")
+endmacro(RUN_OMNIIDL)
+
+RUN_OMNIIDL(${CMAKE_SOURCE_DIR}/idl/Naming.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl "-Wba;-Wbdebug"  "fsdfsd;gsddf;sdfsdfsdfs;dfsdfsdfsd;dsfsdfsd")
+
+#ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/Naming.hh ${GEN_DIR}/NamingDynSK.cc ${GEN_DIR}/NamingSK.cc
+#        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/Naming.idl
+#        DEPENDS ${CMAKE_SOURCE_DIR}/idl/Naming.idl omniidl omnicpp
+#        COMMENT "Processing Naming.idl..")
 
 ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/corbaidlSK.cc ${GEN_DIR}/corbaidlDynSK.cc ${GEN_DIR}/corbaidl_poa.hh ${GEN_DIR}/corbaidl_operators.hh ${GEN_DIR}/corbaidl_defs.hh
         COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -Wba -nf -P -WbF -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/corbaidl.idl
