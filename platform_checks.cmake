@@ -148,7 +148,7 @@ option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support" OFF)
 
 # used for PackageConfig
 # TODO generate PackageConfig files
-#define PACKAGE_VERSION "4.2.2"
+set(PACKAGE_VERSION ${PROJECT_VERSION})
 
 
 #/* define if long is the same type as int */
@@ -221,7 +221,7 @@ else ()
 endif ()
 
 if (WIN32)
-    add_definitions(-D__WIN32__ -D__NT__ -D_WIN32_WINNT=0x0501 -D__OSVERSION__=4)
+    add_definitions(-D__WIN32__ -D__NT__ -D_WIN32_WINNT=0x0501 -D__OSVERSION__=4 -DUSE_core_stub_in_nt_dll)
     set(OSVERSION "4")
     set(PLATFORM_DEFINE "__NT__")
     set(PLATFORM_NAME "Windows")

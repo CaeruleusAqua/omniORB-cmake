@@ -1,51 +1,16 @@
-
 set(GEN_DIR ${CMAKE_BINARY_DIR}/generated/services/mklib/)
+set(IDL_DIR ${CMAKE_SOURCE_DIR}/idl/COS/)
 file(MAKE_DIRECTORY ${GEN_DIR})
 
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/CosNotifyChannelAdmin.hh ${GEN_DIR}/CosNotifyChannelAdminSK.cc ${GEN_DIR}/CosNotifyChannelAdminDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyChannelAdmin.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyChannelAdmin.idl omniidl omnicpp
-        COMMENT "Processing CosNotifyChannelAdmin.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/CosNotifyFilter.hh ${GEN_DIR}/CosNotifyFilterSK.cc ${GEN_DIR}/CosNotifyFilterDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyFilter.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyFilter.idl omniidl omnicpp
-        COMMENT "Processing CosNotifyFilter.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/CosNotifyComm.hh ${GEN_DIR}/CosNotifyCommSK.cc ${GEN_DIR}/CosNotifyCommDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyComm.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosNotifyComm.idl omniidl omnicpp
-        COMMENT "Processing CosNotifyComm.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/CosNotification.hh ${GEN_DIR}/CosNotificationSK.cc ${GEN_DIR}/CosNotificationDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/CosNotification.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosNotification.idl omniidl omnicpp
-        COMMENT "Processing CosNotification.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/CosEventChannelAdmin.hh ${GEN_DIR}/CosEventChannelAdminSK.cc ${GEN_DIR}/CosEventChannelAdminDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/CosEventChannelAdmin.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosEventChannelAdmin.idl omniidl omnicpp
-        COMMENT "Processing CosEventChannelAdmin.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/CosEventComm.hh ${GEN_DIR}/CosEventCommSK.cc ${GEN_DIR}/CosEventCommDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/CosEventComm.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosEventComm.idl omniidl omnicpp
-        COMMENT "Processing CosEventComm.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/CosTime.hh ${GEN_DIR}/CosTimeSK.cc ${GEN_DIR}/CosTimeDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/CosTime.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosTime.idl omniidl omnicpp
-        COMMENT "Processing CosTime.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/TimeBase.hh ${GEN_DIR}/TimeBaseSK.cc ${GEN_DIR}/TimeBaseDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/TimeBase.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/TimeBase.idl omniidl omnicpp
-        COMMENT "Processing TimeBase.idl..")
-
-ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/CosLifeCycle.hh ${GEN_DIR}/CosLifeCycleSK.cc ${GEN_DIR}/CosLifeCycleDynSK.cc
-        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -Wba -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -I. -I${CMAKE_SOURCE_DIR}/idl/COS -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS/CosLifeCycle.idl
-        DEPENDS ${CMAKE_SOURCE_DIR}/idl/COS/CosLifeCycle.idl omniidl omnicpp
-        COMMENT "Processing CosLifeCycle.idl..")
+RUN_OMNIIDL(${IDL_DIR}/CosNotifyChannelAdmin.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosNotifyChannelAdmin.hh;CosNotifyChannelAdminSK.cc;CosNotifyChannelAdminDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosNotifyFilter.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosNotifyFilter.hh;CosNotifyFilterSK.cc;CosNotifyFilterDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosNotifyComm.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosNotifyComm.hh;CosNotifyCommSK.cc;CosNotifyCommDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosNotification.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosNotification.hh;CosNotificationSK.cc;CosNotificationDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosEventChannelAdmin.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosEventChannelAdmin.hh;CosEventChannelAdminSK.cc;CosEventChannelAdminDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosEventComm.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosEventComm.hh;CosEventCommSK.cc;CosEventCommDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosTime.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosTime.hh;CosTimeSK.cc;CosTimeDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/TimeBase.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "TimeBase.hh;TimeBaseSK.cc;TimeBaseDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosLifeCycle.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosLifeCycle.hh;CosLifeCycleSK.cc;CosLifeCycleDynSK.cc")
 
 
 set(COSDYNAMIC4_SRC
@@ -85,10 +50,10 @@ ADD_CUSTOM_TARGET(CosRunGenerator DEPENDS
         omnicpp
         ${COSDYNAMIC4_SRC}
         ${COS4_SRC}
-        COMMENT "Checking if re-generation is required")
+        COMMENT "Checking if re-generation is required for target COS4")
 
 add_library(COS4_static STATIC ${COS4_SRC})
-target_compile_definitions(COS4_static PRIVATE __OMNIORB4__ _REENTRANT _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
+target_compile_definitions(COS4_static PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
 target_include_directories(COS4_static PRIVATE ${GEN_DIR}/ ${CMAKE_BINARY_DIR}/generated/lib/omniORB/ ${CMAKE_SOURCE_DIR}/include .)
 target_compile_options(COS4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(COS4_static CosRunGenerator)
@@ -97,26 +62,24 @@ add_dependencies(COS4_static CosRunGenerator)
 
 add_library(COS4 SHARED ${COS4_SRC})
 target_link_libraries(COS4 PRIVATE omniORB4 omniDynamic4 omnithread Threads::Threads)
-target_compile_definitions(COS4 PRIVATE __OMNIORB4__ _REENTRANT _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
+target_compile_definitions(COS4 PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
 target_include_directories(COS4 PRIVATE ${GEN_DIR}/ ${CMAKE_BINARY_DIR}/generated/lib/omniORB/ ${CMAKE_SOURCE_DIR}/include .)
 target_compile_options(COS4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(COS4 CosRunGenerator)
 
 
 add_library(COSDynamic4_static STATIC ${COSDYNAMIC4_SRC})
-target_link_libraries(COSDynamic4_static PUBLIC COS4 omniORB4 omniDynamic4 omnithread Threads::Threads)
-target_compile_definitions(COSDynamic4_static PRIVATE __OMNIORB4__ _REENTRANT _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
+target_link_libraries(COSDynamic4_static PUBLIC COS4 omniORB4_static omniDynamic4_static omnithread_static Threads::Threads)
+target_compile_definitions(COSDynamic4_static PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
 target_include_directories(COSDynamic4_static PRIVATE ${GEN_DIR}/ ${CMAKE_SOURCE_DIR}/include .)
 target_compile_options(COSDynamic4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
-add_dependencies(COSDynamic4_static CosRunGenerator)
 
 
 add_library(COSDynamic4 SHARED ${COSDYNAMIC4_SRC})
 target_link_libraries(COSDynamic4 PUBLIC COS4 omniORB4 omniDynamic4 omnithread Threads::Threads)
-target_compile_definitions(COSDynamic4 PRIVATE __OMNIORB4__ _REENTRANT _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT USE_core_stub_in_nt_dll)
+target_compile_definitions(COSDynamic4 PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
 target_include_directories(COSDynamic4 PRIVATE  ${GEN_DIR}/ ${CMAKE_SOURCE_DIR}/include .)
 target_compile_options(COSDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
-add_dependencies(COSDynamic4 CosRunGenerator)
 
 
 

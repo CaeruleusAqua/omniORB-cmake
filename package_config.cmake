@@ -4,11 +4,11 @@ set(SYSCONFIG_INSTALL_DIR etc/omniOrb/)
 
 include(CMakePackageConfigHelpers)
 
-configure_package_config_file(cmake/OmniOrbConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/OmniOrbConfig.cmake
-        INSTALL_DESTINATION ${LIB_INSTALL_DIR}/${PROJECT_NAME}/cmake
+configure_package_config_file(cmake/OmniOrbConfig.cmake.in ${CMAKE_BINARY_DIR}/OmniOrbConfig.cmake
+        INSTALL_DESTINATION ${LIB_INSTALL_DIR}/cmake/${PROJECT_NAME}
         PATH_VARS INCLUDE_INSTALL_DIR SYSCONFIG_INSTALL_DIR)
 
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/OmniOrbConfigVersion.cmake
+write_basic_package_version_file(${CMAKE_BINARY_DIR}/OmniOrbConfigVersion.cmake
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY SameMajorVersion)
 

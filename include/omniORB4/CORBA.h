@@ -45,6 +45,10 @@
 # error "_OMNIORB_LIBRARY and _OMNIORB_DYNAMIC_LIBRARY are both defined."
 #endif
 
+#ifndef _MSC_VER
+#define _OMNIORB_NTDLL_EXPORT
+#endif
+
 #if    defined(_OMNIORB_LIBRARY)
 #         define _core_attr _OMNIORB_NTDLL_EXPORT
 #         define _dyn_attr  _OMNIORB_NTDLL_IMPORT

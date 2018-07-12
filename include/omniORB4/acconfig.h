@@ -1,14 +1,14 @@
 #pragma once
 #ifndef HAVE_ALLOCA_H
-/* #undef HAVE_ALLOCA_H */
+#define HAVE_ALLOCA_H 1
 #endif
 
 #ifndef HAVE_ALLOCA
-/* #undef HAVE_ALLOCA */
+#define HAVE_ALLOCA 1
 #endif
 
 #ifndef HAVE_ACCESS
-/* #undef HAVE_ACCESS */
+#define HAVE_ACCESS 1
 #endif
 
 #ifndef HAVE_BOOL
@@ -101,19 +101,19 @@
 #endif
 
 #ifndef HAVE_GETOPT
-/* #undef HAVE_GETOPT */
+#define HAVE_GETOPT 1
 #endif
 
 #ifndef HAVE_GETTIMEOFDAY
-/* #undef HAVE_GETTIMEOFDAY */
+#define HAVE_GETTIMEOFDAY 1
 #endif
 
 #ifndef GETTIMEOFDAY_TIMEZONE
-/* #undef GETTIMEOFDAY_TIMEZONE */
+#define GETTIMEOFDAY_TIMEZONE 1
 #endif
 
 #ifndef HAVE_IFADDRS_H
-/* #undef HAVE_IFADDRS_H */
+#define HAVE_IFADDRS_H 1
 #endif
 
 #ifndef HAVE_INET_NTOP
@@ -141,7 +141,7 @@
 #endif
 
 #ifndef HAVE_LOCALTIME
-/* #undef HAVE_LOCALTIME */
+#define HAVE_LOCALTIME 1
 #endif
 
 #ifndef HAVE_MEMORY_H
@@ -149,7 +149,7 @@
 #endif
 
 #ifndef HAVE_NANOSLEEP
-/* #undef HAVE_NANOSLEEP */
+#define HAVE_NANOSLEEP 1
 #endif
 
 #ifndef HAVE_NAN_H
@@ -157,19 +157,19 @@
 #endif
 
 #ifndef HAVE_NETDB_H
-/* #undef HAVE_NETDB_H */
+#define HAVE_NETDB_H 1
 #endif
 
 #ifndef HAVE_POLL
-/* #undef HAVE_POLL */
+#define HAVE_POLL 1
 #endif
 
 #ifndef HAVE_RAND_R
-/* #undef HAVE_RAND_R */
+#define HAVE_RAND_R 1
 #endif
 
 #ifndef HAVE_SIGACTION
-/* #undef HAVE_SIGACTION */
+#define HAVE_SIGACTION 1
 #endif
 
 #ifndef HAVE_SIGNAL_H
@@ -193,7 +193,7 @@
 #endif
 
 #ifndef HAVE_STRCASECMP
-/* #undef HAVE_STRCASECMP */
+#define HAVE_STRCASECMP 1
 #endif
 
 #ifndef HAVE_STRDUP
@@ -205,15 +205,15 @@
 #endif
 
 #ifndef HAVE_STRFTIME
-/* #undef HAVE_STRFTIME */
+#define HAVE_STRFTIME 1
 #endif
 
 #ifndef HAVE_STRICMP
-#define HAVE_STRICMP 1
+/* #undef HAVE_STRICMP */
 #endif
 
 #ifndef HAVE_STRINGS_H
-/* #undef HAVE_STRINGS_H */
+#define HAVE_STRINGS_H 1
 #endif
 
 #ifndef HAVE_STRING_H
@@ -221,7 +221,7 @@
 #endif
 
 #ifndef HAVE_STRNCASECMP
-/* #undef HAVE_STRNCASECMP */
+#define HAVE_STRNCASECMP 1
 #endif
 
 #ifndef HAVE_STRTOUL
@@ -233,7 +233,7 @@
 #endif
 
 #ifndef HAVE_STRTOUQ
-/* #undef HAVE_STRTOUQ */
+#define HAVE_STRTOUQ 1
 #endif
 
 #ifndef HAVE_SYS_IF_H
@@ -241,15 +241,15 @@
 #endif
 
 #ifndef HAVE_SYS_IOCTL_H
-/* #undef HAVE_SYS_IOCTL_H */
+#define HAVE_SYS_IOCTL_H 1
 #endif
 
 #ifndef HAVE_SYS_PARAM_H
-/* #undef HAVE_SYS_PARAM_H */
+#define HAVE_SYS_PARAM_H 1
 #endif
 
 #ifndef HAVE_SYS_POLL_H
-/* #undef HAVE_SYS_POLL_H */
+#define HAVE_SYS_POLL_H 1
 #endif
 
 #ifndef HAVE_SYS_STAT_H
@@ -257,7 +257,7 @@
 #endif
 
 #ifndef HAVE_SYS_TIME_H
-/* #undef HAVE_SYS_TIME_H */
+#define HAVE_SYS_TIME_H 1
 #endif
 
 #ifndef HAVE_SYS_TYPES_H
@@ -273,7 +273,7 @@
 #endif
 
 #ifndef HAVE_UNISTD_H
-/* #undef HAVE_UNISTD_H */
+#define HAVE_UNISTD_H 1
 #endif
 
 #ifndef HAVE_VPRINTF
@@ -289,19 +289,19 @@
 #endif
 
 
-#define SIZEOF_WCHAR_T 2
+#define SIZEOF_WCHAR_T 4
 
 #define SIZEOF_BOOL 1
 #define SIZEOF_CHAR 1
 #define SIZEOF_DOUBLE 8
 #define SIZEOF_FLOAT 4
 #define SIZEOF_INT 4
-#define SIZEOF_LONG 4
-#define SIZEOF_LONG_DOUBLE 8
+#define SIZEOF_LONG 8
+#define SIZEOF_LONG_DOUBLE 16
 #define SIZEOF_LONG_LONG 8
 #define SIZEOF_SHORT 2
 #define SIZEOF_UNSIGNED_CHAR 1
-#define SIZEOF_VOIDP 4
+#define SIZEOF_VOIDP 8
 
 
 #ifndef STDC_HEADERS
@@ -311,7 +311,7 @@
 /* #undef WORDS_BIGENDIAN */
 
 #ifndef OMNI_LONG_IS_INT
-#define OMNI_LONG_IS_INT 1
+/* #undef OMNI_LONG_IS_INT */
 #endif
 
 

@@ -40,21 +40,20 @@ macro(CHECK_STACK_DIRECTION RETURN_VALUE)
                 )
 
         if ("${stack}" STREQUAL "down")
-            set(${RETURN_VALUE} "-1")
+            set(${RETURN_VALUE} "-1" CACHE INTERNAL "CHECK_STACK_DIRECTION")
             message(STATUS "Check for stack growing direction - downwards")
             file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
                     "Determining if the include file ${INCLUDE} "
                     "exists passed with the following output:\n"
                     "${stack}\n\n")
         elseif ("${stack}" STREQUAL "up")
-            set(${RETURN_VALUE} "1" PARENT_SCOPE)
+            set(${RETURN_VALUE} "1" CACHE INTERNAL "CHECK_STACK_DIRECTION")
             message(STATUS "Check for stack growing direction - upwards")
             file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
                     "Determining the stack direction ${INCLUDE} "
                     "passed with the following output:\n"
                     "${stack}\n\n")
         else ()
-            set(${RETURN_VALUE} "0")
             message(STATUS "Check for stack growing direction - unknown")
             file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
                     "Determining the stack direction ${INCLUDE} "

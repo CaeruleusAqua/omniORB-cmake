@@ -130,17 +130,8 @@ set(OMNICORE_DEFINITIONS
         OMNIORB_VERSION_STRING="${OMNIORB_VERSION}"
         "OMNIORB_VERSION_HEX=${OMNIORB_VERSION_HEX}")
 
-## Build SSL transport as part of core library if required
-#ifdef OPEN_SSL_ROOT
-#ifdef SSL_TRANSPORT_IN_CORE
-#ORB_SRCS += ${SSL_SRCS)
-#CXXVPATH += ${VPATH:%=%/ssl)
-#DIR_CPPFLAGS += -D_OMNIORB_SSL_LIBRARY
-#DIR_CPPFLAGS += ${OPEN_SSL_CPPFLAGS)
-#endif
-#endif
 
-##########################################################################
+
 if (OMNIORB_CONFIG_DEFAULT_LOCATION)
     set(CONFIG_DEFAULT_LOCATION ${OMNIORB_CONFIG_DEFAULT_LOCATION})
 else()
@@ -175,12 +166,7 @@ set(OMNICORE_DEFINITIONS
 set(PLATFORM_LIBS)
 
 if (WIN32)
-    #DIR_CPPFLAGS += -D"NTArchitecture"
-    #EXTRA_LIBS    = ${SOCKET_LIB) ${patsubst %,${LibNoDebugSearchPattern),advapi32)
-    #SHARED_ONLY_OBJS = msvcdllstub.o
-    #MSVC_STATICLIB_CXXNODEBUGFLAGS += -D_WINSTATIC
-    #MSVC_STATICLIB_CXXDEBUGFLAGS += -D_WINSTATIC
-    #ifndef ETSKernel
+
     set(PLATFORM_LIBS ws2_32 advapi32)
     set(OMNICORE_STATIC_DEFINITIONS ${OMNICORE_STATIC_DEFINITIONS} _WINSTATIC)
     set(ORB_SRCS ${ORB_SRCS} orbOptionsReg.cc)
@@ -202,7 +188,7 @@ endif()
 
 add_library(omniORB4_static STATIC ${ORB_SRCS} )
 target_link_libraries(omniORB4_static PUBLIC omnithread_static Threads::Threads ${PLATFORM_LIBS})
-target_compile_definitions(omniORB4_static PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS} ${OMNICORE_STATIC_DEFINITIONS})
+target_compile_definitions(omniORB4_static PRIVATE ${OMNICORE_DEFINITIONS} ${OMNICORE_STATIC_DEFINITIONS})
 target_include_directories(omniORB4_static PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(omniORB4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4_static RunGenerator)
@@ -211,7 +197,7 @@ add_dependencies(omniORB4_static RunGenerator)
 
 add_library(omniORB4 SHARED ${ORB_SRCS})
 target_link_libraries(omniORB4 PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS})
-target_compile_definitions(omniORB4 PRIVATE _REENTRANT ${OMNICORE_DEFINITIONS})
+target_compile_definitions(omniORB4 PRIVATE ${OMNICORE_DEFINITIONS})
 target_include_directories(omniORB4 PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(omniORB4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4 RunGenerator)
@@ -221,3 +207,5 @@ install(TARGETS omniORB4_static omniORB4
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)
+
+add_subdirectory(ssl)

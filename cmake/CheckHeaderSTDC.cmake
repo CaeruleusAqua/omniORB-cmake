@@ -35,7 +35,7 @@ macro(CHECK_HEADER_STDC RETURN_VALUE)
 
         if(CHECK_HEADER_STDC_result EQUAL 0)
             message(STATUS "Check for ANSI C header files - found")
-            set(${RETURN_VALUE} "1")
+            set(${RETURN_VALUE} "1" CACHE INTERNAL "CHECK_HEADER_STDC")
             file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
                     "Determining if the include file ${INCLUDE} "
                     "exists passed with the following output:\n"
