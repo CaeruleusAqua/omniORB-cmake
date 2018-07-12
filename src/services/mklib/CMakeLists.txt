@@ -77,7 +77,7 @@ target_compile_options(COSDynamic4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${C
 
 add_library(COSDynamic4 SHARED ${COSDYNAMIC4_SRC})
 target_link_libraries(COSDynamic4 PUBLIC COS4 omniORB4 omniDynamic4 omnithread Threads::Threads)
-target_compile_definitions(COSDynamic4 PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
+target_compile_definitions(COSDynamic4 PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT USE_core_stub_in_nt_dll)
 target_include_directories(COSDynamic4 PRIVATE  ${GEN_DIR}/ ${CMAKE_SOURCE_DIR}/include .)
 target_compile_options(COSDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 

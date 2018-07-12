@@ -221,7 +221,7 @@ else ()
 endif ()
 
 if (WIN32)
-    add_definitions(-D__WIN32__ -D__NT__ -D_WIN32_WINNT=0x0501 -D__OSVERSION__=4 -DUSE_core_stub_in_nt_dll)
+    add_definitions(-D__WIN32__ -D__NT__ -D_WIN32_WINNT=0x0501 -D__OSVERSION__=4) #-DUSE_core_stub_in_nt_dll
     set(OSVERSION "4")
     set(PLATFORM_DEFINE "__NT__")
     set(PLATFORM_NAME "Windows")

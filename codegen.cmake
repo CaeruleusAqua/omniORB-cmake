@@ -51,7 +51,6 @@ macro(RUN_OMNIIDL IDL_FILE OUTPUT_DIRECTORY INCLUDE_DIRECTORY OPTIONS OUTPUT_FIL
 
 endmacro(RUN_OMNIIDL)
 
-
 RUN_OMNIIDL(${IDL_DIR}/Naming.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl "-Wba;-Wbdebug" "Naming.hh;NamingDynSK.cc;NamingSK.cc" SOURCE_FILES)
 RUN_OMNIIDL(${IDL_DIR}/corbaidl.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl "-Wbdebug;-Wba;-nf;-P;-WbF" "corbaidlSK.cc;corbaidlDynSK.cc;corbaidl_poa.hh;corbaidl_operators.hh;corbaidl_defs.hh" SOURCE_FILES)
 RUN_OMNIIDL(${IDL_DIR}/ir.idl ${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl "-Wbdebug;-Wba;-WbF" "ir_defs.hh;ir_operators.hh;ir_poa.hh;irDynSK.cc;irSK.cc" SOURCE_FILES)
@@ -73,21 +72,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${GEN_DIR}/distdate.hh
         COMMENT "Processing update.log..")
 
 
-#ADD_CUSTOM_COMMAND(OUTPUT;value.hh;valueSK.hh;valueSK.cc
-#        COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${CMAKE_SOURCE_DIR}/idl -Wbdebug -C${GEN_DIR} ${CMAKE_SOURCE_DIR}/idl/value.idl
-#        DEPENDS ${CMAKE_SOURCE_DIR}/src/examples/valuetype/simple/value.idl omniidl omnicpp
-#        COMMENT "Processing value.idl..")
-
-#
-#ADD_CUSTOM_TARGET(RunGeneratorXXdfdfsd DEPENDS
-#        omniidl
-#        omnicpp
-#        ${GEN_DIR}/value.hh
-#        ${GEN_DIR}/valueSK.cc
-#        ${GEN_DIR}/valueSK.hh
-#        COMMENT "Checking if re-generation is required")
-
-
 ADD_CUSTOM_TARGET(RunGenerator DEPENDS
         ${SOURCE_FILES}
+        ${GEN_DIR}/distdate.hh
         COMMENT "Checking if re-generation is required for target omniORB4")
