@@ -16,3 +16,9 @@ write_basic_package_version_file(${PROJECT_BINARY_DIR}/OmniOrbConfigVersion.cmak
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/OmniOrbConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/OmniOrbConfigVersion.cmake
         DESTINATION ${OMNI_CMAKE_INSTALL_DIR})
+
+
+INSTALL(EXPORT ${PROJECT_NAME}Targets
+        NAMESPACE "${PROJECT_NAME}::"
+        DESTINATION ${OMNI_CMAKE_INSTALL_DIR}
+        )

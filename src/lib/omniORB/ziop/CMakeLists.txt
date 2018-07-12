@@ -26,6 +26,7 @@ if (ZLIB_FOUND)
 
 
     install(TARGETS omniZIOP4_static omniZIOP4
+            EXPORT ${PROJECT_NAME}Targets
             RUNTIME DESTINATION bin
             LIBRARY DESTINATION lib
             ARCHIVE DESTINATION lib/static)

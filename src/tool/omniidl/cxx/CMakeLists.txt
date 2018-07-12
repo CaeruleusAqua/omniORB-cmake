@@ -29,12 +29,19 @@ if (WIN32)
     target_compile_options(omniidl PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
     target_link_libraries(omniidl PRIVATE Python::Python)
     if (${Python_VERSION_MAJOR} EQUAL 3)
-        if(WIN32 AND CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+        if (WIN32 AND CMAKE_CXX_COMPILER_ID MATCHES "GNU")
             set_property(TARGET omniidl APPEND_STRING PROPERTY LINK_FLAGS "-municode ")
-        endif()
+        endif ()
     endif ()
 
+    install(TARGETS omniidl
+            EXPORT ${PROJECT_NAME}Targets
+            RUNTIME DESTINATION bin
+            LIBRARY DESTINATION lib
+            ARCHIVE DESTINATION lib/static)
+
 else ()
+
     add_library(omniidl SHARED ${_OMNIIDLMODULE_SRC})
     target_compile_definitions(omniidl PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> IDLMODULE_VERSION="0x2630")
     target_include_directories(omniidl PRIVATE ${PYTHON_INCLUDE_DIR} . ${PROJECT_SOURCE_DIR}/include)
@@ -42,6 +49,28 @@ else ()
     target_link_libraries(omniidl PRIVATE Python::Python)
     set_target_properties(omniidl PROPERTIES PREFIX "")
     set_target_properties(omniidl PROPERTIES OUTPUT_NAME "_omniidl")
+
+    execute_process(
+            COMMAND "${Python_EXECUTABLE}" -c "if True:
+    from distutils import sysconfig as sc
+    print(sc.get_python_lib(prefix='', plat_specific=True))"
+            OUTPUT_VARIABLE PYTHON_SITE
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    install(TARGETS omniidl EXPORT ${PROJECT_NAME}Targets LIBRARY DESTINATION ${PYTHON_SITE})
+
+    if (${Python_VERSION_MAJOR} EQUAL 2)
+        install(DIRECTORY
+                ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/omniidl
+                ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/omniidl_be
+                DESTINATION ${PYTHON_SITE})
+    else ()
+        install(DIRECTORY
+                ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/omniidl
+                ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/omniidl_be
+                DESTINATION ${PYTHON_SITE})
+    endif ()
+
 endif ()
 
 add_dependencies(omniidl omnicpp)
@@ -49,8 +78,5 @@ add_dependencies(omniidl omnicpp)
 
 
 
-install(TARGETS omniidl
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib/static)
+
 

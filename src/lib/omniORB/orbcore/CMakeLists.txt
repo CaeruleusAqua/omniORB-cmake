@@ -188,7 +188,6 @@ endif ()
 add_library(omniORB4_static STATIC ${ORB_SRCS})
 target_link_libraries(omniORB4_static PUBLIC omnithread_static Threads::Threads ${PLATFORM_LIBS})
 target_compile_definitions(omniORB4_static PRIVATE ${OMNICORE_DEFINITIONS} ${OMNICORE_STATIC_DEFINITIONS})
-message("${OMNI_INCLUDE_DIR}")
 target_include_directories(omniORB4_static
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
@@ -217,13 +216,10 @@ add_dependencies(omniORB4 RunGenerator)
 
 
 install(TARGETS omniORB4_static omniORB4
-        EXPORT ${PROJECT_NAME}omniCore
+        EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)
-
-INSTALL(EXPORT ${PROJECT_NAME}omniCore DESTINATION 4{OMNI_CMAKE_INSTALL_DIR}
-        FILE ${PROJECT_NAME}omniThread.cmake)
 
 
 add_subdirectory(ssl)

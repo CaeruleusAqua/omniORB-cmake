@@ -54,6 +54,7 @@ target_include_directories(omniDynamic4 PRIVATE ${PROJECT_BINARY_DIR}/generated/
 target_compile_options(omniDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS}  )
 
 install(TARGETS omniDynamic4_static omniDynamic4
+        EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)

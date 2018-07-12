@@ -25,12 +25,7 @@ target_link_libraries(omnithread PUBLIC Threads::Threads)
 target_compile_options(omnithread PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 
 install(TARGETS omnithread_static omnithread
-        EXPORT ${PROJECT_NAME}omniThread
+        EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)
-
-
-
-INSTALL(EXPORT ${PROJECT_NAME}omniThread DESTINATION 4{OMNI_CMAKE_INSTALL_DIR}
-        FILE ${PROJECT_NAME}omniThread.cmake)

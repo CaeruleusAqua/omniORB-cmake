@@ -22,6 +22,7 @@ if (ZLIB_FOUND)
     target_compile_options(omniZIOPDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 
     install(TARGETS omniZIOPDynamic4_static omniZIOPDynamic4
+            EXPORT ${PROJECT_NAME}Targets
             RUNTIME DESTINATION bin
             LIBRARY DESTINATION lib
             ARCHIVE DESTINATION lib/static)

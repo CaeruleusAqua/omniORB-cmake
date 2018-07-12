@@ -20,6 +20,7 @@ target_compile_options(omniConnectionMgmt4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${
 
 
 install(TARGETS omniConnectionMgmt4_static omniConnectionMgmt4
+        EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)

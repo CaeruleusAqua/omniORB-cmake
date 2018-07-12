@@ -84,6 +84,7 @@ target_compile_options(COSDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_
 
 
 install(TARGETS COS4_static COS4 COSDynamic4_static COSDynamic4
+        EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)
