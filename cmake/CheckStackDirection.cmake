@@ -30,7 +30,7 @@ macro(CHECK_STACK_DIRECTION RETURN_VALUE)
 
         try_run(CHECK_STACK_DIRECTION_result
                 CHECK_STACK_DIRECTION_compile_result
-                ${CMAKE_BINARY_DIR}
+                ${PROJECT_BINARY_DIR}
                 ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CheckStackDirection.c
                 COMPILE_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS}
                 CMAKE_FLAGS
@@ -42,20 +42,20 @@ macro(CHECK_STACK_DIRECTION RETURN_VALUE)
         if ("${stack}" STREQUAL "down")
             set(${RETURN_VALUE} "-1" CACHE INTERNAL "CHECK_STACK_DIRECTION")
             message(STATUS "Check for stack growing direction - downwards")
-            file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
+            file(APPEND ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
                     "Determining if the include file ${INCLUDE} "
                     "exists passed with the following output:\n"
                     "${stack}\n\n")
         elseif ("${stack}" STREQUAL "up")
             set(${RETURN_VALUE} "1" CACHE INTERNAL "CHECK_STACK_DIRECTION")
             message(STATUS "Check for stack growing direction - upwards")
-            file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
+            file(APPEND ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
                     "Determining the stack direction ${INCLUDE} "
                     "passed with the following output:\n"
                     "${stack}\n\n")
         else ()
             message(STATUS "Check for stack growing direction - unknown")
-            file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
+            file(APPEND ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
                     "Determining the stack direction ${INCLUDE} "
                     "failed with the following output:\n"
                     "${stack}\n\n")

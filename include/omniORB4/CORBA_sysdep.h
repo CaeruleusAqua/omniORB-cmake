@@ -65,6 +65,9 @@ typedef unsigned long omni_ptr_arith_t;
 #elif SIZEOF_PTR == SIZEOF_INT
 typedef unsigned int omni_ptr_arith_t;
 #elif defined (_WIN64)
+#ifdef HAVE_INTTYPES_H
+#include <inttypes.h>
+#endif
 typedef size_t omni_ptr_arith_t;
 #else
 #error "No suitable type to do pointer arithmetic"

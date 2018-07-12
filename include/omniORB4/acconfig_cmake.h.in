@@ -47,6 +47,10 @@
 #cmakedefine HAVE_STD 1
 #endif
 
+#ifndef HAVE_STDIO_H
+#cmakedefine HAVE_STDIO_H 1
+#endif
+
 #ifndef HAVE_SIG_IGN
 #cmakedefine HAVE_SIG_IGN 1
 #endif
@@ -335,3 +339,4 @@
 #ifndef OMNI_DISABLE_IPV6
 #cmakedefine OMNI_DISABLE_IPV6 @OMNI_DISABLE_IPV6@
 #endif
+

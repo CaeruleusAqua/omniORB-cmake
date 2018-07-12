@@ -61,9 +61,9 @@ if (vxWorksPlatform)
     #ifndef vxNamesRequired
     #BUILTIN_STUB_SRCS += Namingstub.cc
     #endif
-else()
+else ()
     set(BUILTIN_STUB_SRCS ${BUILTIN_STUB_SRCS} Namingstub.cc)
-endif()
+endif ()
 
 set(ORB_SRCS
         anonObject.cc
@@ -120,7 +120,7 @@ set(ORB_SRCS
 
 if (UNIX)
     set(ORB_SRCS ${ORB_SRCS} ${UNIXSOCK_SRCS})
-endif()
+endif ()
 
 
 set(OMNICORE_STATIC_DEFINITIONS)
@@ -131,20 +131,19 @@ set(OMNICORE_DEFINITIONS
         "OMNIORB_VERSION_HEX=${OMNIORB_VERSION_HEX}")
 
 
-
 if (OMNIORB_CONFIG_DEFAULT_LOCATION)
     set(CONFIG_DEFAULT_LOCATION ${OMNIORB_CONFIG_DEFAULT_LOCATION})
-else()
+else ()
     if (UNIX)
         set(CONFIG_DEFAULT_LOCATION /project/omni/var/omniORB_NEW.cfg)
-    endif()
+    endif ()
     if (WIN32)
         set(CONFIG_DEFAULT_LOCATION C:\\\\OMNIORB.CFG)
-    endif()
+    endif ()
     if (vxWorksPlatform) # No vxWorks support in cmake
         set(CONFIG_DEFAULT_LOCATION /a2/tmp/omniORB.cfg)
-    endif()
-endif()
+    endif ()
+endif ()
 set(OMNICORE_DEFINITIONS
         ${OMNICORE_DEFINITIONS}
         CONFIG_DEFAULT_LOCATION="${CONFIG_DEFAULT_LOCATION}"
@@ -153,9 +152,9 @@ set(OMNICORE_DEFINITIONS
 ##########################################################################
 if (OMNIORB_CONFIG_ENV)
     set(CONFIG_ENV ${CONFIG_ENV} ${OMNIORB_CONFIG_ENV)
-else()
+else ()
     set(CONFIG_ENV ${CONFIG_ENV} "OMNIORB_CONFIG")
-endif()
+endif ()
 
 set(OMNICORE_DEFINITIONS
         ${OMNICORE_DEFINITIONS}
@@ -181,31 +180,50 @@ if (WIN32)
     elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         # using Visual Studio C++
         set(ORB_SRCS ${ORB_SRCS} msvcdllstub.cc)
-    endif()
+    endif ()
 
-endif()
+endif ()
 
 
-add_library(omniORB4_static STATIC ${ORB_SRCS} )
+add_library(omniORB4_static STATIC ${ORB_SRCS})
 target_link_libraries(omniORB4_static PUBLIC omnithread_static Threads::Threads ${PLATFORM_LIBS})
 target_compile_definitions(omniORB4_static PRIVATE ${OMNICORE_DEFINITIONS} ${OMNICORE_STATIC_DEFINITIONS})
-target_include_directories(omniORB4_static PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
+message("${OMNI_INCLUDE_DIR}")
+target_include_directories(omniORB4_static
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${PROJECT_SOURCE_DIR}/include/omniORB4/internal
+        ${PROJECT_BINARY_DIR}/generated/lib/omniORB
+        PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>)
 target_compile_options(omniORB4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4_static RunGenerator)
-
 
 
 add_library(omniORB4 SHARED ${ORB_SRCS})
 target_link_libraries(omniORB4 PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS})
 target_compile_definitions(omniORB4 PRIVATE ${OMNICORE_DEFINITIONS})
-target_include_directories(omniORB4 PUBLIC ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include/omniORB4/internal . ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(omniORB4
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${PROJECT_SOURCE_DIR}/include/omniORB4/internal
+        ${PROJECT_BINARY_DIR}/generated/lib/omniORB
+        PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>)
 target_compile_options(omniORB4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4 RunGenerator)
 
 
 install(TARGETS omniORB4_static omniORB4
+        EXPORT ${PROJECT_NAME}omniCore
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)
+
+INSTALL(EXPORT ${PROJECT_NAME}omniCore DESTINATION 4{OMNI_CMAKE_INSTALL_DIR}
+        FILE ${PROJECT_NAME}omniThread.cmake)
+
 
 add_subdirectory(ssl)

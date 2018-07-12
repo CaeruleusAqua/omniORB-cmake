@@ -9,7 +9,7 @@ if (WIN32)
 endif ()
 
 add_executable(omnicpp ${OMNICPP_EXE_SRC})
-target_include_directories(omnicpp PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(omnicpp PRIVATE ${PROJECT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_definitions(omnicpp PRIVATE HAVE_CONFIG_H)
 
 install(TARGETS omnicpp

@@ -7,6 +7,6 @@ set(OMKDEPEND_EXE_SRC
     ifparser.c)
 add_executable(omkdepend ${OMKDEPEND_EXE_SRC})
 target_compile_definitions(omkdepend PRIVATE DEBUG)
-target_include_directories(omkdepend PRIVATE . ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(omkdepend PRIVATE . ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(omkdepend PRIVATE -O )
 

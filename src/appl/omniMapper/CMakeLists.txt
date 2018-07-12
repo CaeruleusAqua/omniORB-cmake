@@ -11,7 +11,7 @@ endif()
 add_executable(omniMapper ${OMNIMAPPER_EXE_SRC})
 target_link_libraries(omniMapper PRIVATE omnithread omniORB4)
 target_compile_definitions(omniMapper PRIVATE  ${CONFIG_FILE_ENV_VAR} ${CONFIG_FILE_DEFAULT})
-target_include_directories(omniMapper PRIVATE ${CMAKE_BINARY_DIR}/generated/lib/omniORB ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(omniMapper PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(omniMapper PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
 
 install(TARGETS omniMapper

@@ -25,7 +25,7 @@ macro(CHECK_HEADER_STDC RETURN_VALUE)
         message(STATUS "Check for ANSI C header files")
         try_run(CHECK_HEADER_STDC_result
                 CHECK_HEADER_STDC_compile_result
-                ${CMAKE_BINARY_DIR}
+                ${PROJECT_BINARY_DIR}
                 ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CheckHeaderSTDC.c
                 COMPILE_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS}
                 CMAKE_FLAGS
@@ -36,14 +36,14 @@ macro(CHECK_HEADER_STDC RETURN_VALUE)
         if(CHECK_HEADER_STDC_result EQUAL 0)
             message(STATUS "Check for ANSI C header files - found")
             set(${RETURN_VALUE} "1" CACHE INTERNAL "CHECK_HEADER_STDC")
-            file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
+            file(APPEND ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
                     "Determining if the include file ${INCLUDE} "
                     "exists passed with the following output:\n"
                     "${OUTPUT}\n\n")
         else()
             message(STATUS "Check for ANSI C header files - not found")
             set(${RETURN_VALUE} "")
-            file(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
+            file(APPEND ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
                     "Determining if the include file ${INCLUDE} "
                     "exists failed with the following output:\n"
                     "${OUTPUT}\n\n")
