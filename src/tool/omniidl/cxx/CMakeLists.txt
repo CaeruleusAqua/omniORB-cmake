@@ -59,17 +59,23 @@ else ()
 
     install(TARGETS omniidl EXPORT ${PROJECT_NAME}Targets LIBRARY DESTINATION ${PYTHON_SITE})
 
+    set(PYTHON ${Python_EXECUTABLE})
     if (${Python_VERSION_MAJOR} EQUAL 2)
+        configure_file(${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/scripts/omniidl.in ${PROJECT_BINARY_DIR}/bin/omniidl @ONLY)
         install(DIRECTORY
                 ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/omniidl
                 ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/omniidl_be
                 DESTINATION ${PYTHON_SITE})
     else ()
+        configure_file(${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/scripts/omniidl.in ${PROJECT_BINARY_DIR}/bin/omniidl @ONLY)
         install(DIRECTORY
                 ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/omniidl
                 ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/omniidl_be
                 DESTINATION ${PYTHON_SITE})
     endif ()
+
+    install(FILES ${PROJECT_BINARY_DIR}/bin/omniidl DESTINATION bin
+            PERMISSIONS WORLD_EXECUTE WORLD_READ OWNER_WRITE)
 
 endif ()
 

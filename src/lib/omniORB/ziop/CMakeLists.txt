@@ -1,6 +1,5 @@
 find_package(ZLIB)
 
-
 if (ZLIB_FOUND)
 
     set(OMNIZIOP4_SRC
