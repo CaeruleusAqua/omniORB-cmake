@@ -1,4 +1,5 @@
 set(OMNIZIOPDYNAMIC4_SRC
+        ../ziop/ziopStubs.cc
         omniZIOPDynamic.cc
         compressionDynStubs.cc
         ziopDynStubs.cc)
