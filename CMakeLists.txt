@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.0)
-project (OmniOrb VERSION 4.2.2)
+project (OmniORB VERSION 4.2.2)
 
 #set(CMAKE_TOOLCHAIN_FILE C:/Users/scholle/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
@@ -28,6 +28,7 @@ INSTALL (
         DESTINATION include
         FILES_MATCHING PATTERN "*.h*")
 
+include(GNUInstallDirs)
 include(codegen.cmake)
 include(platform_checks.cmake)
 include(package_config.cmake)

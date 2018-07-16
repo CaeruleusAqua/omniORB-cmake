@@ -24,8 +24,8 @@ if (ZLIB_FOUND)
 
     install(TARGETS omniZIOPDynamic4_static omniZIOPDynamic4
             EXPORT ${PROJECT_NAME}Targets
-            RUNTIME DESTINATION bin
-            LIBRARY DESTINATION lib
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
             ARCHIVE DESTINATION lib/static)
 
 endif ()

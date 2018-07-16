@@ -18,11 +18,7 @@ else ()
     endif ()
 
     set(PYTHONHOME "PYTHONHOME=${Python_ROOT_DIR}")
-
     set(Python_RUNTIME_LIBRARY_DIRS ${Python_RUNTIME_LIBRARY_DIRS} ${PROJECT_SOURCE_DIR})
-    message("------------${Python_RUNTIME_LIBRARY_DIRS}")
-
-
     set(TEST)
     FOREACH(PAT ${Python_RUNTIME_LIBRARY_DIRS})
         set(TEST "${PAT}\\\\\\;${TEST}")

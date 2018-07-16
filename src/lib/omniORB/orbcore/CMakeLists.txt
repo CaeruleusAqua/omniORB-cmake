@@ -217,8 +217,8 @@ add_dependencies(omniORB4 RunGenerator)
 
 install(TARGETS omniORB4_static omniORB4
         EXPORT ${PROJECT_NAME}Targets
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION lib/static)
 
 
