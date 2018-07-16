@@ -16,12 +16,16 @@ else ()
         set(PYTHONPATH "PYTHONPATH=\"${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3\"")
         set(OMNI_PYTHON_RESOURCES ${PROJECT_SOURCE_DIR}/src/lib/omniORB/python3)
     endif ()
-    set(PYTHONHOME "PYTHONHOME=${Python_ROOT_DIR}")
+    if (${Python_ROOT_DIR})
+        set(PYTHONHOME "PYTHONHOME=${Python_ROOT_DIR}")
+    endif ()
+
     SET(PATH_ENV PATH=${Python_RUNTIME_LIBRARY_DIRS})
+    STRING(REGEX REPLACE ";" "\\\\;" PATH_ENV ${PATH_ENV})
     message("-----------${PYTHONHOME}")
     message("------------${PATH_ENV}")
     SET(OMNIIDL_PLATFORM_FLAGS "-T")
-    set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PATH_ENV} ${PYTHONHOME} ${PYTHONPATH}  $<TARGET_FILE:omniidl>)
+    set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PATH_ENV} ${PYTHONHOME} ${PYTHONPATH} $<TARGET_FILE:omniidl>)
 endif ()
 
 
