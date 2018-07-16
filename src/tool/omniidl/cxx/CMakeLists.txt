@@ -59,7 +59,12 @@ else ()
 
     install(TARGETS omniidl EXPORT ${PROJECT_NAME}Targets LIBRARY DESTINATION ${PYTHON_SITE})
 
+    set(prefix ${CMAKE_INSTALL_PREFIX})
+    set(exec_prefix ${CMAKE_INSTALL_PREFIX})
+        set(pythondir ${CMAKE_INSTALL_PREFIX}/${PYTHON_SITE})
+        set(pyexecdir ${CMAKE_INSTALL_PREFIX}/${PYTHON_SITE})
     set(PYTHON ${Python_EXECUTABLE})
+
     if (${Python_VERSION_MAJOR} EQUAL 2)
         configure_file(${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/scripts/omniidl.in ${PROJECT_BINARY_DIR}/bin/omniidl @ONLY)
         install(DIRECTORY
