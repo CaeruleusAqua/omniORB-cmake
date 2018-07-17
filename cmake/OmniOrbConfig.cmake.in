@@ -8,4 +8,8 @@ include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
 find_package(Threads REQUIRED)
 
 message(STATUS "Found @PROJECT_NAME@ (found version \"@PROJECT_VERSION@\")")
-set_and_check(OMNIORB4_IDL_COMPILER "${PACKAGE_PREFIX_DIR}/bin/omniidl")
+set_and_check(OMNIORB4_IDL_COMPILER "${PACKAGE_PREFIX_DIR}/tools/omniorb/omniidl")
+
+set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env @PATH_ENV@ @PYTHONHOME@ @PYTHONPATH@ $<TARGET_FILE:omniidl>)
+
+include(run_omniidl.cmake)

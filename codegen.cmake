@@ -28,31 +28,12 @@ else ()
     set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PATH_ENV} ${PYTHONHOME} ${PYTHONPATH} $<TARGET_FILE:omniidl>)
 endif ()
 
+include(cmake/run_omniidl.cmake)
 
 set(GEN_DIR ${PROJECT_BINARY_DIR}/generated/lib/omniORB/omniORB4/)
 set(IDL_DIR ${PROJECT_SOURCE_DIR}/idl/)
 
 
-macro(RUN_OMNIIDL IDL_FILE OUTPUT_DIRECTORY INCLUDE_DIRECTORY OPTIONS OUTPUT_FILES)
-    file(MAKE_DIRECTORY ${OUTPUT_DIRECTORY})
-    get_filename_component(IDL_FILE_BASENAME ${IDL_FILE} NAME)
-    set(INTERNAL_OUTPUT_FILES ${OUTPUT_FILES})
-    set(INTERNAL_OPTIONS ${OPTIONS})
-    set(OUT_WITH_PATH)
-    foreach (arg IN LISTS INTERNAL_OUTPUT_FILES)
-        set(OUT_WITH_PATH ${OUT_WITH_PATH} ${OUTPUT_DIRECTORY}/${arg})
-    endforeach ()
-    ADD_CUSTOM_COMMAND(OUTPUT ${OUT_WITH_PATH}
-            COMMAND ${OMNIIDL_EXEC} ${OMNIIDL_PLATFORM_FLAGS} -bcxx -p${OMNI_PYTHON_RESOURCES} -I${INCLUDE_DIRECTORY} ${INTERNAL_OPTIONS} -C${OUTPUT_DIRECTORY} ${IDL_FILE}
-            DEPENDS ${IDL_FILE} omniidl omnicpp
-            COMMENT "Processing ${IDL_FILE_BASENAME}..")
-
-    set(OUTPARAM "${ARGN}")
-    foreach (loop_var IN LISTS OUTPARAM)
-        set(${OUTPARAM} ${${OUTPARAM}} ${OUT_WITH_PATH})
-    endforeach ()
-
-endmacro(RUN_OMNIIDL)
 
 RUN_OMNIIDL(${IDL_DIR}/Naming.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wba;-Wbdebug" "Naming.hh;NamingDynSK.cc;NamingSK.cc" SOURCE_FILES)
 RUN_OMNIIDL(${IDL_DIR}/corbaidl.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbdebug;-Wba;-nf;-P;-WbF" "corbaidlSK.cc;corbaidlDynSK.cc;corbaidl_poa.hh;corbaidl_operators.hh;corbaidl_defs.hh" SOURCE_FILES)
