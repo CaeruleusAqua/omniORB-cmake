@@ -22,12 +22,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 #set(Python_ROOT_DIR "C:/msys64/mingw64")
 find_package (Python REQUIRED COMPONENTS Interpreter Development)
 find_package(Threads REQUIRED)
-
-INSTALL (
-        DIRECTORY ${PROJECT_SOURCE_DIR}/include/
-        DESTINATION include
-        FILES_MATCHING PATTERN "*.h*")
-
 include(GNUInstallDirs)
 include(codegen.cmake)
 include(platform_checks.cmake)
@@ -35,4 +29,10 @@ include(package_config.cmake)
 add_subdirectory(contrib)
 add_subdirectory(src)
 
-#message("----------------------${omniORB4_LIBRARIES}")
+
+INSTALL (
+        DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+        DESTINATION &{CMAKE_INSTALL_INCLUDEDIR}
+        FILES_MATCHING PATTERN "*.h*")
+
+

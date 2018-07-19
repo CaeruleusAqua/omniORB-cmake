@@ -20,9 +20,9 @@ else ()
     set(PYTHONHOME "PYTHONHOME=${Python_ROOT_DIR}")
     set(Python_RUNTIME_LIBRARY_DIRS ${Python_RUNTIME_LIBRARY_DIRS} ${PROJECT_SOURCE_DIR})
     set(TEST)
-    FOREACH(PAT ${Python_RUNTIME_LIBRARY_DIRS})
+    FOREACH (PAT ${Python_RUNTIME_LIBRARY_DIRS})
         set(TEST "${PAT}\\\\\\;${TEST}")
-    ENDFOREACH()
+    ENDFOREACH ()
     SET(PATH_ENV PATH=${TEST})
     SET(OMNIIDL_PLATFORM_FLAGS "-T")
     set(OMNIIDL_EXEC ${CMAKE_COMMAND} -E env ${PATH_ENV} ${PYTHONHOME} ${PYTHONPATH} $<TARGET_FILE:omniidl>)
@@ -32,7 +32,6 @@ include(cmake/run_omniidl.cmake)
 
 set(GEN_DIR ${PROJECT_BINARY_DIR}/generated/lib/omniORB/omniORB4/)
 set(IDL_DIR ${PROJECT_SOURCE_DIR}/idl/)
-
 
 
 RUN_OMNIIDL(${IDL_DIR}/Naming.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wba;-Wbdebug" "Naming.hh;NamingDynSK.cc;NamingSK.cc" SOURCE_FILES)
@@ -60,3 +59,9 @@ ADD_CUSTOM_TARGET(RunGenerator DEPENDS
         ${SOURCE_FILES}
         ${GEN_DIR}/distdate.hh
         COMMENT "Checking if re-generation is required for target omniORB4")
+
+
+INSTALL(DIRECTORY ${PROJECT_BINARY_DIR}/generated/lib/omniORB/
+        DESTINATION &{CMAKE_INSTALL_INCLUDEDIR}
+        FILES_MATCHING PATTERN "*.h*")
+
