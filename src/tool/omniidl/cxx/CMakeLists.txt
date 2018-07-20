@@ -22,6 +22,8 @@ set(_OMNIIDLMODULE_SRC
         idlpython.cc)
 
 
+
+
 if (WIN32)
     add_executable(omniidl ${_OMNIIDLMODULE_SRC})
     target_compile_definitions(omniidl PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> MSDOS OMNIIDL_EXECUTABLE IDLMODULE_VERSION="0x2630")
@@ -50,38 +52,42 @@ else ()
     set_target_properties(omniidl PROPERTIES PREFIX "")
     set_target_properties(omniidl PROPERTIES OUTPUT_NAME "_omniidl")
 
-    execute_process(
-            COMMAND "${Python_EXECUTABLE}" -c "if True:
-    from distutils import sysconfig as sc
-    print(sc.get_python_lib(prefix='', plat_specific=True))"
-            OUTPUT_VARIABLE PYTHON_SITE
-            OUTPUT_STRIP_TRAILING_WHITESPACE)
 
     install(TARGETS omniidl EXPORT ${PROJECT_NAME}Targets LIBRARY DESTINATION ${PYTHON_SITE})
 
     set(prefix ${CMAKE_INSTALL_PREFIX})
     set(exec_prefix ${CMAKE_INSTALL_PREFIX})
-        set(pythondir ${CMAKE_INSTALL_PREFIX}/${PYTHON_SITE})
-        set(pyexecdir ${CMAKE_INSTALL_PREFIX}/${PYTHON_SITE})
+    set(pythondir ${CMAKE_INSTALL_PREFIX}/${PYTHON_SITE})
+    set(pyexecdir ${CMAKE_INSTALL_PREFIX}/${PYTHON_SITE})
     set(PYTHON ${Python_EXECUTABLE})
 
     if (${Python_VERSION_MAJOR} EQUAL 2)
         configure_file(${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/scripts/omniidl.in ${PROJECT_BINARY_DIR}/bin/omniidl @ONLY)
-        install(DIRECTORY
-                ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/omniidl
-                ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/omniidl_be
-                DESTINATION ${PYTHON_SITE})
     else ()
         configure_file(${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/scripts/omniidl.in ${PROJECT_BINARY_DIR}/bin/omniidl @ONLY)
-        install(DIRECTORY
-                ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/omniidl
-                ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/omniidl_be
-                DESTINATION ${PYTHON_SITE})
     endif ()
 
     install(FILES ${PROJECT_BINARY_DIR}/bin/omniidl DESTINATION bin
             PERMISSIONS WORLD_EXECUTE WORLD_READ OWNER_WRITE)
 
+endif ()
+
+INSTALL(DIRECTORY ${PROJECT_BINARY_DIR}/generated/lib/omniORB/
+        DESTINATION &{CMAKE_INSTALL_INCLUDEDIR}
+        FILES_MATCHING PATTERN "*.h*")
+
+if (${Python_VERSION_MAJOR} EQUAL 2)
+    install(DIRECTORY
+            ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/omniidl
+            ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python/omniidl_be
+            DESTINATION ${PYTHON_SITE}
+            FILES_MATCHING PATTERN "*.py")
+else ()
+    install(DIRECTORY
+            ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/omniidl
+            ${PROJECT_SOURCE_DIR}/src/tool/omniidl/python3/omniidl_be
+            DESTINATION ${PYTHON_SITE}
+            FILES_MATCHING PATTERN "*.py")
 endif ()
 
 add_dependencies(omniidl omnicpp)

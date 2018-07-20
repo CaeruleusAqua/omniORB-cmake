@@ -13,6 +13,9 @@ set(OMNIORB_VERSION_HEX "0x040202F1")
 add_definitions(-D__OMNIORB4__)
 
 
+
+
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/static)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
@@ -26,6 +29,14 @@ include(GNUInstallDirs)
 include(codegen.cmake)
 include(platform_checks.cmake)
 include(package_config.cmake)
+
+execute_process(
+        COMMAND "${Python_EXECUTABLE}" -c "if True:
+    from distutils import sysconfig as sc
+    print(sc.get_python_lib(prefix='', plat_specific=True))"
+        OUTPUT_VARIABLE PYTHON_SITE
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+
 add_subdirectory(contrib)
 add_subdirectory(src)
 

@@ -32,9 +32,9 @@
 #define __omniconfig_h__
 #include <omniORB4/acconfig.h>
 
-#define __NT__ 1
+#define __linux__ 1
 #define __x86_64__ 1
-#define __OSVERSION__ 4
+#define __OSVERSION__ 2
 
 #undef PACKAGE_BUGREPORT
 #undef PACKAGE_NAME
