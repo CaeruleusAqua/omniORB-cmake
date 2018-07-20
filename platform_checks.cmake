@@ -1,3 +1,5 @@
+cmake_policy(SET CMP0075 NEW)
+
 INCLUDE(CheckFunctionExists)
 INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckTypeSize)
