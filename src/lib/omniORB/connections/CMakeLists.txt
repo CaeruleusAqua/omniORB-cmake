@@ -23,4 +23,4 @@ install(TARGETS omniConnectionMgmt4_static omniConnectionMgmt4
         EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION lib/static)
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)

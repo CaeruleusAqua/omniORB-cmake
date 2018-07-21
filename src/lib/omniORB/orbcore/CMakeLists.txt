@@ -117,7 +117,6 @@ set(ORB_SRCS
         ${TRANSPORT_SRCS}
         )
 
-
 if (UNIX)
     set(ORB_SRCS ${ORB_SRCS} ${UNIXSOCK_SRCS})
 endif ()
@@ -163,25 +162,13 @@ set(OMNICORE_DEFINITIONS
 ##########################################################################
 
 set(PLATFORM_LIBS)
-
 if (WIN32)
-
     set(PLATFORM_LIBS ws2_32 advapi32)
     set(OMNICORE_STATIC_DEFINITIONS ${OMNICORE_STATIC_DEFINITIONS} _WINSTATIC)
     set(ORB_SRCS ${ORB_SRCS} orbOptionsReg.cc)
-    #endif
-    if (CMAKE_CXX_COMPILER_ID MATCHES "clang")
-        # using Clang
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        # using GCC
-
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-        # using Intel C++
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        # using Visual Studio C++
+    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         set(ORB_SRCS ${ORB_SRCS} msvcdllstub.cc)
     endif ()
-
 endif ()
 
 
@@ -219,7 +206,6 @@ install(TARGETS omniORB4_static omniORB4
         EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION lib/static)
-
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
 
 add_subdirectory(ssl)

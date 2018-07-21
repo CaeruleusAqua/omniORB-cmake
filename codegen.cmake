@@ -47,7 +47,7 @@ RUN_OMNIIDL(${IDL_DIR}/bootstrap.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbde
 RUN_OMNIIDL(${IDL_DIR}/omniConnectionData.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbdebug" "omniConnectionData.hh;omniConnectionDataSK.cc" SOURCE_FILES)
 RUN_OMNIIDL(${IDL_DIR}/messaging.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbdebug" "messaging.hh;messagingSK.cc" SOURCE_FILES)
 RUN_OMNIIDL(${IDL_DIR}/messaging_policy.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbdebug" "messaging_policy.hh;messaging_policySK.cc" SOURCE_FILES)
-RUN_OMNIIDL(${IDL_DIR}/compression.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbdebug;-Wba" "ompression.hh;compressionDynSK.cc;compressionSK.cc" SOURCE_FILES)
+RUN_OMNIIDL(${IDL_DIR}/compression.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbdebug;-Wba" "compression.hh;compressionDynSK.cc;compressionSK.cc" SOURCE_FILES)
 RUN_OMNIIDL(${IDL_DIR}/ziop.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbdebug;-WbF;-Wba" "ziop_defs.hh;ziop_operators.hh;ziop_poa.hh;ziopDynSK.cc;ziopSK.cc" SOURCE_FILES)
 
 

@@ -22,10 +22,10 @@ if (ZLIB_FOUND)
     target_include_directories(omniZIOPDynamic4 PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB/ ${PROJECT_SOURCE_DIR}/include/omniORB4/internal . ${PROJECT_SOURCE_DIR}/include)
     target_compile_options(omniZIOPDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 
-    install(TARGETS omniZIOPDynamic4_static omniZIOPDynamic4
-            EXPORT ${PROJECT_NAME}Targets
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION lib/static)
+#    install(TARGETS omniZIOPDynamic4_static omniZIOPDynamic4
+#            EXPORT ${PROJECT_NAME}Targets
+#            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+#            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
 
 endif ()
