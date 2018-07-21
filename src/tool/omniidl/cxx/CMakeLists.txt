@@ -23,7 +23,6 @@ set(_OMNIIDLMODULE_SRC
 
 
 
-
 if (WIN32)
     add_executable(omniidl ${_OMNIIDLMODULE_SRC})
     target_compile_definitions(omniidl PRIVATE PYTHON_INCLUDE=<Python.h> PYTHON_THREAD_INC=<pythread.h> MSDOS OMNIIDL_EXECUTABLE IDLMODULE_VERSION="0x2630")
@@ -73,7 +72,7 @@ else ()
 endif ()
 
 INSTALL(DIRECTORY ${PROJECT_BINARY_DIR}/generated/lib/omniORB/
-        DESTINATION &{CMAKE_INSTALL_INCLUDEDIR}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
         FILES_MATCHING PATTERN "*.h*")
 
 if (${Python_VERSION_MAJOR} EQUAL 2)

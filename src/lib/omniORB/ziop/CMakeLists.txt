@@ -1,6 +1,6 @@
 find_package(ZLIB)
 
-if (ZLIB_FOUND)
+#if (ZLIB_FOUND)
 
     set(OMNIZIOP4_SRC
             omniZIOP.cc
@@ -9,7 +9,6 @@ if (ZLIB_FOUND)
             messagingStubs.cc
             zlibCompressor.cc)
 
-    find_package(ZLIB REQUIRED)
 
     add_library(omniZIOP4_static STATIC ${OMNIZIOP4_SRC})
     target_link_libraries(omniZIOP4_static PUBLIC omniORB4_static omnithread_static Threads::Threads ZLIB::ZLIB)
@@ -30,6 +29,6 @@ if (ZLIB_FOUND)
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
             ARCHIVE DESTINATION lib/static)
 
-else()
-    message(WARNING "Zlib not found, disable omniZIOP")
-endif ()
+#else()
+#    message(WARNING "Zlib not found, disable omniZIOP")
+#endif ()

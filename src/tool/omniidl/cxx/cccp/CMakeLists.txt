@@ -13,6 +13,7 @@ target_include_directories(omnicpp PRIVATE ${PROJECT_SOURCE_DIR}/include ${CMAKE
 target_compile_definitions(omnicpp PRIVATE HAVE_CONFIG_H)
 
 install(TARGETS omnicpp
+        EXPORT ${PROJECT_NAME}Targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION lib/static)

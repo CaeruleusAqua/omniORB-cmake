@@ -1,4 +1,6 @@
-cmake_policy(SET CMP0075 NEW)
+if(${CMAKE_VERSION} VERSION_GREATER "3.12")
+    cmake_policy(SET CMP0075 NEW)
+endif()
 
 INCLUDE(CheckFunctionExists)
 INCLUDE(CheckIncludeFiles)
