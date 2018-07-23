@@ -10,17 +10,16 @@ add_executable(vcoloc vcoloc.cc ${GEN_DIR}/valueSK.cc ${GEN_DIR}/value.hh)
 
 target_link_libraries(vserver PRIVATE omniORB4 omnithread omniDynamic4 Threads::Threads)
 target_compile_definitions(vserver PRIVATE  ${DEFAULT_LOGDIR})
-target_include_directories(vserver PRIVATE . ${PROJECT_SOURCE_DIR}/include/include ${GEN_DIR})
+target_include_directories(vserver PRIVATE . ${PROJECT_SOURCE_DIR}/include ${GEN_DIR})
 target_compile_options(vserver PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
-
 
 target_link_libraries(vclient PRIVATE omniORB4 omnithread omniDynamic4 Threads::Threads)
 target_compile_definitions(vclient PRIVATE  ${DEFAULT_LOGDIR})
-target_include_directories(vclient PRIVATE . ${PROJECT_SOURCE_DIR}/include/include ${GEN_DIR})
+target_include_directories(vclient PRIVATE . ${PROJECT_SOURCE_DIR}/include ${GEN_DIR})
 target_compile_options(vclient PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 
 
 target_link_libraries(vcoloc PRIVATE omniORB4 omnithread omniDynamic4 Threads::Threads)
 target_compile_definitions(vcoloc PRIVATE  ${DEFAULT_LOGDIR})
-target_include_directories(vcoloc PRIVATE . ${PROJECT_SOURCE_DIR}/include/include ${GEN_DIR})
+target_include_directories(vcoloc PRIVATE . ${PROJECT_SOURCE_DIR}/include ${GEN_DIR})
 target_compile_options(vcoloc PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})

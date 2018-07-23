@@ -31,14 +31,12 @@ set(OMNICODESETS4_SRC
 add_library(omniCodeSets4_static STATIC ${OMNICODESETS4_SRC})
 target_link_libraries(omniCodeSets4_static PRIVATE omniORB4_static omnithread_static Threads::Threads)
 target_compile_definitions(omniCodeSets4_static PRIVATE USE_omniORB_logStream)
-target_include_directories(omniCodeSets4_static PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB ${PROJECT_SOURCE_DIR}/include/omniORB4/internal  )
 target_compile_options(omniCodeSets4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
 
 
 add_library(omniCodeSets4 SHARED ${OMNICODESETS4_SRC})
 target_link_libraries(omniCodeSets4 PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(omniCodeSets4 PRIVATE USE_omniORB_logStream)
-target_include_directories(omniCodeSets4 PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB ${PROJECT_SOURCE_DIR}/include/omniORB4/internal)
 target_compile_options(omniCodeSets4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS}  )
 
 

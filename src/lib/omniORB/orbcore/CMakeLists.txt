@@ -178,9 +178,9 @@ target_compile_definitions(omniORB4_static PRIVATE ${OMNICORE_DEFINITIONS} ${OMN
 target_include_directories(omniORB4_static
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${PROJECT_SOURCE_DIR}/include/omniORB4/internal
-        ${PROJECT_BINARY_DIR}/generated/lib/omniORB
         PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/omniORB4/internal>
+        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/generated/lib/omniORB>
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
 target_compile_options(omniORB4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
@@ -193,9 +193,9 @@ target_compile_definitions(omniORB4 PRIVATE ${OMNICORE_DEFINITIONS})
 target_include_directories(omniORB4
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${PROJECT_SOURCE_DIR}/include/omniORB4/internal
-        ${PROJECT_BINARY_DIR}/generated/lib/omniORB
         PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/omniORB4/internal>
+        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/generated/lib/omniORB>
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
 target_compile_options(omniORB4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})

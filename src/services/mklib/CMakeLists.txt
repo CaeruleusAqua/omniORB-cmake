@@ -1,5 +1,4 @@
 set(GEN_DIR ${PROJECT_BINARY_DIR}/generated/services/mklib/)
-set(GEN_DIR2 ${PROJECT_BINARY_DIR}/generated/lib/omniORB/)
 set(IDL_DIR ${PROJECT_SOURCE_DIR}/idl/COS/)
 file(MAKE_DIRECTORY ${GEN_DIR})
 
@@ -54,8 +53,9 @@ ADD_CUSTOM_TARGET(CosRunGenerator DEPENDS
         COMMENT "Checking if re-generation is required for target COS4")
 
 add_library(COS4_static STATIC ${COS4_SRC})
+target_link_libraries(COS4_static PRIVATE omniORB4_static omniDynamic4 omnithread Threads::Threads)
 target_compile_definitions(COS4_static PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
-target_include_directories(COS4_static PRIVATE ${GEN_DIR}/ ${PROJECT_BINARY_DIR}/generated/lib/omniORB/ ${PROJECT_SOURCE_DIR}/include .)
+target_include_directories(COS4_static PRIVATE ${GEN_DIR}/ ${PROJECT_SOURCE_DIR}/include .)
 target_compile_options(COS4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(COS4_static CosRunGenerator)
 
@@ -63,22 +63,22 @@ add_dependencies(COS4_static CosRunGenerator)
 add_library(COS4 SHARED ${COS4_SRC})
 target_link_libraries(COS4 PRIVATE omniORB4 omniDynamic4 omnithread Threads::Threads)
 target_compile_definitions(COS4 PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
-target_include_directories(COS4 PRIVATE ${GEN_DIR}/ ${PROJECT_BINARY_DIR}/generated/lib/omniORB/ ${PROJECT_SOURCE_DIR}/include .)
+target_include_directories(COS4 PRIVATE ${GEN_DIR}/ ${PROJECT_SOURCE_DIR}/include .)
 target_compile_options(COS4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(COS4 CosRunGenerator)
 
 
 add_library(COSDynamic4_static STATIC ${COSDYNAMIC4_SRC})
 target_link_libraries(COSDynamic4_static PUBLIC COS4 omniORB4_static omniDynamic4_static omnithread_static Threads::Threads)
-target_compile_definitions(COSDynamic4_static PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
-target_include_directories(COSDynamic4_static PRIVATE ${GEN_DIR2} ${GEN_DIR}/ ${PROJECT_SOURCE_DIR}/include .)
+target_compile_definitions(COSDynamic4_static PRIVATE _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
+target_include_directories(COSDynamic4_static PRIVATE ${GEN_DIR}/ .)
 target_compile_options(COSDynamic4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 
 
 add_library(COSDynamic4 SHARED ${COSDYNAMIC4_SRC})
 target_link_libraries(COSDynamic4 PUBLIC COS4 omniORB4 omniDynamic4 omnithread Threads::Threads)
 target_compile_definitions(COSDynamic4 PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT USE_core_stub_in_nt_dll)
-target_include_directories(COSDynamic4 PRIVATE  ${GEN_DIR2} ${GEN_DIR}/ ${PROJECT_SOURCE_DIR}/include .)
+target_include_directories(COSDynamic4 PRIVATE ${GEN_DIR}/ .)
 target_compile_options(COSDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 
 

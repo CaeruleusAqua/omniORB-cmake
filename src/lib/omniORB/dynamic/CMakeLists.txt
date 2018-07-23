@@ -43,14 +43,12 @@ set(OMNIDYNAMIC4_SRC
 add_library(omniDynamic4_static STATIC ${OMNIDYNAMIC4_SRC})
 target_link_libraries(omniDynamic4_static PUBLIC omniORB4_static omnithread_static Threads::Threads)
 target_compile_definitions(omniDynamic4_static PRIVATE USE_omniORB_logStream _OMNIORB_DYNAMIC_LIBRARY)
-target_include_directories(omniDynamic4_static PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB ${PROJECT_SOURCE_DIR}/include/omniORB4/internal ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(omniDynamic4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
 
 
 add_library(omniDynamic4 SHARED ${OMNIDYNAMIC4_SRC})
 target_link_libraries(omniDynamic4 PUBLIC omniORB4 omnithread Threads::Threads)
 target_compile_definitions(omniDynamic4 PRIVATE USE_omniORB_logStream _OMNIORB_DYNAMIC_LIBRARY)
-target_include_directories(omniDynamic4 PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB  ${PROJECT_SOURCE_DIR}/include/omniORB4/internal ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(omniDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS}  )
 
 install(TARGETS omniDynamic4_static omniDynamic4
