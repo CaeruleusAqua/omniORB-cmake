@@ -1,5 +1,5 @@
-cmake_minimum_required (VERSION 3.0)
-project (OmniORB VERSION 4.2.2)
+cmake_minimum_required(VERSION 3.0)
+project(OmniORB VERSION 4.2.2)
 
 set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
@@ -9,7 +9,7 @@ set(OMNIORB_VERSION ${PROJECT_VERSION})
 set(OMNIORB_VERSION_HEX "0x040202F1")
 add_definitions(-D__OMNIORB4__)
 
-find_package (Python REQUIRED COMPONENTS Interpreter Development)
+find_package(Python REQUIRED COMPONENTS Interpreter Development)
 find_package(Threads REQUIRED)
 
 execute_process(
@@ -25,12 +25,11 @@ include(platform_checks.cmake)
 include(package_config.cmake)
 
 
-
 add_subdirectory(contrib)
 add_subdirectory(src)
 
 
-INSTALL (
+INSTALL(
         DIRECTORY ${PROJECT_SOURCE_DIR}/include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
         FILES_MATCHING PATTERN "*.h*")
