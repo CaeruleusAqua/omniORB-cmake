@@ -26,7 +26,7 @@ execute_process(
         OUTPUT_VARIABLE PYTHON_SITE
         OUTPUT_STRIP_TRAILING_WHITESPACE)
 else()
-    set(PYTHON_SITE lib/site-packages)
+    set(PYTHON_SITE Lib/site-packages)
 endif()
 
 include(GNUInstallDirs)
