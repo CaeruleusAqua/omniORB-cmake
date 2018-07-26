@@ -18,12 +18,16 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 find_package(Python REQUIRED COMPONENTS Interpreter Development)
 find_package(Threads REQUIRED)
 
+if(UNIX)
 execute_process(
         COMMAND "${Python_EXECUTABLE}" -c "if True:
     from distutils import sysconfig as sc
     print(sc.get_python_lib(prefix='', plat_specific=True))"
         OUTPUT_VARIABLE PYTHON_SITE
         OUTPUT_STRIP_TRAILING_WHITESPACE)
+else()
+    set(PYTHON_SITE lib/site-packages)
+endif()
 
 include(GNUInstallDirs)
 include(codegen.cmake)
