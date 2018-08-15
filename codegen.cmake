@@ -39,7 +39,7 @@ include(cmake/run_omniidl.cmake)
 
 set(GEN_DIR ${PROJECT_BINARY_DIR}/generated/lib/omniORB/omniORB4/)
 set(IDL_DIR ${PROJECT_SOURCE_DIR}/idl/)
-
+set(SOURCE_FILES)
 
 RUN_OMNIIDL(${IDL_DIR}/Naming.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wba;-Wbdebug" "Naming.hh;NamingDynSK.cc;NamingSK.cc" SOURCE_FILES)
 RUN_OMNIIDL(${IDL_DIR}/corbaidl.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl "-Wbdebug;-Wba;-nf;-P;-WbF" "corbaidlSK.cc;corbaidlDynSK.cc;corbaidl_poa.hh;corbaidl_operators.hh;corbaidl_defs.hh" SOURCE_FILES)
