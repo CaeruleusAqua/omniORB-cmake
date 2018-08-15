@@ -12,6 +12,7 @@ else ()
         set(DEFAULT_LOGDIR DEFAULT_LOGDIR=\"C:\\\\TEMP\")
     else ()
         set(DEFAULT_LOGDIR DEFAULT_LOGDIR=\"/var/omniNames\")
+        INSTALL(CODE "FILE(MAKE_DIRECTORY /var/omniNames)")
     endif ()
 endif ()
 
@@ -27,3 +28,4 @@ install(TARGETS omniNames
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
+
