@@ -36,6 +36,14 @@
 #define __x86_64__ 1
 #define __OSVERSION__ 4
 
+#ifndef __WIN32__
+#define __WIN32__ 1
+#endif
+
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
+#endif
+
 #undef PACKAGE_BUGREPORT
 #undef PACKAGE_NAME
 #undef PACKAGE_STRING

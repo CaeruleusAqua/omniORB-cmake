@@ -36,6 +36,14 @@
 #define @PROCESSOR_DEFINE@ 1
 #define __OSVERSION__ @OSVERSION@
 
+#ifndef __WIN32__
+#cmakedefine __WIN32__ 1
+#endif
+
+#ifndef _WIN32_WINNT
+#cmakedefine _WIN32_WINNT @_WIN32_WINNT@
+#endif
+
 #undef PACKAGE_BUGREPORT
 #undef PACKAGE_NAME
 #undef PACKAGE_STRING

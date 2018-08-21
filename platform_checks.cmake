@@ -8,6 +8,38 @@ INCLUDE(CheckTypeSize)
 INCLUDE(CheckPrototypeDefinition)
 INCLUDE(CheckSymbolExists)
 INCLUDE(TestForSTDNamespace)
+include(${CMAKE_SOURCE_DIR}/cmake/CheckWinVer.cmake)
+
+
+if ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" OR "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "AMD64")
+    set(PROCESSOR_NAME x86Processor)
+    set(PROCESSOR_DEFINE __x86_64__)
+    add_definitions(-D__x86__)
+else ()
+    message(FATAL_ERROR "System: ${CMAKE_SYSTEM_PROCESSOR} not supported")
+endif ()
+
+
+# Variables used in configure_file
+if (WIN32)
+
+    set(OSVERSION "4")
+    set(PLATFORM_DEFINE "__NT__")
+    set(PLATFORM_NAME "Windows")
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+    ##get_WIN32_WINNT(_WIN32_WINNT)
+    set(_WIN32_WINNT 0x0501) # force XP Compatibility for now
+    set(__WIN32__ 1)
+    set(CMAKE_REQUIRED_DEFINITIONS -D__WIN32__ -D__NT__ -D_WIN32_WINNT=${_WIN32_WINNT} -D__OSVERSION__=4)
+    add_definitions(-D__WIN32__ -D__NT__ -D_WIN32_WINNT=${_WIN32_WINNT} -D__OSVERSION__=4)
+elseif (UNIX AND NOT APPLE)
+    set(OSVERSION "2")
+    set(PLATFORM_DEFINE "__linux__")
+    set(PLATFORM_NAME "Linux")
+else ()
+    message(FATAL_ERROR "System: ${CMAKE_SYSTEM_NAME} not supported")
+endif ()
+
 
 set(CFG_HEADERS)
 set(CFG_LIBS)
@@ -32,9 +64,7 @@ if (NOT ${CMAKE_NO_STD_NAMESPACE})
     set(HAVE_STD 1)
 endif ()
 
-if (WIN32)
-    set(CMAKE_REQUIRED_DEFINITIONS -D_WIN32_WINNT=0x0501)
-endif ()
+
 
 CHECK_INCLUDE_AND_ADD(alloca.h HAVE_ALLOCA_H)
 CHECK_INCLUDE_AND_ADD(signal.h HAVE_SIGNAL_H)
@@ -146,6 +176,7 @@ option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support" OFF)
 #/* define if __sync_add_and_fetch and __sync_sub_and_fetch are available */
 #define OMNI_HAVE_SYNC_ADD_AND_FETCH /**/
 
+# TODO Unused in Code?
 #/* define if base constructors have to be fully qualified */
 #/* #undef OMNI_REQUIRES_FQ_BASE_CTOR */
 
@@ -154,9 +185,6 @@ option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support" OFF)
 # TODO generate PackageConfig files
 set(PACKAGE_VERSION ${PROJECT_VERSION})
 
-
-#/* define if long is the same type as int */
-#/* #undef OMNI_LONG_IS_INT */
 if (SIZEOF_LONG EQUAL SIZEOF_INT)
     set(OMNI_LONG_IS_INT 1)
 endif ()
@@ -215,29 +243,6 @@ TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
 #powerpc*) proc_name="PowerPCProcessor"; proc_def="__powerpc__";;
 #esac
 
-
-if ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" OR "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "AMD64")
-    set(PROCESSOR_NAME x86Processor)
-    set(PROCESSOR_DEFINE __x86_64__)
-    add_definitions(-D__x86__)
-else ()
-    message(FATAL_ERROR "System: ${CMAKE_SYSTEM_PROCESSOR} not supported")
-endif ()
-
-if (WIN32)
-    add_definitions(-D__WIN32__ -D__NT__ -D_WIN32_WINNT=0x0501 -D__OSVERSION__=4) #-DUSE_core_stub_in_nt_dll
-    set(OSVERSION "4")
-    set(PLATFORM_DEFINE "__NT__")
-    set(PLATFORM_NAME "Windows")
-    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
-
-elseif (UNIX AND NOT APPLE)
-    set(OSVERSION "2")
-    set(PLATFORM_DEFINE "__linux__")
-    set(PLATFORM_NAME "Linux")
-else ()
-    message(FATAL_ERROR "System: ${CMAKE_SYSTEM_NAME} not supported")
-endif ()
 
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "clang")
