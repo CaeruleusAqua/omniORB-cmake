@@ -83,6 +83,10 @@
 #cmakedefine OMNI_SOCKNAME_SIZE_T @OMNI_SOCKNAME_SIZE_T@
 #endif
 
+/* define if you want to use CFNetwork */
+#ifndef OMNI_USE_CFNETWORK_CONNECT
+#cmakedefine OMNI_USE_CFNETWORK_CONNECT @OMNI_USE_CFNETWORK_CONNECT@
+#endif
 
 #ifndef HAVE_ERRNO_H
 #cmakedefine HAVE_ERRNO_H @HAVE_ERRNO_H@

@@ -168,6 +168,7 @@ option(OMNIORB_DISABLE_LONGDOUBLE "define if you want to disable long double sup
 option(OMNIORB_ENABLE_LOCK_TRACES "if you want mutexes to be traced" OFF)
 option(OMNI_DISABLE_ATOMIC_OPS "define if you want to disable atomic operations" OFF)
 option(OMNI_DISABLE_IPV6 "define if you want to disable IPv6 support" OFF)
+option(OMNI_USE_CFNETWORK_CONNECT "enable use of Mac / iOS CFNetwork (default disable-cfnetwork)" OFF)
 
 
 #/* define if the compiler supports covariant return types */
