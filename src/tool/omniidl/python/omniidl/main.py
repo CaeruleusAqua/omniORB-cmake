@@ -76,7 +76,6 @@ The supported flags are:
   -Cdir           Change directory to dir before writing output
   -d              Dump the parsed IDL then exit
   -i              Enter interactive mode after parsing the IDL
-  -i              Enter interactive mode after parsing the IDL
   -pdir           Path to omniidl back-ends ($TOP/lib/python)
   -V              Print version info then exit
   -u              Print this usage message and exit

@@ -1,5 +1,5 @@
 dnl -*- M4 -*-
-AC_INIT(omniORB, 4.2.2, bugs@omniorb-support.com)
+AC_INIT(omniORB, 4.2.3, bugs@omniorb-support.com)
 
 AC_PREREQ(2.52)
 AC_CONFIG_SRCDIR(bin/scripts/omkdirhier)
@@ -157,6 +157,7 @@ OMNI_DISABLE_ALLOCA
 OMNI_DISABLE_LONGDOUBLE
 OMNI_DISABLE_ATOMIC
 OMNI_ENABLE_ZIOP
+OMNI_ENABLE_CFNETWORK
 
 
 dnl ** Compiler name

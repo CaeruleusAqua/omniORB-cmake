@@ -433,7 +433,7 @@ AC_SUBST(ENABLE_LONGDOUBLE, $omni_cv_enable_longdouble)
 
 dnl Enable ZIOP
 AC_DEFUN([OMNI_ENABLE_ZIOP],
-[AC_CHECK_LIB(z,compress2,omni_cv_enable_ziop=yes,omni_cv_enable_ziop=no)
+[AC_CHECK_LIB(z,compressBound,omni_cv_enable_ziop=yes,omni_cv_enable_ziop=no)
 AC_SUBST(ENABLE_ZIOP, $omni_cv_enable_ziop)])
 
 dnl Atomic operations
@@ -473,6 +473,24 @@ omni_cv_enable_atomic,
 if test "$omni_cv_enable_atomic" = "no"; then
   AC_DEFINE(OMNI_DISABLE_ATOMIC_OPS,,[define if you want to disable atomic operations])
 fi
+])
+
+
+dnl Mac / iOS CFNetwork
+
+AC_DEFUN([OMNI_ENABLE_CFNETWORK],
+[AC_CACHE_CHECK(whether to use CFNetwork,
+omni_cv_enable_cfnetwork,
+[AC_ARG_ENABLE(cfnetwork,
+               AC_HELP_STRING([--enable-cfnetwork],
+                  [enable use of Mac / iOS CFNetwork (default disable-cfnetwork)]),
+               omni_cv_enable_cfnetwork=$enableval,
+               omni_cv_enable_cfnetwork=no)
+])
+if test "$omni_cv_enable_cfnetwork" = "yes"; then
+  AC_DEFINE(OMNI_USE_CFNETWORK_CONNECT,,[define if you want to use CFNetwork])
+fi
+AC_SUBST(OMNI_USE_CFNETWORK_CONNECT, $omni_cv_enable_cfnetwork)
 ])
 
 

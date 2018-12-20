@@ -1,3 +1,289 @@
+Mon 10 Dec 23:41:29 GMT 2018
+============================
+
+- This is omniORB 4.2.3.
+
+
+Mon 10 Dec 23:35:46 GMT 2018
+============================
+
+- Updates for 4.2.3.
+
+README.FIRST.txt
+ReleaseNotes.txt
+THIS_IS_OMNIORB_4_2_2
+THIS_IS_OMNIORB_4_2_3
+aclocal.m4
+configure.ac
+configure
+contrib/RPMs/omniORB.spec
+contrib/RPMs/omniORB_new.spec
+mk/version.mk
+
+
+Thu 29 Nov 17:10:43 GMT 2018
+============================
+
+- Avoid clash with std::empty.
+
+src/examples/thread/prodcons.cc
+
+
+Tue 27 Nov 12:23:53 GMT 2018
+============================
+
+- Fix some MSVC makefiles.
+
+src/examples/ami/dir.mak
+src/examples/boa/dir.mak
+src/examples/poa/shortcut/dir.mak
+
+
+Tue 30 Oct 17:14:21 GMT 2018
+============================
+
+- Avoid warnings about assignments in conditional expressions.
+
+include/omniORB4/CORBA_ValueBase_vartypes.h
+include/omniORB4/poa.h
+
+
+Wed  5 Sep 16:17:59 BST 2018
+============================
+
+- Fix race condition leading to use of deleted giopAddress object.
+
+include/omniORB4/internal/giopRope.h
+src/lib/omniORB/orbcore/GIOP_C.cc
+src/lib/omniORB/orbcore/giopRope.cc
+
+
+Wed 11 Jul 17:35:16 BST 2018
+============================
+
+- With retainAddressOrder false, an immediately failed connection on a
+  resolved address racing with a second thread trying to open a
+  connection to the same server, could lead to an assertion failure.
+
+src/lib/omniORB/orbcore/giopRope.cc
+
+
+Mon  9 Jul 11:19:50 BST 2018
+============================
+
+- Update Windows platform files for modern OpenSSL and zlib.
+
+mk/platforms/x86_win32_vs_10.mk
+mk/platforms/x86_win32_vs_11.mk
+mk/platforms/x86_win32_vs_12.mk
+mk/platforms/x86_win32_vs_14.mk
+mk/platforms/x86_win32_vs_15.mk
+
+
+Tue  3 Jul 18:17:02 BST 2018
+============================
+
+- Logging could attempt to access deleted address.
+
+include/omniORB4/internal/giopStream.h
+src/lib/omniORB/orbcore/giopStream.cc
+
+
+Wed 16 May 13:50:17 BST 2018
+============================
+
+- retainAddressOrder fails to reset addresses if initial name resolution fails.
+
+src/lib/omniORB/orbcore/giopRope.cc
+
+
+Tue  8 May 17:49:07 BST 2018
+============================
+
+- Avoid use of ancient zlib; AIX build fixes.
+
+acinclude.m4
+configure
+mk/beforeauto.mk.in
+mk/win32.mk
+src/lib/omniORB/ziopdynamic/dir.mk
+src/services/mklib/dynstublib/dir.mk
+src/tool/omkdepend/ifparser.h
+src/tool/omniidl/cxx/dir.mk
+
+
+Wed 18 Apr 18:01:39 BST 2018
+============================
+
+- Fix documentation typo.
+
+doc/omniORB.pdf
+doc/omniORB/omniORB.html
+doc/omniORB/omniORB002.html
+doc/omniORB/omniORB004.html
+doc/tex/omniORB.tex
+
+
+Fri 30 Mar 22:56:57 BST 2018
+============================
+
+- Set client CA list.
+
+src/lib/omniORB/orbcore/ssl/sslContext.cc
+
+- Fail connection if socket is not selectable; experimental support
+  for Mac / iOS CFNetwork.
+
+acinclude.m4
+configure.ac
+configure
+include/omniORB4/acconfig.h.in
+include/omniORB4/internal/tcpSocket.h
+mk/beforeauto.mk.in
+src/lib/omniORB/orbcore/tcpSocket.cc
+src/lib/omniORB/orbcore/unix/unixAddress.cc
+
+
+Wed  3 Jan 15:46:33 GMT 2018
+============================
+
+- Operator constness fix.
+
+include/omnithread.h
+
+- Mac build rule tweak.
+
+mk/beforeauto.mk.in
+
+
+Fri 29 Dec 12:58:07 GMT 2017
+============================
+
+- Resolve partial lock order violation.
+
+include/omniORB4/internal/SocketCollection.h
+include/omniORB4/tracedthread.h
+src/lib/omniORB/orbcore/SocketCollection.cc
+src/lib/omniORB/orbcore/omniInternal.cc
+src/lib/omniORB/orbcore/ssl/sslActive.cc
+src/lib/omniORB/orbcore/ssl/sslEndpoint.cc
+src/lib/omniORB/orbcore/tcp/tcpEndpoint.cc
+src/lib/omniORB/orbcore/unix/unixActive.cc
+src/lib/omniORB/orbcore/unix/unixEndpoint.cc
+
+
+Thu 28 Dec 10:04:45 GMT 2017
+============================
+
+- Update configure with newer aclocal.
+
+aclocal.m4
+configure
+
+
+Thu 28 Dec 00:12:47 GMT 2017
+============================
+
+- New retainAddressOrder and resolveNamesForTransportRules options.
+
+doc/omniORB.pdf
+doc/omniORB/index.html
+doc/omniORB/omniORB.html
+doc/omniORB/omniORB001.html
+doc/omniORB/omniORB002.html
+doc/omniORB/omniORB003.html
+doc/omniORB/omniORB004.html
+doc/omniORB/omniORB005.html
+doc/omniORB/omniORB006.html
+doc/omniORB/omniORB007.html
+doc/omniORB/omniORB008.html
+doc/omniORB/omniORB009.html
+doc/omniORB/omniORB010.html
+doc/omniORB/omniORB011.html
+doc/omniORB/omniORB012.html
+doc/omniORB/omniORB013.html
+doc/omniORB/omniORB014.html
+doc/omniORB/omniORB015.html
+doc/omniORB/omniORB016.html
+doc/tex/omniORB.tex
+include/omniORB4/internal/giopRope.h
+include/omniORB4/internal/orbParameters.h
+include/omniORB4/omniutilities.h
+sample.cfg
+sample.reg
+src/lib/omniORB/orbcore/GIOP_C.cc
+src/lib/omniORB/orbcore/giopRope.cc
+src/lib/omniORB/orbcore/giopStrand.cc
+src/lib/omniORB/orbcore/giopStreamImpl.cc
+
+
+Thu 23 Nov 13:32:50 GMT 2017
+============================
+
+- Avoid some compiler warnings about word sizes.
+
+include/omniORB4/internal/codeSetUtil.h
+include/omniORB4/internal/giopStream.h
+include/omniORB4/internal/tcpSocket.h
+include/omniORB4/internal/typecode.h
+src/lib/omniORB/dynamic/context.cc
+src/lib/omniORB/dynamic/dynAny.cc
+src/lib/omniORB/orbcore/corbaBoa.cc
+src/lib/omniORB/orbcore/corbaFixed.cc
+src/lib/omniORB/orbcore/corbaObject.cc
+src/lib/omniORB/orbcore/corbaOrb.cc
+src/lib/omniORB/orbcore/corbaString.cc
+src/lib/omniORB/orbcore/initRefs.cc
+src/lib/omniORB/orbcore/ior.cc
+src/lib/omniORB/orbcore/poa.cc
+src/lib/omniORB/orbcore/poamanager.cc
+src/tool/omniidl/cxx/idlast.cc
+src/tool/omniidl/cxx/idlexpr.cc
+
+
+Thu 23 Nov 11:30:29 GMT 2017
+============================
+
+- Fix minor issues found by static analysis.
+
+include/omniORB4/CORBA_UnknownUserException.h
+include/omniORB4/ami.h
+include/omniORB4/internal/giopMonitor.h
+include/omniORB4/templatedecls.h
+src/appl/utils/genior/genior.cc
+
+- Error trying to use bi-directional strand after delete folowing a timeout.
+
+src/lib/omniORB/orbcore/giopRope.cc
+
+
+Thu 16 Nov 14:22:29 GMT 2017
+============================
+
+- Replace expired example certificates.
+
+src/examples/ssl_echo/client.pem
+src/examples/ssl_echo/root.pem
+src/examples/ssl_echo/server.pem
+
+
+Thu 14 Sep 16:29:35 BST 2017
+============================
+
+- Further locking issue with bidirectional connections.
+
+src/lib/omniORB/orbcore/giopStream.cc
+
+
+Wed  6 Sep 00:59:34 BST 2017
+============================
+
+- Incorrect Has_LongLong instead of HAS_LongLong, causing a very
+  slight performance loss.
+
+include/omniORB4/cdrStream.h
+
+
 Thu 11 May 16:08:37 BST 2017
 ============================
 
