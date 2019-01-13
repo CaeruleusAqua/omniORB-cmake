@@ -48,6 +48,7 @@ typedef unsigned char U_CHAR;
 #if defined(_MSC_VER) && defined(_WIN32)
 # include <io.h>
 # define PATH_SEPARATOR ';'
+# define alloca _alloca
 #endif
 
 /* By default, colon separates directories in a path.  */
@@ -1242,7 +1243,7 @@ safe_read (desc, ptr, len)
     if (rcount > MAX_READ_LEN)
       rcount = MAX_READ_LEN;
 #endif
-    nchars = _read (desc, ptr, rcount);
+    nchars = read (desc, ptr, rcount);
     if (nchars < 0)
       {
 #ifdef EINTR
@@ -1277,7 +1278,7 @@ safe_write (desc, ptr, len)
     if (wcount > MAX_WRITE_LEN)
       wcount = MAX_WRITE_LEN;
 #endif
-    written = _write (desc, ptr, wcount);
+    written = write (desc, ptr, wcount);
     if (written < 0)
       {
 #ifdef EINTR
@@ -1827,7 +1828,7 @@ main (argc, argv)
      that identify system and machine type.  */
 
   if (!inhibit_predefs) {
-    char *p = (char *) _alloca (strlen (predefs) + 1);
+    char *p = (char *) alloca (strlen (predefs) + 1);
     strcpy (p, predefs);
     while (*p) {
       char *q;
@@ -2109,7 +2110,7 @@ main (argc, argv)
       q = base_name (in_fname);
 
       /* Copy remainder to mungable area.  */
-      p = (char *) _alloca (strlen(q) + 8);
+      p = (char *) alloca (strlen(q) + 8);
       strcpy (p, q);
 
       /* Output P, but remove known suffixes.  */
@@ -2174,7 +2175,7 @@ main (argc, argv)
   if (in_fname == NULL || *in_fname == 0) {
     in_fname = "";
     f = 0;
-  } else if ((f = _open (in_fname, O_RDONLY, 0666)) < 0)
+  } else if ((f = open (in_fname, O_RDONLY, 0666)) < 0)
     goto perror;
 
   if (fstat (f, &st) != 0)
@@ -2806,7 +2807,7 @@ do { ip = &instack[indepth];		\
       op->bufp = obp;
       if (! handle_directive (ip, op)) {
 #ifdef USE_C_ALLOCA
-    _alloca (0);
+    alloca (0);
 #endif
 	/* Not a known directive: treat it as ordinary text.
 	   IP, OP, IBP, etc. have not been changed.  */
@@ -2832,7 +2833,7 @@ do { ip = &instack[indepth];		\
 	goto randomchar;
       }
 #ifdef USE_C_ALLOCA
-      _alloca (0);
+      alloca (0);
 #endif
       /* A # directive has been successfully processed.  */
       /* If not generating expanded output, ignore everything until
@@ -3551,7 +3552,7 @@ expand_to_temp_buffer (buf, limit, output_marks, assertions)
 
   /* Set up the input on the input stack.  */
 
-  buf1 = (U_CHAR *) _alloca (length + 1);
+  buf1 = (U_CHAR *) alloca (length + 1);
   {
     register U_CHAR *p1 = buf;
     register U_CHAR *p2 = buf1;
@@ -3879,7 +3880,7 @@ handle_directive (ip, op)
 	register U_CHAR *xp = buf;
 	/* Need to copy entire directive into temp buffer before dispatching */
 
-    cp = (U_CHAR *) _alloca (bp - buf + 5); /* room for directive plus
+    cp = (U_CHAR *) alloca (bp - buf + 5); /* room for directive plus
 						  some slop */
 	buf = cp;
 
@@ -4081,7 +4082,7 @@ special_symbol (hp, op)
 
       if (string)
 	{
-      buf = (char *) _alloca (3 + 4 * strlen (string));
+      buf = (char *) alloca (3 + 4 * strlen (string));
 	  quote_string (buf, string);
 	}
       else
@@ -4096,12 +4097,12 @@ special_symbol (hp, op)
       if (instack[i].fname != NULL)
         true_indepth++;
 
-    buf = (char *) _alloca (8);	/* Eight bytes ought to be more than enough */
+    buf = (char *) alloca (8);	/* Eight bytes ought to be more than enough */
     sprintf (buf, "%d", true_indepth - 1);
     break;
 
   case T_VERSION:
-    buf = (char *) _alloca (3 + strlen (version_string));
+    buf = (char *) alloca (3 + strlen (version_string));
     sprintf (buf, "\"%s\"", version_string);
     break;
 
@@ -4141,13 +4142,13 @@ special_symbol (hp, op)
     break;
 
   case T_SPECLINE:
-    buf = (char *) _alloca (10);
+    buf = (char *) alloca (10);
     sprintf (buf, "%d", ip->lineno);
     break;
 
   case T_DATE:
   case T_TIME:
-    buf = (char *) _alloca (20);
+    buf = (char *) alloca (20);
     timebuf = timestamp ();
     if (hp->type == T_DATE)
       sprintf (buf, "\"%s %2d %4d\"", monthnames[timebuf->tm_mon],
@@ -4286,7 +4287,7 @@ get_filename:
   /* Discard trailing whitespace so we can easily see
      if we have parsed all the significant chars we were given.  */
   while (limit != fin && is_hor_space[limit[-1]]) limit--;
-  fbeg = fend = (char *) _alloca (limit - fin);
+  fbeg = fend = (char *) alloca (limit - fin);
 
   switch (*fin++) {
   case '\"':
@@ -4325,7 +4326,7 @@ get_filename:
 	    /* Found a named file.  Figure out dir of the file,
 	       and put it in front of the search list.  */
 	    dsp = ((struct file_name_list *)
-           _alloca (sizeof (struct file_name_list) + strlen (nam)));
+           alloca (sizeof (struct file_name_list) + strlen (nam)));
 	    strcpy (dsp->fname, nam);
 	    simplify_filename (dsp->fname);
 	    nam = base_name (dsp->fname);
@@ -4391,7 +4392,7 @@ get_filename:
       U_CHAR *src;
       trybuf = expand_to_temp_buffer (buf, limit, 1, 0);
       src = trybuf.buf;
-      buf = (U_CHAR *) _alloca (trybuf.bufp - trybuf.buf + 1);
+      buf = (U_CHAR *) alloca (trybuf.bufp - trybuf.buf + 1);
       limit = buf;
       while (src != trybuf.bufp) {
 	switch ((*limit++ = *src++)) {
@@ -4542,7 +4543,7 @@ get_filename:
 	if (angle_brackets)
 	  {
 	    if (search_start) {
-          char *p = (char *) _alloca (strlen (search_start->fname)
+          char *p = (char *) alloca (strlen (search_start->fname)
 					 + strlen (fbeg) + 1);
 	      strcpy (p, search_start->fname);
 	      strcat (p, fbeg);
@@ -4572,7 +4573,7 @@ get_filename:
 
     /* Actually process the file.  */
 
-    pcftry = (char *) _alloca (strlen (fname) + 30);
+    pcftry = (char *) alloca (strlen (fname) + 30);
     pcfbuf = 0;
     pcfnum = 0;
 
@@ -4581,7 +4582,7 @@ get_filename:
 	do {
 	  sprintf (pcftry, "%s%d", fname, pcfnum++);
 
-      pcf = _open (pcftry, O_RDONLY, 0666);
+      pcf = open (pcftry, O_RDONLY, 0666);
 	  if (pcf != -1)
 	    {
 	      struct stat s;
@@ -4593,12 +4594,12 @@ get_filename:
 		{
 		  pcfbuf = check_precompiled (pcf, &s, fname, &pcfbuflimit);
 		  /* Don't need it any more.  */
-          _close (pcf);
+          close (pcf);
 		}
 	      else
 		{
 		  /* Don't need it at all.  */
-          _close (pcf);
+          close (pcf);
 		  break;
 		}
 	    }
@@ -4839,7 +4840,7 @@ read_name_map (dirname)
   map_list_ptr->map_list_map = NULL;
 
   dirlen = strlen (dirname);
-  name = (char *) _alloca (dirlen + strlen (FILE_NAME_MAP_FILE) + 1);
+  name = (char *) alloca (dirlen + strlen (FILE_NAME_MAP_FILE) + 1);
   strcpy (name, dirname);
   strcat (name, FILE_NAME_MAP_FILE);
   f = fopen (name, "r");
@@ -4930,7 +4931,7 @@ open_include_file (filename, include_filename, searchptr, importing, pinc)
       || ! inc->control_macro
       || (inc->control_macro[0] && ! lookup (inc->control_macro, -1, -1))) {
 
-    fd = _open (fname, O_RDONLY, 0);
+    fd = open (fname, O_RDONLY, 0);
 
     if (fd < 0)
       return fd;
@@ -4958,7 +4959,7 @@ open_include_file (filename, include_filename, searchptr, importing, pinc)
       if (lookup_ino_include (inc)
 	  && inc->control_macro
 	  && (!inc->control_macro[0] || lookup (inc->control_macro, -1, -1))) {
-    _close (fd);
+    close (fd);
 	fd = -2;
       }
     }
@@ -5016,7 +5017,7 @@ remap_include_file (filename, searchptr)
 	 in /usr/include/header.gcc and look up types.h in
 	 /usr/include/sys/header.gcc.  */
 
-      char *dir = (char *) _alloca (from - filename + 1);
+      char *dir = (char *) alloca (from - filename + 1);
       bcopy (filename, dir, from - filename);
       dir[from - filename] = '\0';
 
@@ -5097,7 +5098,7 @@ finclude (f, inc, op, system_header_p, dirptr)
   }
   else if (S_ISDIR (inc->st.st_mode)) {
     error ("directory `%s' specified in #include", fname);
-    _close (f);
+    close (f);
     return;
   } else {
     /* Cannot count its file size before reading.
@@ -5131,8 +5132,8 @@ finclude (f, inc, op, system_header_p, dirptr)
   }
   fp->buf[fp->length] = '\0';
 
-  /* _close descriptor now, so nesting does not use lots of descriptors.  */
-  _close (f);
+  /* close descriptor now, so nesting does not use lots of descriptors.  */
+  close (f);
 
   /* Must do this before calling trigraph_pcp, so that the correct file name
      will be printed in warning messages.  */
@@ -5161,7 +5162,7 @@ finclude (f, inc, op, system_header_p, dirptr)
  nope:
 
   perror_with_name (fname);
-  _close (f);
+  close (f);
   free (fp->buf);
 }
 
@@ -5573,7 +5574,7 @@ create_definition (buf, limit, op)
     while (*bp != ')') {
       struct arglist *temp;
 
-      temp = (struct arglist *) _alloca (sizeof (struct arglist));
+      temp = (struct arglist *) alloca (sizeof (struct arglist));
       temp->name = bp;
       temp->next = arg_ptrs;
       temp->argno = argno++;
@@ -6781,7 +6782,7 @@ do_error (buf, limit, op, keyword)
      struct directive *keyword;
 {
   int length = (int)(limit - buf);
-  U_CHAR *copy = (U_CHAR *) _alloca (length + 1);
+  U_CHAR *copy = (U_CHAR *) alloca (length + 1);
   bcopy ((char *) buf, (char *) copy, length);
   copy[length] = 0;
   SKIP_WHITE_SPACE (copy);
@@ -6800,7 +6801,7 @@ do_warning (buf, limit, op, keyword)
      struct directive *keyword;
 {
   int length = (int)(limit - buf);
-  U_CHAR *copy = (U_CHAR *) _alloca (length + 1);
+  U_CHAR *copy = (U_CHAR *) alloca (length + 1);
   bcopy ((char *) buf, (char *) copy, length);
   copy[length] = 0;
   SKIP_WHITE_SPACE (copy);
@@ -6841,7 +6842,7 @@ do_ident (buf, limit, op, keyword)
     pedwarn ("ANSI C does not allow `#ident'");
 
   trybuf = expand_to_temp_buffer (buf, limit, 0, 0);
-  buf = (U_CHAR *) _alloca (trybuf.bufp - trybuf.buf + 1);
+  buf = (U_CHAR *) alloca (trybuf.bufp - trybuf.buf + 1);
   bcopy ((char *) trybuf.buf, (char *) buf, trybuf.bufp - trybuf.buf);
   limit = buf + (trybuf.bufp - trybuf.buf);
   len = (int)(limit - buf);
@@ -6915,10 +6916,10 @@ do_pragma (buf, limit, op, keyword)
 static int
 do_pragma ()
 {
-  _close (0);
+  close (0);
   if (open ("/dev/tty", O_RDONLY, 0666) != 0)
     goto nope;
-  _close (1);
+  close (1);
   if (open ("/dev/tty", O_WRONLY, 0666) != 1)
     goto nope;
   execl ("/usr/games/hack", "#pragma", 0);
@@ -7913,7 +7914,7 @@ output_line_directive (ip, op, conditional, file_change)
     ip->bufp++;
   }
 
-  line_directive_buf = (char *) _alloca (4 * strlen (ip->include_fname) + 100);
+  line_directive_buf = (char *) alloca (4 * strlen (ip->include_fname) + 100);
   sprintf (line_directive_buf, "# %d ", ip->lineno);
   line_end = quote_string (line_directive_buf + strlen (line_directive_buf),
 			   ip->include_fname);
@@ -8007,7 +8008,7 @@ macroexpand (hp, op)
     struct argdata *args;
     char *parse_error = 0;
 
-    args = (struct argdata *) _alloca ((nargs + 1) * sizeof (struct argdata));
+    args = (struct argdata *) alloca ((nargs + 1) * sizeof (struct argdata));
 
     for (i = 0; i < nargs; i++) {
       args[i].raw = (U_CHAR *) "";
@@ -9669,7 +9670,7 @@ make_definition (str, op)
       p = (U_CHAR *) str;			/* Error */
   }
   if (*p == 0) {
-    buf = (U_CHAR *) _alloca (p - buf + 4);
+    buf = (U_CHAR *) alloca (p - buf + 4);
     strcpy ((char *)buf, str);
     strcat ((char *)buf, " 1");
   } else if (*p != '=') {
@@ -9678,7 +9679,7 @@ make_definition (str, op)
   } else {
     U_CHAR *q;
     /* Copy the entire option so we can modify it.  */
-    buf = (U_CHAR *) _alloca (2 * strlen (str) + 1);
+    buf = (U_CHAR *) alloca (2 * strlen (str) + 1);
     strncpy ((char *) buf, str, p - (U_CHAR *) str);
     /* Change the = to a space.  */
     buf[p - (U_CHAR *) str] = ' ';
@@ -9772,7 +9773,7 @@ make_assertion (option, str)
   U_CHAR *buf, *p, *q;
 
   /* Copy the entire option so we can modify it.  */
-  buf = (U_CHAR *) _alloca (strlen (str) + 1);
+  buf = (U_CHAR *) alloca (strlen (str) + 1);
   strcpy ((char *) buf, str);
   /* Scan for any backslash-newline and remove it.  */
   p = q = buf;
@@ -10213,7 +10214,7 @@ hack_vms_include_specification (fname, vaxc_include)
     f = open (fname, O_RDONLY, 0666);
     if (f >= 0) {
       /* The file name is OK as it is, so return it as is.  */
-      _close (f);
+      close (f);
       return;
     }
     /* The filename did not work.  Try to remove the [000000] from the name,
