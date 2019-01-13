@@ -59,6 +59,7 @@ typedef unsigned char U_CHAR;
 #include <sys/stat.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <signal.h>
 
 /* The following symbols should be autoconfigured:
@@ -5335,8 +5336,8 @@ pcfinclude (buf, limit, name, op)
        is narrower than a pointer.
        Do not try risky measures here to get another type to use!
        Do not include stddef.h--it will fail!  */
-    if ((ptrdiff_t) cp & 3)
-      cp += 4 - ((ptrdiff_t) cp & 3);
+    if ((intptr_t) cp & 3)
+      cp += 4 - ((intptr_t) cp & 3);
     
     /* Now get the string.  */
     str = (STRINGDEF *) (GENERIC_PTR) cp;
