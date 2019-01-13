@@ -74,12 +74,12 @@ IDL_Short IdlExpr::evalAsShort()
   if (v.negative) {
     if (v.s < -0x8000)
       IdlError(file(), line(), "Value too small for short");
-    return v.s;
+    return (IDL_Short)v.s;
   }
   else {
     if (v.u > 0x7fff)
       IdlError(file(), line(), "Value too large for short");
-    return v.u;
+    return (IDL_Short)v.u;
   }
 }
 IDL_Long IdlExpr::evalAsLong()
@@ -104,7 +104,7 @@ IDL_UShort IdlExpr::evalAsUShort()
   else if (v.u > 0xffff) {
     IdlError(file(), line(), "Value too large for unsigned short");
   }
-  return v.u;
+  return (IDL_UShort)v.u;
 }
 IDL_ULong IdlExpr::evalAsULong()
 {
@@ -125,7 +125,7 @@ IDL_Octet IdlExpr::evalAsOctet()
   else if (v.u > 0xff) {
     IdlError(file(), line(), "Value too large for octet");
   }
-  return v.u;
+  return (IDL_Octet)v.u;
 }
 #ifdef HAS_LongLong
 IDL_LongLong IdlExpr::evalAsLongLong()
@@ -224,7 +224,7 @@ IDL_Float FloatExpr::evalAsFloat() {
   IDL_Float    f(value_);
   IdlFloatLiteral g(f);
 #else
-  IDL_Float    f = value_;
+  IDL_Float    f = (IDL_Float)value_;
   IdlFloatLiteral g = f;
 #endif
 
@@ -366,7 +366,7 @@ IDL_Float ConstExpr::evalAsFloat() {
   switch (c_->constKind()) {
   case IdlType::tk_float:      r = c_->constAsFloat();      break;
 #ifndef __VMS
-  case IdlType::tk_double:     r = c_->constAsDouble();     break;
+  case IdlType::tk_double:     r = (IDL_Float)c_->constAsDouble();     break;
 #else
   case IdlType::tk_double:     r = (float)(double)c_->constAsDouble(); break;
 #endif

@@ -269,8 +269,8 @@ visitConst(Const* c)
   case IdlType::tk_longlong:  printf("%ld", c->constAsLongLong());     break;
   case IdlType::tk_ulonglong: printf("%lu", c->constAsULongLong());    break;
 #  else
-  case IdlType::tk_longlong:  printf("%Ld", c->constAsLongLong());     break;
-  case IdlType::tk_ulonglong: printf("%Lu", c->constAsULongLong());    break;
+  case IdlType::tk_longlong:  printf("%lld", c->constAsLongLong());     break;
+  case IdlType::tk_ulonglong: printf("%llu", c->constAsULongLong());    break;
 #  endif
 
 #endif
@@ -422,8 +422,8 @@ visitCaseLabel(CaseLabel* l)
   case IdlType::tk_longlong:  printf("%ld", l->labelAsLongLong());  break;
   case IdlType::tk_ulonglong: printf("%lu", l->labelAsULongLong()); break;
 #  else
-  case IdlType::tk_longlong:  printf("%Ld", l->labelAsLongLong());  break;
-  case IdlType::tk_ulonglong: printf("%Lu", l->labelAsULongLong()); break;
+  case IdlType::tk_longlong:  printf("%lld", l->labelAsLongLong());  break;
+  case IdlType::tk_ulonglong: printf("%llu", l->labelAsULongLong()); break;
 #  endif
 
 #endif

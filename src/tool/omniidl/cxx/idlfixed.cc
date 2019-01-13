@@ -491,7 +491,7 @@ divDigit(IDL_Octet* av, int ad, const IDL_Octet* bv, int bd, int pos)
 static IDL_Fixed
 realDiv(const IDL_Fixed& a, const IDL_Fixed& b, IDL_Boolean negative)
 {
-  int i, ai, bi, wi, ri, digits, scale, unscale, v, ad, bd, carry = 0;
+  int i, ai, wi, ri, digits, scale, unscale, ad, bd, carry = 0;
 
   // This division algorithm basically does classic long division. The
   // numerator, a, is loaded into the top digits of "running". The

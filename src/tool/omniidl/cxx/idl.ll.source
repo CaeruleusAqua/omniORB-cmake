@@ -31,6 +31,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <errno.h>
+#include <stdint.h>
 
 #include <idlerr.h>
 #include <idlutil.h>
@@ -387,13 +388,16 @@ char octalToChar(char* s) {
     IdlError(currentFile, yylineno, "Octal character value '%s' too big", s);
   }
 
-  return ret;
+  return (char)ret;
 }
 
 char hexToChar(char* s)  {
   unsigned long ret = strtoul(s+2, 0, 16);
 
-  return ret;
+  if (ret >= ULONG_MAX) {
+      IdlError(CurrentFile, yylineno, "Hex charachter value '%s' too big", s);
+  }
+  return (char)ret;
 }
 
 char escapeToChar(char* s) {
@@ -423,13 +427,13 @@ IDL_UShort octalToWChar(char* s) {
     IdlError(currentFile, yylineno, "Octal character value '%s' too big", s);
   }
 
-  return ret;
+  return (IDL_UShort)ret;
 }
 
 IDL_UShort hexToWChar(char* s) {
   unsigned long ret = strtoul(s+2, 0, 16);
 
-  return ret;
+  return (IDL_UShort)ret;
 }
 
 IDL_UShort escapeToWChar(char* s) {
@@ -453,7 +457,7 @@ IDL_UShort escapeToWChar(char* s) {
 }
 
 char* escapedStringToString(char* s) {
-  int   len = strlen(s);
+  int   len = (int)strlen(s);
   char* ret = new char[len+1];
   char  tmp[8];
 
@@ -507,7 +511,7 @@ char* escapedStringToString(char* s) {
 }
 
 IDL_UShort* escapedStringToWString(char* s) {
-  int         len = strlen(s);
+  int         len = (int)strlen(s);
   IDL_UShort* ret = new IDL_UShort[len+1];
   char        tmp[8];
 

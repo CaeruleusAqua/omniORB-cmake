@@ -44,6 +44,12 @@ typedef unsigned char U_CHAR;
 
 #include "pcp.h"
 
+
+#if defined(_MSC_VER) && defined(_WIN32)
+# include <io.h>
+# define PATH_SEPARATOR ';'
+#endif
+
 /* By default, colon separates directories in a path.  */
 #ifndef PATH_SEPARATOR
 #define PATH_SEPARATOR ':'
@@ -1235,7 +1241,7 @@ safe_read (desc, ptr, len)
     if (rcount > MAX_READ_LEN)
       rcount = MAX_READ_LEN;
 #endif
-    nchars = read (desc, ptr, rcount);
+    nchars = _read (desc, ptr, rcount);
     if (nchars < 0)
       {
 #ifdef EINTR
@@ -1270,7 +1276,7 @@ safe_write (desc, ptr, len)
     if (wcount > MAX_WRITE_LEN)
       wcount = MAX_WRITE_LEN;
 #endif
-    written = write (desc, ptr, wcount);
+    written = _write (desc, ptr, wcount);
     if (written < 0)
       {
 #ifdef EINTR
@@ -1820,7 +1826,7 @@ main (argc, argv)
      that identify system and machine type.  */
 
   if (!inhibit_predefs) {
-    char *p = (char *) alloca (strlen (predefs) + 1);
+    char *p = (char *) _alloca (strlen (predefs) + 1);
     strcpy (p, predefs);
     while (*p) {
       char *q;
@@ -1975,7 +1981,7 @@ main (argc, argv)
     int default_len = 0;
     /* Remove the `include' from /usr/local/lib/gcc.../include.  */
     if (!strcmp (default_prefix + strlen (default_prefix) - 8, "/include")) {
-      default_len = strlen (default_prefix) - 7;
+      default_len = (int)strlen (default_prefix) - 7;
       default_prefix[default_len] = 0;
     }
     /* Search "translated" versions of GNU directories.
@@ -2102,11 +2108,11 @@ main (argc, argv)
       q = base_name (in_fname);
 
       /* Copy remainder to mungable area.  */
-      p = (char *) alloca (strlen(q) + 8);
+      p = (char *) _alloca (strlen(q) + 8);
       strcpy (p, q);
 
       /* Output P, but remove known suffixes.  */
-      len = strlen (p);
+      len = (int)strlen (p);
       q = p + len;
       if (len >= 2
 	  && p[len - 2] == '.'
@@ -2167,7 +2173,7 @@ main (argc, argv)
   if (in_fname == NULL || *in_fname == 0) {
     in_fname = "";
     f = 0;
-  } else if ((f = open (in_fname, O_RDONLY, 0666)) < 0)
+  } else if ((f = _open (in_fname, O_RDONLY, 0666)) < 0)
     goto perror;
 
   if (fstat (f, &st) != 0)
@@ -2413,7 +2419,7 @@ trigraph_pcp (buf)
     default:
       continue;
     }
-    len = sptr - fptr - 2;
+    len = (int)(sptr - fptr - 2);
 
     /* BSD doc says bcopy () works right for overlapping strings.  In ANSI
        C, this will be memmove ().  */
@@ -2424,10 +2430,10 @@ trigraph_pcp (buf)
     *bptr++ = c;
     fptr = ++sptr;
   }
-  len = buf->length - (fptr - buf->buf);
+  len = buf->length - (int)(fptr - buf->buf);
   if (bptr != fptr && len > 0)
     bcopy ((char *) fptr, (char *) bptr, len);
-  buf->length -= fptr - bptr;
+  buf->length -= (int)(fptr - bptr);
   buf->buf[buf->length] = '\0';
   if (warn_trigraphs && fptr != bptr)
     warning_with_line (0, "%lu trigraph(s) encountered",
@@ -2529,7 +2535,7 @@ get_lintcmd (ibp, limit, argstart, arglen, cmdlen)
 
   if (ibp >= limit) return NULL;
 
-  linsize = limit - ibp;
+  linsize = (int)(limit - ibp);
   
   /* Oh, I wish C had lexical functions... hell, I'll just open-code the set */
   if ((linsize >= 10) && !bcmp (ibp, "NOTREACHED", 10)) {
@@ -2552,7 +2558,7 @@ get_lintcmd (ibp, limit, argstart, arglen, cmdlen)
     /* OK, read a number */
     for (numptr = *argstart = ibp; (numptr < limit) && isdigit (*numptr);
 	 numptr++);
-    *arglen = numptr - *argstart;
+    *arglen = (int)(numptr - *argstart);
     return "VARARGS";
   }
   return NULL;
@@ -2799,7 +2805,7 @@ do { ip = &instack[indepth];		\
       op->bufp = obp;
       if (! handle_directive (ip, op)) {
 #ifdef USE_C_ALLOCA
-	alloca (0);
+    _alloca (0);
 #endif
 	/* Not a known directive: treat it as ordinary text.
 	   IP, OP, IBP, etc. have not been changed.  */
@@ -2825,7 +2831,7 @@ do { ip = &instack[indepth];		\
 	goto randomchar;
       }
 #ifdef USE_C_ALLOCA
-      alloca (0);
+      _alloca (0);
 #endif
       /* A # directive has been successfully processed.  */
       /* If not generating expanded output, ignore everything until
@@ -3303,7 +3309,7 @@ randomchar:
 	      /* Save this as a displacement from the beginning of the output
 		 buffer.  We can not save this as a position in the output
 		 buffer, because it may get realloc'ed by RECACHE.  */
-	      obufp_before_macroname = (obp - op->buf) - ident_length;
+          obufp_before_macroname = (int)(obp - op->buf) - ident_length;
 	      op_lineno_before_macroname = op->lineno;
 	      
 	      if (hp->type == T_PCSTRING) {
@@ -3532,7 +3538,7 @@ expand_to_temp_buffer (buf, limit, output_marks, assertions)
 {
   register FILE_BUF *ip;
   FILE_BUF obuf;
-  int length = limit - buf;
+  int length = (int)(limit - buf);
   U_CHAR *buf1;
   int odepth = indepth;
   int save_assertions_flag = assertions_flag;
@@ -3544,7 +3550,7 @@ expand_to_temp_buffer (buf, limit, output_marks, assertions)
 
   /* Set up the input on the input stack.  */
 
-  buf1 = (U_CHAR *) alloca (length + 1);
+  buf1 = (U_CHAR *) _alloca (length + 1);
   {
     register U_CHAR *p1 = buf;
     register U_CHAR *p2 = buf1;
@@ -3595,7 +3601,7 @@ expand_to_temp_buffer (buf, limit, output_marks, assertions)
     abort ();
 
   /* Record the output.  */
-  obuf.length = obuf.bufp - obuf.buf;
+  obuf.length = (int)(obuf.bufp - obuf.buf);
 
   assertions_flag = save_assertions_flag;
   return obuf;
@@ -3667,7 +3673,7 @@ handle_directive (ip, op)
       else break;
     }
   }
-  ident_length = cp - bp;
+  ident_length = (int)(cp - bp);
   ident = bp;
   after_ident = cp;
 
@@ -3856,7 +3862,7 @@ handle_directive (ip, op)
         op->bufp += kt->length;
 
 	/* Output arguments.  */
-	len = (bp - buf);
+    len = (int)(bp - buf);
 	check_expand (op, len);
 	bcopy (buf, (char *) op->bufp, len);
 	op->bufp += len;
@@ -3872,7 +3878,7 @@ handle_directive (ip, op)
 	register U_CHAR *xp = buf;
 	/* Need to copy entire directive into temp buffer before dispatching */
 
-	cp = (U_CHAR *) alloca (bp - buf + 5); /* room for directive plus
+    cp = (U_CHAR *) _alloca (bp - buf + 5); /* room for directive plus
 						  some slop */
 	buf = cp;
 
@@ -3979,7 +3985,7 @@ handle_directive (ip, op)
 
 	if ((dump_macros != dump_definitions) < kt->pass_thru) {
 	  /* Output arguments.  */
-	  len = (cp - buf);
+      len = (int)(cp - buf);
 	  check_expand (op, len);
 	  bcopy (buf, (char *) op->bufp, len);
 	  op->bufp += len;
@@ -3989,7 +3995,7 @@ handle_directive (ip, op)
 	  SKIP_WHITE_SPACE (xp);
 	  yp = xp;
 	  while (is_idchar[*xp]) xp++;
-	  len = (xp - yp);
+      len = (int)(xp - yp);
 	  check_expand (op, len + 1);
 	  *op->bufp++ = ' ';
 	  bcopy (yp, op->bufp, len);
@@ -4074,7 +4080,7 @@ special_symbol (hp, op)
 
       if (string)
 	{
-	  buf = (char *) alloca (3 + 4 * strlen (string));
+      buf = (char *) _alloca (3 + 4 * strlen (string));
 	  quote_string (buf, string);
 	}
       else
@@ -4089,12 +4095,12 @@ special_symbol (hp, op)
       if (instack[i].fname != NULL)
         true_indepth++;
 
-    buf = (char *) alloca (8);	/* Eight bytes ought to be more than enough */
+    buf = (char *) _alloca (8);	/* Eight bytes ought to be more than enough */
     sprintf (buf, "%d", true_indepth - 1);
     break;
 
   case T_VERSION:
-    buf = (char *) alloca (3 + strlen (version_string));
+    buf = (char *) _alloca (3 + strlen (version_string));
     sprintf (buf, "\"%s\"", version_string);
     break;
 
@@ -4134,13 +4140,13 @@ special_symbol (hp, op)
     break;
 
   case T_SPECLINE:
-    buf = (char *) alloca (10);
+    buf = (char *) _alloca (10);
     sprintf (buf, "%d", ip->lineno);
     break;
 
   case T_DATE:
   case T_TIME:
-    buf = (char *) alloca (20);
+    buf = (char *) _alloca (20);
     timebuf = timestamp ();
     if (hp->type == T_DATE)
       sprintf (buf, "\"%s %2d %4d\"", monthnames[timebuf->tm_mon],
@@ -4200,7 +4206,7 @@ oops:
     error ("cccp error: invalid special hash type"); /* time for gdb */
     abort ();
   }
-  len = strlen (buf);
+  len = (int)strlen (buf);
   check_expand (op, len);
   bcopy (buf, (char *) op->bufp, len);
   op->bufp += len;
@@ -4279,7 +4285,7 @@ get_filename:
   /* Discard trailing whitespace so we can easily see
      if we have parsed all the significant chars we were given.  */
   while (limit != fin && is_hor_space[limit[-1]]) limit--;
-  fbeg = fend = (char *) alloca (limit - fin);
+  fbeg = fend = (char *) _alloca (limit - fin);
 
   switch (*fin++) {
   case '\"':
@@ -4318,7 +4324,7 @@ get_filename:
 	    /* Found a named file.  Figure out dir of the file,
 	       and put it in front of the search list.  */
 	    dsp = ((struct file_name_list *)
-		   alloca (sizeof (struct file_name_list) + strlen (nam)));
+           _alloca (sizeof (struct file_name_list) + strlen (nam)));
 	    strcpy (dsp->fname, nam);
 	    simplify_filename (dsp->fname);
 	    nam = base_name (dsp->fname);
@@ -4328,7 +4334,7 @@ get_filename:
 	    dsp->next = search_start;
 	    if (!search_start || strcmp (dsp->fname, search_start->fname)) {
 	      search_start = dsp;
-	      n = nam - dsp->fname;
+          n = (int)(nam - dsp->fname);
 	      if (n + INCLUDE_LEN_FUDGE > max_include_len)
 		max_include_len = n + INCLUDE_LEN_FUDGE;
 	    }
@@ -4384,7 +4390,7 @@ get_filename:
       U_CHAR *src;
       trybuf = expand_to_temp_buffer (buf, limit, 1, 0);
       src = trybuf.buf;
-      buf = (U_CHAR *) alloca (trybuf.bufp - trybuf.buf + 1);
+      buf = (U_CHAR *) _alloca (trybuf.bufp - trybuf.buf + 1);
       limit = buf;
       while (src != trybuf.bufp) {
 	switch ((*limit++ = *src++)) {
@@ -4535,7 +4541,7 @@ get_filename:
 	if (angle_brackets)
 	  {
 	    if (search_start) {
-	      char *p = (char *) alloca (strlen (search_start->fname)
+          char *p = (char *) _alloca (strlen (search_start->fname)
 					 + strlen (fbeg) + 1);
 	      strcpy (p, search_start->fname);
 	      strcat (p, fbeg);
@@ -4565,7 +4571,7 @@ get_filename:
 
     /* Actually process the file.  */
 
-    pcftry = (char *) alloca (strlen (fname) + 30);
+    pcftry = (char *) _alloca (strlen (fname) + 30);
     pcfbuf = 0;
     pcfnum = 0;
 
@@ -4574,7 +4580,7 @@ get_filename:
 	do {
 	  sprintf (pcftry, "%s%d", fname, pcfnum++);
 
-	  pcf = open (pcftry, O_RDONLY, 0666);
+      pcf = _open (pcftry, O_RDONLY, 0666);
 	  if (pcf != -1)
 	    {
 	      struct stat s;
@@ -4586,12 +4592,12 @@ get_filename:
 		{
 		  pcfbuf = check_precompiled (pcf, &s, fname, &pcfbuflimit);
 		  /* Don't need it any more.  */
-		  close (pcf);
+          _close (pcf);
 		}
 	      else
 		{
 		  /* Don't need it at all.  */
-		  close (pcf);
+          _close (pcf);
 		  break;
 		}
 	    }
@@ -4832,7 +4838,7 @@ read_name_map (dirname)
   map_list_ptr->map_list_map = NULL;
 
   dirlen = strlen (dirname);
-  name = (char *) alloca (dirlen + strlen (FILE_NAME_MAP_FILE) + 1);
+  name = (char *) _alloca (dirlen + strlen (FILE_NAME_MAP_FILE) + 1);
   strcpy (name, dirname);
   strcat (name, FILE_NAME_MAP_FILE);
   f = fopen (name, "r");
@@ -4923,7 +4929,7 @@ open_include_file (filename, include_filename, searchptr, importing, pinc)
       || ! inc->control_macro
       || (inc->control_macro[0] && ! lookup (inc->control_macro, -1, -1))) {
 
-    fd = open (fname, O_RDONLY, 0);
+    fd = _open (fname, O_RDONLY, 0);
 
     if (fd < 0)
       return fd;
@@ -4951,7 +4957,7 @@ open_include_file (filename, include_filename, searchptr, importing, pinc)
       if (lookup_ino_include (inc)
 	  && inc->control_macro
 	  && (!inc->control_macro[0] || lookup (inc->control_macro, -1, -1))) {
-	close (fd);
+    _close (fd);
 	fd = -2;
       }
     }
@@ -5009,7 +5015,7 @@ remap_include_file (filename, searchptr)
 	 in /usr/include/header.gcc and look up types.h in
 	 /usr/include/sys/header.gcc.  */
 
-      char *dir = (char *) alloca (from - filename + 1);
+      char *dir = (char *) _alloca (from - filename + 1);
       bcopy (filename, dir, from - filename);
       dir[from - filename] = '\0';
 
@@ -5090,7 +5096,7 @@ finclude (f, inc, op, system_header_p, dirptr)
   }
   else if (S_ISDIR (inc->st.st_mode)) {
     error ("directory `%s' specified in #include", fname);
-    close (f);
+    _close (f);
     return;
   } else {
     /* Cannot count its file size before reading.
@@ -5124,8 +5130,8 @@ finclude (f, inc, op, system_header_p, dirptr)
   }
   fp->buf[fp->length] = '\0';
 
-  /* Close descriptor now, so nesting does not use lots of descriptors.  */
-  close (f);
+  /* _close descriptor now, so nesting does not use lots of descriptors.  */
+  _close (f);
 
   /* Must do this before calling trigraph_pcp, so that the correct file name
      will be printed in warning messages.  */
@@ -5154,7 +5160,7 @@ finclude (f, inc, op, system_header_p, dirptr)
  nope:
 
   perror_with_name (fname);
-  close (f);
+  _close (f);
   free (fp->buf);
 }
 
@@ -5278,7 +5284,7 @@ check_preconditions (prec)
       name = prec;
       while (is_idchar[(U_CHAR) *prec])
 	prec++;
-      len = prec - name;
+      len = (int)(prec - name);
       
       if (lookup ((U_CHAR *) name, len, -1))
 	return 0;
@@ -5329,8 +5335,8 @@ pcfinclude (buf, limit, name, op)
        is narrower than a pointer.
        Do not try risky measures here to get another type to use!
        Do not include stddef.h--it will fail!  */
-    if ((HOST_WIDE_INT) cp & 3)
-      cp += 4 - ((HOST_WIDE_INT) cp & 3);
+    if ((ptrdiff_t) cp & 3)
+      cp += 4 - ((ptrdiff_t) cp & 3);
     
     /* Now get the string.  */
     str = (STRINGDEF *) (GENERIC_PTR) cp;
@@ -5349,7 +5355,7 @@ pcfinclude (buf, limit, name, op)
     str->len = tmpbuf.length;
     str->writeflag = 0;
     str->filename = name;
-    str->output_mark = outbuf.bufp - outbuf.buf;
+    str->output_mark = (int)(outbuf.bufp - outbuf.buf);
     
     str->chain = 0;
     *stringlist_tailp = str;
@@ -5447,7 +5453,7 @@ write_output ()
     if (next_string
 	&& cur_buf_loc - outbuf.buf == next_string->output_mark) {
       if (next_string->writeflag) {
-	len = 4 * strlen ((char *) next_string->filename) + 32;
+    len = 4 * (int)strlen ((char *) next_string->filename) + 32;
 	while (len > line_directive_len)
 	  line_directive = xrealloc (line_directive, 
 				     line_directive_len *= 2);
@@ -5455,8 +5461,8 @@ write_output ()
 	strcpy (quote_string (line_directive + strlen (line_directive),
 			      (char *) next_string->filename),
 		"\n");
-	safe_write (fileno (stdout), line_directive, strlen (line_directive));
-	safe_write (fileno (stdout),
+    safe_write (_fileno (stdout), line_directive, strlen (line_directive));
+    safe_write (_fileno (stdout),
 		    (char *) next_string->contents, next_string->len);
       }	      
       next_string = next_string->chain;
@@ -5464,10 +5470,10 @@ write_output ()
     else {
       len = (next_string
 	     ? (next_string->output_mark 
-		- (cur_buf_loc - outbuf.buf))
-	     : outbuf.bufp - cur_buf_loc);
+        - (int)(cur_buf_loc - outbuf.buf))
+         : (int)(outbuf.bufp - cur_buf_loc));
       
-      safe_write (fileno (stdout), (char *) cur_buf_loc, len);
+      safe_write (_fileno (stdout), (char *) cur_buf_loc, len);
       cur_buf_loc += len;
     }
   }
@@ -5566,7 +5572,7 @@ create_definition (buf, limit, op)
     while (*bp != ')') {
       struct arglist *temp;
 
-      temp = (struct arglist *) alloca (sizeof (struct arglist));
+      temp = (struct arglist *) _alloca (sizeof (struct arglist));
       temp->name = bp;
       temp->next = arg_ptrs;
       temp->argno = argno++;
@@ -5591,7 +5597,7 @@ create_definition (buf, limit, op)
 	  break;
 	}
       }
-      temp->length = bp - temp->name;
+      temp->length = (int)(bp - temp->name);
       if (rest_args == 1)
 	bp += REST_EXTENSION_LENGTH;
       arglengths += temp->length + 2;
@@ -5778,7 +5784,7 @@ check_macro_name (symname, usage)
 
   for (p = symname; is_idchar[*p]; p++)
     ;
-  sym_length = p - symname;
+  sym_length = (int)(p - symname);
   if (sym_length == 0
       || (sym_length == 1 && *symname == 'L' && (*p == '\'' || *p == '"')))
     error ("invalid %s name", usage);
@@ -5913,7 +5919,7 @@ collect_expansion (buf, end, nargs, arglist)
      so this is an upper bound.
      The extra 3 are for invented trailing newline-marker and final null.  */
   maxsize = (sizeof (DEFINITION)
-	     + (limit - p) + 3);
+         + (int)(limit - p) + 3);
   defn = (DEFINITION *) xcalloc (1, maxsize);
 
   defn->nargs = nargs;
@@ -6068,7 +6074,7 @@ collect_expansion (buf, end, nargs, arglist)
 
       --exp_p;
       while (p != limit && is_idchar[*p]) p++;
-      id_len = p - id_beg;
+      id_len = (int)(p - id_beg);
 
       if (is_idstart[c]
 	  && ! (id_len == 1 && c == 'L' && (*p == '\'' || *p == '"'))) {
@@ -6117,7 +6123,7 @@ collect_expansion (buf, end, nargs, arglist)
 	    endpat = tpat;
 
 	    tpat->argno = arg->argno;
-	    tpat->nchars = exp_p - lastp;
+        tpat->nchars = (int)(exp_p - lastp);
 	    {
 	      register U_CHAR *p1 = p;
 	      SKIP_WHITE_SPACE (p1);
@@ -6155,7 +6161,7 @@ collect_expansion (buf, end, nargs, arglist)
 
   *exp_p = '\0';
 
-  defn->length = exp_p - defn->expansion;
+  defn->length = (int)(exp_p - defn->expansion);
 
   /* Crash now if we overrun the allocated size.  */
   if (defn->length + 1 > maxsize)
@@ -6453,7 +6459,7 @@ read_token_list (bpp, limit, error_flag)
     temp->name[bp - beg] = 0;
     temp->next = token_ptrs;
     token_ptrs = temp;
-    temp->length = bp - beg;
+    temp->length = (int)(bp - beg);
 
     SKIP_WHITE_SPACE (bp);
 
@@ -6658,7 +6664,7 @@ do_line (buf, limit, op, keyword)
 	goto fname_done;
       }
   fname_done:
-    fname_length = p - fname;
+    fname_length = (int)(p - fname);
 
     SKIP_WHITE_SPACE (bp);
     if (*bp) {
@@ -6773,8 +6779,8 @@ do_error (buf, limit, op, keyword)
      FILE_BUF *op;
      struct directive *keyword;
 {
-  int length = limit - buf;
-  U_CHAR *copy = (U_CHAR *) alloca (length + 1);
+  int length = (int)(limit - buf);
+  U_CHAR *copy = (U_CHAR *) _alloca (length + 1);
   bcopy ((char *) buf, (char *) copy, length);
   copy[length] = 0;
   SKIP_WHITE_SPACE (copy);
@@ -6792,8 +6798,8 @@ do_warning (buf, limit, op, keyword)
      FILE_BUF *op;
      struct directive *keyword;
 {
-  int length = limit - buf;
-  U_CHAR *copy = (U_CHAR *) alloca (length + 1);
+  int length = (int)(limit - buf);
+  U_CHAR *copy = (U_CHAR *) _alloca (length + 1);
   bcopy ((char *) buf, (char *) copy, length);
   copy[length] = 0;
   SKIP_WHITE_SPACE (copy);
@@ -6834,10 +6840,10 @@ do_ident (buf, limit, op, keyword)
     pedwarn ("ANSI C does not allow `#ident'");
 
   trybuf = expand_to_temp_buffer (buf, limit, 0, 0);
-  buf = (U_CHAR *) alloca (trybuf.bufp - trybuf.buf + 1);
+  buf = (U_CHAR *) _alloca (trybuf.bufp - trybuf.buf + 1);
   bcopy ((char *) trybuf.buf, (char *) buf, trybuf.bufp - trybuf.buf);
   limit = buf + (trybuf.bufp - trybuf.buf);
-  len = (limit - buf);
+  len = (int)(limit - buf);
   free (trybuf.buf);
 
   /* Output directive name.  */
@@ -6908,10 +6914,10 @@ do_pragma (buf, limit, op, keyword)
 static int
 do_pragma ()
 {
-  close (0);
+  _close (0);
   if (open ("/dev/tty", O_RDONLY, 0666) != 0)
     goto nope;
-  close (1);
+  _close (1);
   if (open ("/dev/tty", O_WRONLY, 0666) != 1)
     goto nope;
   execl ("/usr/games/hack", "#pragma", 0);
@@ -7184,7 +7190,7 @@ skip_if_group (ip, any, op)
 
   if (output_conditionals && op != 0) {
     char *ptr = "#failed\n";
-    int len = strlen (ptr);
+    int len = (int)strlen (ptr);
 
     if (op->bufp > op->buf && op->bufp[-1] != '\n')
       {
@@ -7331,7 +7337,7 @@ skip_if_group (ip, any, op)
 	  else break;
 	}
       }
-      ident_length = bp - cp;
+      ident_length = (int)(bp - cp);
       ident = cp;
       after_ident = bp;
 
@@ -7433,7 +7439,7 @@ skip_if_group (ip, any, op)
  done:
   if (output_conditionals && op != 0) {
     char *ptr = "#endfailed\n";
-    int len = strlen (ptr);
+    int len = (int)strlen (ptr);
 
     if (op->bufp > op->buf && op->bufp[-1] != '\n')
       {
@@ -7906,7 +7912,7 @@ output_line_directive (ip, op, conditional, file_change)
     ip->bufp++;
   }
 
-  line_directive_buf = (char *) alloca (4 * strlen (ip->include_fname) + 100);
+  line_directive_buf = (char *) _alloca (4 * strlen (ip->include_fname) + 100);
   sprintf (line_directive_buf, "# %d ", ip->lineno);
   line_end = quote_string (line_directive_buf + strlen (line_directive_buf),
 			   ip->include_fname);
@@ -7930,7 +7936,7 @@ output_line_directive (ip, op, conditional, file_change)
 #endif
 #endif
   *line_end++ = '\n';
-  len = line_end - line_directive_buf;
+  len = (int)(line_end - line_directive_buf);
   check_expand (op, len + 1);
   if (op->bufp > op->buf && op->bufp[-1] != '\n')
     *op->bufp++ = '\n';
@@ -8000,7 +8006,7 @@ macroexpand (hp, op)
     struct argdata *args;
     char *parse_error = 0;
 
-    args = (struct argdata *) alloca ((nargs + 1) * sizeof (struct argdata));
+    args = (struct argdata *) _alloca ((nargs + 1) * sizeof (struct argdata));
 
     for (i = 0; i < nargs; i++) {
       args[i].raw = (U_CHAR *) "";
@@ -8264,7 +8270,7 @@ macroexpand (hp, op)
 	  }
 
 	  bcopy ((char *) p1, (char *) (xbuf + totlen), l1 - p1);
-	  totlen += l1 - p1;
+      totlen += (int)(l1 - p1);
 	  if (!traditional && ap->raw_after == 0) {
 	    /* Ordinary expanded use of the argument.
 	       Put in newline-space markers to prevent token pasting.  */
@@ -8386,7 +8392,7 @@ macarg (argptr, rest_args)
       && bp != ip->buf + ip->length) {
     if (argptr != 0) {
       argptr->raw = ip->bufp;
-      argptr->raw_length = bp - ip->bufp;
+      argptr->raw_length = (int)(bp - ip->bufp);
       argptr->newlines = newlines;
     }
     ip->bufp = bp;
@@ -8395,7 +8401,7 @@ macarg (argptr, rest_args)
        We must pop levels and keep parsing.
        Therefore, we must allocate a temporary buffer and copy
        the macro argument into it.  */
-    int bufsize = bp - ip->bufp;
+    int bufsize = (int)(bp - ip->bufp);
     int extra = newlines;
     U_CHAR *buffer = (U_CHAR *) xmalloc (bufsize + extra + 1);
     int final_start = 0;
@@ -8418,7 +8424,7 @@ macarg (argptr, rest_args)
       bp = macarg1 (ip->bufp, ip->buf + ip->length, &paren,
 		    &newlines, &comments, rest_args);
       final_start = bufsize;
-      bufsize += bp - ip->bufp;
+      bufsize += (int)(bp - ip->bufp);
       extra += newlines;
       buffer = (U_CHAR *) xrealloc (buffer, bufsize + extra + 1);
       bcopy ((char *) ip->bufp, (char *) (buffer + bufsize - (bp - ip->bufp)),
@@ -8704,7 +8710,7 @@ discard_comments (start, length, newlines)
     }
   }
 
-  return obp - start;
+  return (int)(obp - start);
 }
 
 /* Turn newlines to spaces in the string of length LENGTH at START,
@@ -8757,7 +8763,7 @@ change_newlines (start, length)
     }
   }
 
-  return obp - start;
+  return (int)(obp - start);
 }
 
 /* my_strerror - return the descriptive text associated with an
@@ -9148,7 +9154,7 @@ grow_outbuf (obuf, needed)
   /* Make it at least twice as big as it is now.  */
   obuf->length *= 2;
   /* Make it have at least 150% of the free space we will need.  */
-  minsize = (3 * needed) / 2 + (obuf->bufp - obuf->buf);
+  minsize = (3 * needed) / 2 + (int)(obuf->bufp - obuf->buf);
   if (minsize > obuf->length)
     obuf->length = minsize;
 
@@ -9194,7 +9200,7 @@ install (name, len, type, value, hash)
     p = name;
     while (is_idchar[*p])
       p++;
-    len = p - name;
+    len = (int)(p - name);
   }
 
   if (hash < 0)
@@ -9243,7 +9249,7 @@ lookup (name, len, hash)
 
   if (len < 0) {
     for (bp = name; is_idchar[*bp]; bp++) ;
-    len = bp - name;
+    len = (int)(bp - name);
   }
 
   if (hash < 0)
@@ -9662,7 +9668,7 @@ make_definition (str, op)
       p = (U_CHAR *) str;			/* Error */
   }
   if (*p == 0) {
-    buf = (U_CHAR *) alloca (p - buf + 4);
+    buf = (U_CHAR *) _alloca (p - buf + 4);
     strcpy ((char *)buf, str);
     strcat ((char *)buf, " 1");
   } else if (*p != '=') {
@@ -9671,7 +9677,7 @@ make_definition (str, op)
   } else {
     U_CHAR *q;
     /* Copy the entire option so we can modify it.  */
-    buf = (U_CHAR *) alloca (2 * strlen (str) + 1);
+    buf = (U_CHAR *) _alloca (2 * strlen (str) + 1);
     strncpy ((char *) buf, str, p - (U_CHAR *) str);
     /* Change the = to a space.  */
     buf[p - (U_CHAR *) str] = ' ';
@@ -9709,7 +9715,7 @@ make_definition (str, op)
   ip->nominal_fname = ip->fname = ip->include_fname = "*Initialization*";
 
   ip->buf = ip->bufp = buf;
-  ip->length = strlen ((char *) buf);
+  ip->length = (int)strlen ((char *) buf);
   ip->lineno = 1;
   ip->macro = 0;
   ip->free_ptr = 0;
@@ -9738,7 +9744,7 @@ make_undef (str, op)
   ip->nominal_fname = ip->fname = ip->include_fname = "*undef*";
 
   ip->buf = ip->bufp = (U_CHAR *) str;
-  ip->length = strlen (str);
+  ip->length = (int)strlen (str);
   ip->lineno = 1;
   ip->macro = 0;
   ip->free_ptr = 0;
@@ -9765,7 +9771,7 @@ make_assertion (option, str)
   U_CHAR *buf, *p, *q;
 
   /* Copy the entire option so we can modify it.  */
-  buf = (U_CHAR *) alloca (strlen (str) + 1);
+  buf = (U_CHAR *) _alloca (strlen (str) + 1);
   strcpy ((char *) buf, str);
   /* Scan for any backslash-newline and remove it.  */
   p = q = buf;
@@ -9794,7 +9800,7 @@ make_assertion (option, str)
   ip->nominal_fname = ip->fname = ip->include_fname = "*Initialization*";
 
   ip->buf = ip->bufp = buf;
-  ip->length = strlen ((char *) buf);
+  ip->length = (int)strlen ((char *) buf);
   ip->lineno = 1;
   ip->macro = 0;
   ip->free_ptr = 0;
@@ -9912,7 +9918,7 @@ append_include_chain (first, last)
     first_bracket_include = first;
 
   for (dir = first; ; dir = dir->next) {
-    int len = strlen (dir->fname) + INCLUDE_LEN_FUDGE;
+    int len = (int)strlen (dir->fname) + INCLUDE_LEN_FUDGE;
     if (len > max_include_len)
       max_include_len = len;
     if (dir == last)
@@ -9932,7 +9938,7 @@ deps_output (string, spacer)
      char *string;
      int spacer;
 {
-  int size = strlen (string);
+  int size = (int)strlen (string);
 
   if (size == 0)
     return;
@@ -10206,7 +10212,7 @@ hack_vms_include_specification (fname, vaxc_include)
     f = open (fname, O_RDONLY, 0666);
     if (f >= 0) {
       /* The file name is OK as it is, so return it as is.  */
-      close (f);
+      _close (f);
       return;
     }
     /* The filename did not work.  Try to remove the [000000] from the name,

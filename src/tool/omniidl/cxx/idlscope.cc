@@ -89,7 +89,7 @@ char*
 ScopedName::
 toString(IDL_Boolean qualify) const
 {
-  int       i;
+  size_t    i;
   Fragment* f;
 
   i = (qualify && absolute_) ? 2 : 0;
