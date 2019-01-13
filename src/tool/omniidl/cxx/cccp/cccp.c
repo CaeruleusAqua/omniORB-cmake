@@ -5463,8 +5463,8 @@ write_output ()
 	strcpy (quote_string (line_directive + strlen (line_directive),
 			      (char *) next_string->filename),
 		"\n");
-    safe_write (_fileno (stdout), line_directive, strlen (line_directive));
-    safe_write (_fileno (stdout),
+    safe_write (fileno (stdout), line_directive, strlen (line_directive));
+    safe_write (fileno (stdout),
 		    (char *) next_string->contents, next_string->len);
       }	      
       next_string = next_string->chain;
@@ -5475,7 +5475,7 @@ write_output ()
         - (int)(cur_buf_loc - outbuf.buf))
          : (int)(outbuf.bufp - cur_buf_loc));
       
-      safe_write (_fileno (stdout), (char *) cur_buf_loc, len);
+      safe_write (fileno (stdout), (char *) cur_buf_loc, len);
       cur_buf_loc += len;
     }
   }
