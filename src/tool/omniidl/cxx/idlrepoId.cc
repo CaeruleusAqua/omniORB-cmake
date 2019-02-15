@@ -67,8 +67,8 @@ Prefix::
 newScope(const char* name)
 {
   if (name[0] == '_') ++name;
-  int len   = strlen(current()) + strlen(name) + 2;
-  char* str = new char[len];
+  size_t len = strlen(current()) + strlen(name) + 2;
+  char*  str = new char[len];
 
   strcpy(str, current());
   if (str[0] != '\0') strcat(str, "/");
@@ -278,8 +278,7 @@ void
 DeclRepoId::
 genRepoId()
 {
-  char* id;
-  int   len;
+  size_t len;
 
   // RepoId length = IDL: + prefix + "/" + identifier + : + maj + . + min + \0
   len = 4 + strlen(prefix_) + 1 + strlen(identifier_) + 1 + 5 + 1 + 5 + 1;

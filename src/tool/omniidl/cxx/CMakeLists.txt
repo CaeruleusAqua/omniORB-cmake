@@ -40,6 +40,10 @@ if (WIN32)
             RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
+    if (MSVC)
+        add_definitions(-D_CRT_SECURE_NO_WARNINGS
+                        -DDONT_DECLARE_STRERROR)
+    endif(MSVC)
 
 else ()
 

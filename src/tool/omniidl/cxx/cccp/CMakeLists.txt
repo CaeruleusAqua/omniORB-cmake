@@ -6,6 +6,11 @@ set(OMNICPP_EXE_SRC
 
 if (WIN32)
     set(OMNICPP_EXE_SRC ${OMNICPP_EXE_SRC} index.c)
+    if (MSVC)
+        add_definitions(-D_CRT_SECURE_NO_WARNINGS
+                        -DDONT_DECLARE_STRERROR
+                        -D_CRT_NONSTDC_NO_WARNINGS)
+    endif(MSVC)
 endif ()
 
 add_executable(omnicpp ${OMNICPP_EXE_SRC})

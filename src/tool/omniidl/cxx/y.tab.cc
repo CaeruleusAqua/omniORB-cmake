@@ -67,6 +67,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #include <idlutil.h>
 #include <idlerr.h>
