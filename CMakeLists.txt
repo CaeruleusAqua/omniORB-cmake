@@ -26,8 +26,10 @@ execute_process(
         OUTPUT_VARIABLE PYTHON_SITE
         OUTPUT_STRIP_TRAILING_WHITESPACE)
 else()
-    string(REGEX REPLACE "\\\\" "/" python_site ${Python_SITELIB})
-    set(PYTHON_SITE ${python_site}) #/Lib/site-packages)
+    set(PYTHON_SITE Lib/site-packages)
+    ##string(REGEX REPLACE "\\\\" "/" python_site ${Python_SITELIB})
+    ##message(-----${Python_SITELIB})
+    ##set(PYTHON_SITE ${python_site}) #/Lib/site-packages)
 endif()
 
 include(GNUInstallDirs)
