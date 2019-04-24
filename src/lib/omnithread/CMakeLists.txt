@@ -11,6 +11,7 @@ else ()
 endif ()
 
 add_library(omnithread_static STATIC ${OMNITHREAD_SRC})
+target_compile_definitions(omnithread_static PUBLIC ${TARGET_DEFINITIONS})
 target_compile_definitions(omnithread_static PRIVATE ${OMNITHREAT_DEFS} ${OMNITHREAT_DEFS_STATIC})
 target_include_directories(omnithread_static PRIVATE . ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(omnithread_static PUBLIC Threads::Threads)
@@ -18,6 +19,7 @@ target_compile_options(omnithread_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${CO
 
 
 add_library(omnithread SHARED ${OMNITHREAD_SRC})
+target_compile_definitions(omnithread PUBLIC ${TARGET_DEFINITIONS})
 target_link_libraries(omnithread PRIVATE Threads::Threads)
 target_compile_definitions(omnithread PRIVATE ${OMNITHREAT_DEFS} ${OMNITHREAT_DEFS_SHARED})
 target_include_directories(omnithread PRIVATE . ${PROJECT_SOURCE_DIR}/include)

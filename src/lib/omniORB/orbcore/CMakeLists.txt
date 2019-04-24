@@ -180,6 +180,7 @@ endif ()
 add_library(omniORB4_static STATIC ${ORB_SRCS})
 target_link_libraries(omniORB4_static PUBLIC omnithread_static Threads::Threads ${PLATFORM_LIBS})
 target_compile_definitions(omniORB4_static PRIVATE ${OMNICORE_DEFINITIONS} ${OMNICORE_STATIC_DEFINITIONS})
+target_compile_definitions(omniORB4_static PUBLIC ${TARGET_DEFINITIONS})
 target_include_directories(omniORB4_static
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
@@ -195,6 +196,7 @@ add_dependencies(omniORB4_static RunGenerator)
 add_library(omniORB4 SHARED ${ORB_SRCS})
 target_link_libraries(omniORB4 PUBLIC omnithread Threads::Threads ${PLATFORM_LIBS})
 target_compile_definitions(omniORB4 PRIVATE ${OMNICORE_DEFINITIONS})
+target_compile_definitions(omniORB4 PUBLIC ${TARGET_DEFINITIONS})
 target_include_directories(omniORB4
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
