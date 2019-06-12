@@ -14,23 +14,32 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 
-
-find_package(Python REQUIRED COMPONENTS Interpreter Development)
 find_package(Threads REQUIRED)
+find_package(Python REQUIRED COMPONENTS Interpreter Development)
 
-if(UNIX)
-execute_process(
-        COMMAND "${Python_EXECUTABLE}" -c "if True:
+
+SET(Python_VERSION_MAJOR ${Python_VERSION_MAJOR} CACHE STRING "Python Version 2/3")
+SET(PYTHON_SITE ${PYTHON_SITE} CACHE STRING "Path to install python libs")
+SET(Python_EXECUTABLE ${Python_EXECUTABLE} CACHE STRING "Python Executable")
+SET(Python_LIBRARIES ${Python_LIBRARIES} CACHE STRING "Library Path")
+SET(Python_ROOT_DIR ${Python_ROOT_DIR} CACHE STRING "PYTHONHOME")
+
+
+
+if (UNIX)
+    execute_process(
+            COMMAND "${Python_EXECUTABLE}" -c "if True:
     from distutils import sysconfig as sc
     print(sc.get_python_lib(prefix='', plat_specific=True))"
-        OUTPUT_VARIABLE PYTHON_SITE
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-else()
-    set(PYTHON_SITE Lib/site-packages)
-    ##string(REGEX REPLACE "\\\\" "/" python_site ${Python_SITELIB})
-    ##message(-----${Python_SITELIB})
-    ##set(PYTHON_SITE ${python_site}) #/Lib/site-packages)
-endif()
+            OUTPUT_VARIABLE PYTHON_SITE
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
+else ()
+    if (PYTHON_SITE STREQUAL "")
+        message("the variable test's value is the empty string")
+        set(PYTHON_SITE Lib/site-packages)
+    endif ()
+endif ()
+
 
 include(GNUInstallDirs)
 include(codegen.cmake)
