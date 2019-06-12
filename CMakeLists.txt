@@ -22,7 +22,7 @@ SET(Python_VERSION_MAJOR ${Python_VERSION_MAJOR} CACHE STRING "Python Version 2/
 SET(PYTHON_SITE ${PYTHON_SITE} CACHE STRING "Path to install python libs")
 SET(Python_EXECUTABLE ${Python_EXECUTABLE} CACHE STRING "Python Executable")
 SET(Python_LIBRARIES ${Python_LIBRARIES} CACHE STRING "Library Path")
-SET(Python_ROOT_DIR ${Python_ROOT_DIR} CACHE STRING "PYTHONHOME")
+SET(Python_ROOT_DIR ${Python_ROOT_DIR} CACHE STRING "Usually the python excecutable is in this path")
 
 
 
