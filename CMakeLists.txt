@@ -15,18 +15,23 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 
 find_package(Threads REQUIRED)
-find_package(Python REQUIRED COMPONENTS Interpreter Development)
+
+if(WIN32)
+    find_package(Python REQUIRED COMPONENTS Development)
+else()
+    find_package(Python REQUIRED COMPONENTS Interpreter Development)
+endif()
 
 
 SET(Python_VERSION_MAJOR ${Python_VERSION_MAJOR} CACHE STRING "Python Version 2/3")
 SET(PYTHON_SITE ${PYTHON_SITE} CACHE STRING "Path to install python libs")
-SET(Python_EXECUTABLE ${Python_EXECUTABLE} CACHE STRING "Python Executable")
 SET(Python_LIBRARIES ${Python_LIBRARIES} CACHE STRING "Library Path")
 SET(Python_ROOT_DIR ${Python_ROOT_DIR} CACHE STRING "Usually the python excecutable is in this path")
 
 
-
 if (UNIX)
+    SET(Python_EXECUTABLE ${Python_EXECUTABLE} CACHE STRING "Python Executable")
+
     execute_process(
             COMMAND "${Python_EXECUTABLE}" -c "if True:
     from distutils import sysconfig as sc
