@@ -13,13 +13,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-
-if (VCPKG_TOOLCHAIN)
-    find_package(Python REQUIRED COMPONENTS Interpreter Development)
-endif(VCPKG_TOOLCHAIN)
-
+find_package(Python REQUIRED COMPONENTS Interpreter Development)
 find_package(Threads REQUIRED)
-
 
 if(UNIX)
 execute_process(

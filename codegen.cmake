@@ -10,9 +10,6 @@ set(PYTHONPATH_INSTALL "PYTHONPATH=\"\${PACKAGE_PREFIX_DIR}/${PYTHON_SITE}\"")
 set(OMNI_PYTHON_RESOURCES_INSTALL ${PYTHON_SITE})
 
 if (WIN32)
-    if (VCPKG_TOOLCHAIN)
-        find_package(Python REQUIRED COMPONENTS Interpreter Development)
-    else()
         if (Python_ROOT_DIR)
             string(REGEX REPLACE "\\\\" "/" python_root ${Python_ROOT_DIR})
             set(PYTHONHOME "PYTHONHOME=${python_root}")
@@ -29,13 +26,10 @@ if (WIN32)
 
         set(OMNIORB4_IDL_COMPILER "${CMAKE_COMMAND}" -E env ${PATH_ENV}${CMAKE_BINARY_DIR}/bin ${PYTHONHOME} ${PYTHONPATH} $<TARGET_FILE:omniidl>)
         set(OMNIIDL_EXEC_INSTALL "\"${CMAKE_COMMAND}\"" -E env ${PATH_ENV} ${PYTHONHOME} ${PYTHONPATH_INSTALL} $<TARGET_FILE:OmniORB::omniidl>)
-    endif()
-
 else ()
     set(OMNIIDL_PLATFORM_FLAGS "")
     set(OMNIORB4_IDL_COMPILER ${CMAKE_COMMAND} -E env ${PYTHONPATH} ${Python_EXECUTABLE} ${PROJECT_BINARY_DIR}/bin/omniidl)
     set(OMNIIDL_EXEC_INSTALL ${CMAKE_COMMAND} -E env ${PYTHONPATH_INSTALL} ${Python_EXECUTABLE} \${PACKAGE_PREFIX_DIR}/bin/omniidl)
-
 endif ()
 
 set(RUN_OMNIIDL_DEPS omniidl omnicpp)
