@@ -14,9 +14,12 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 
+if (VCPKG_TOOLCHAIN)
+    find_package(Python REQUIRED COMPONENTS Interpreter Development)
+endif(VCPKG_TOOLCHAIN)
 
-find_package(Python REQUIRED COMPONENTS Interpreter Development)
 find_package(Threads REQUIRED)
+
 
 if(UNIX)
 execute_process(
@@ -27,7 +30,7 @@ execute_process(
         OUTPUT_STRIP_TRAILING_WHITESPACE)
 else()
     string(REGEX REPLACE "\\\\" "/" python_site ${Python_SITELIB})
-    set(PYTHON_SITE ${python_site}) #/Lib/site-packages)
+    set(PYTHON_SITE ${python_site})
 endif()
 
 include(GNUInstallDirs)
