@@ -16,6 +16,7 @@ set(PYTHONPATH_INSTALL "PYTHONPATH=\"\${PACKAGE_PREFIX_DIR}/${PYTHON_SITE}\"")
 set(OMNI_PYTHON_RESOURCES_INSTALL ${PYTHON_SITE})
 
 if (WIN32)
+    message("-------------------------------------------------------------${Python_RUNTIME_LIBRARY_DIRS}")
     if (Python_ROOT_DIR)
         set(PYTHONHOME "PYTHONHOME=${python_root}")
     else ()
