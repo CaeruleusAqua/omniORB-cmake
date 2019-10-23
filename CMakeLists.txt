@@ -23,15 +23,16 @@ else()
 endif()
 
 
+
 SET(Python_VERSION_MAJOR ${Python_VERSION_MAJOR} CACHE STRING "Python Version 2/3")
 SET(PYTHON_SITE ${PYTHON_SITE} CACHE STRING "Path to install python libs")
+SET(Python_EXECUTABLE ${Python_EXECUTABLE} CACHE STRING "Python Executable")
 SET(Python_LIBRARIES ${Python_LIBRARIES} CACHE STRING "Library Path")
 SET(Python_ROOT_DIR ${Python_ROOT_DIR} CACHE STRING "Usually the python excecutable is in this path")
 
 
-if (UNIX)
-    SET(Python_EXECUTABLE ${Python_EXECUTABLE} CACHE STRING "Python Executable")
 
+if (UNIX)
     execute_process(
             COMMAND "${Python_EXECUTABLE}" -c "if True:
     from distutils import sysconfig as sc
@@ -40,7 +41,6 @@ if (UNIX)
             OUTPUT_STRIP_TRAILING_WHITESPACE)
 else ()
     if (PYTHON_SITE STREQUAL "")
-        message("the variable test's value is the empty string")
         set(PYTHON_SITE Lib/site-packages)
     endif ()
 endif ()
