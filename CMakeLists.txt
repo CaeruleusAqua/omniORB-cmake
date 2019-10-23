@@ -37,6 +37,8 @@ else ()
     set(PYTHON_SITE ${python_site} CACHE PATH "The Path where the py files are installed")
 endif ()
 
+message(STATUS "Found Python python_site: ${PYTHON_SITE}")
+
 include(GNUInstallDirs)
 include(codegen.cmake)
 include(platform_checks.cmake)
