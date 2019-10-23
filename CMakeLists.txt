@@ -34,7 +34,7 @@ if (UNIX)
             OUTPUT_STRIP_TRAILING_WHITESPACE)
 else ()
     string(REGEX REPLACE "\\\\" "/" python_site ${Python_SITELIB})
-    set(PYTHON_SITE ${python_site})
+    set(PYTHON_SITE ${python_site} CACHE PATH "The Path where the py files are installed")
 endif ()
 
 include(GNUInstallDirs)
