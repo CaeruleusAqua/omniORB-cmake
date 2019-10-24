@@ -5,6 +5,8 @@ set(OMNIORB_VERSION @PROJECT_VERSION@)
 
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
 
+set(_IMPORT_PREFIX ${PACKAGE_PREFIX_DIR})
+
 find_package(Threads REQUIRED)
 
 message(STATUS "Found @PROJECT_NAME@ (found version \"@PROJECT_VERSION@\")")
